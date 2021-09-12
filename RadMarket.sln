@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.Configuration", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj", "{4569788A-566D-49E1-867A-DB85B7865E54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{445EEEC7-7EF8-4ACE-95E5-F8D3B6C6B376}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{4569788A-566D-49E1-867A-DB85B7865E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4569788A-566D-49E1-867A-DB85B7865E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4569788A-566D-49E1-867A-DB85B7865E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{445EEEC7-7EF8-4ACE-95E5-F8D3B6C6B376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{445EEEC7-7EF8-4ACE-95E5-F8D3B6C6B376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{445EEEC7-7EF8-4ACE-95E5-F8D3B6C6B376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{445EEEC7-7EF8-4ACE-95E5-F8D3B6C6B376}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
