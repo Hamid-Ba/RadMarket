@@ -53,7 +53,7 @@ namespace AccountManagement.Application
             if (!user.IsActive) return result.Failed(ApplicationMessage.UserNotActive);
 
             var userAuthVm = new UserAuthViewModel(user.Id, $"{user.FirstName} {user.LastName}", user.Mobile, user.City, user.Province, user.Address, true);
-            _authHelper.Signin(userAuthVm);
+            _authHelper.SignIn(userAuthVm);
 
             return result.Succeeded();
         }

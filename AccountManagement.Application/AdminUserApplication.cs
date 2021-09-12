@@ -1,6 +1,7 @@
 ﻿using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using Framework.Application;
+using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using System.Threading.Tasks;
 
@@ -8,14 +9,26 @@ namespace AccountManagement.Application
 {
     public class AdminUserApplication : IAdminUserApplication
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAdminUserRepository _adminUserRepository;
 
-        public AdminUserApplication(IPasswordHasher passwordHasher, IAdminUserRepository adminUserRepository)
+        public AdminUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IAdminUserRepository adminUserRepository)
         {
+            _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _adminUserRepository = adminUserRepository;
         }
+
+        public OperationResult Logout()
+        {
+            OperationResult result = new();
+
+            _authHelper.SignOut();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Create(CreateAdminUserVM command)
         {
             OperationResult result = new();
@@ -64,7 +77,22 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> Login(LoginAdminUserVM command)
+        {
+            OperationResult result = new();
+
+            var user = await _adminUserRepository.GetUserBy(command.Mobile);
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            var userAuthVm = new AdminUserAuthVM(user.Id, $"{user.FirstName} {user.LastName}", user.Mobile, true);
+            
+            _authHelper.SignIn(userAuthVm);
+
+            return result.Succeeded();
+        }
+
         public async Task<EditAdminUserVM> GetDetailForEditBy(long id) => await _adminUserRepository.GetDetailForEditBy(id);
 
+        
     }
 }

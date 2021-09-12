@@ -14,8 +14,10 @@ namespace Framework.Application.Authentication
         {
             _contextAccessor = contextAccessor;
         }
+        
+        public async void SignOut() => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        public async void Signin(UserAuthViewModel account)
+        public async void SignIn(UserAuthViewModel account)
         {
             //var permissions = JsonConvert.SerializeObject(account.Permissions);
             var claims = new List<Claim>
@@ -40,8 +42,24 @@ namespace Framework.Application.Authentication
 
         }
 
-        public long GetUserId() =>  _contextAccessor.HttpContext.User.GetUserId();
+        public async void SignIn(AdminUserAuthVM account)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Name, account.Fullname),
+                new Claim(ClaimTypes.MobilePhone, account.Mobile)
+            };
 
-        public async void SignOut() => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+            {
+                IsPersistent = account.KeepMe
+            };
+
+            await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity), authProperties);
+        }
     }
 }

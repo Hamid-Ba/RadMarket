@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Framework.Application.Authentication
+﻿namespace Framework.Application.Authentication
 {
     public class UserAuthViewModel
     {
@@ -24,6 +22,24 @@ namespace Framework.Application.Authentication
             City = city;
             Province = province;
             Address = address;
+            KeepMe = keepMe;
+        }
+    }
+
+    public class AdminUserAuthVM
+    {
+        public long Id { get; set; }
+        public string Fullname { get; set; }
+        public string Mobile { get; set; }
+        public bool KeepMe { get; set; }
+
+        public AdminUserAuthVM() { }
+
+        public AdminUserAuthVM(long id, string fullname, string mobile, bool keepMe)
+        {
+            Id = id;
+            Fullname = fullname;
+            Mobile = mobile;
             KeepMe = keepMe;
         }
     }

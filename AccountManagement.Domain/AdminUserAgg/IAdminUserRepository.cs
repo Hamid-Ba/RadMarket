@@ -6,6 +6,7 @@ namespace AccountManagement.Domain.AdminUserAgg
 {
     public interface IAdminUserRepository : IRepository<AdminUser>
     {
+        Task<AdminUser> GetUserBy(string mobile);
         Task<EditAdminUserVM> GetDetailForEditBy(long id);
     }
 }

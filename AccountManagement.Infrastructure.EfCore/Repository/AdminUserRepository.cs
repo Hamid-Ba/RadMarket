@@ -21,5 +21,7 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             Mobile = a.Mobile,
         }).FirstOrDefaultAsync(a => a.Id == id);
 
+        public async Task<AdminUser> GetUserBy(string mobile) => await _context.AdminUsers.FirstOrDefaultAsync(a => a.Mobile == mobile);
+        
     }
 }
