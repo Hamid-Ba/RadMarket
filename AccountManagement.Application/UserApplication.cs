@@ -1,24 +1,47 @@
 ﻿using AccountManagement.Application.Contract.UserAgg;
 using AccountManagement.Domain.UserAgg;
 using Framework.Application;
+using Framework.Application.Authentication;
 using Framework.Application.Hashing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
 {
     public class UserApplication : IUserApplication
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserRepository _userRepository;
 
-        public UserApplication(IPasswordHasher passwordHasher,IUserRepository userRepository) 
+        public UserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IUserRepository userRepository)
         {
+            _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
+        }
+
+        public OperationResult Logout()
+        {
+            OperationResult result = new();
+
+            _authHelper.SignOut();
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> Login(LoginUserVM command)
+        {
+            OperationResult result = new();
+
+            var user = await _userRepository.GetUserBy(command.Mobile);
+
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+            if (!user.IsActive) return result.Failed(ApplicationMessage.UserNotActive);
+
+            var userAuthVm = new UserAuthViewModel(user.Id, $"{user.FirstName} {user.LastName}", user.Mobile, user.City, user.Province, user.Address, true);
+            _authHelper.Signin(userAuthVm);
+
+            return result.Succeeded();
         }
 
         public async Task<OperationResult> Register(RegisterUserVM command)

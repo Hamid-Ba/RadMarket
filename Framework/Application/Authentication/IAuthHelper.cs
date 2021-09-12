@@ -5,7 +5,7 @@ namespace Framework.Application.Authentication
     public interface IAuthHelper
     {
         void SignOut();
-        void Signin(AuthViewModel account);
+        void Signin(UserAuthViewModel account);
         long GetUserId();
 
     }

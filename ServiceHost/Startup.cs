@@ -1,11 +1,16 @@
 using AccountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace ServiceHost
 {
@@ -22,10 +27,20 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-            services.AddSingleton<IAuthHelper, AuthHelper>();
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<IAuthHelper, AuthHelper>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+                {
+                    o.LoginPath = "/Account";
+                    o.LogoutPath = "/Account/Logout";
+                    o.AccessDeniedPath = new PathString("/AccessDenied");
+                    o.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
+                });
 
             services.AddControllersWithViews();
         }
@@ -48,6 +63,7 @@ namespace ServiceHost
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

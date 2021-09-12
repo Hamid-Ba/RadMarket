@@ -15,14 +15,17 @@ namespace Framework.Application.Authentication
             _contextAccessor = contextAccessor;
         }
 
-        public async void Signin(AuthViewModel account)
+        public async void Signin(UserAuthViewModel account)
         {
             //var permissions = JsonConvert.SerializeObject(account.Permissions);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim(ClaimTypes.Name, account.Fullname),
-                new Claim(ClaimTypes.MobilePhone, account.Mobile)
+                new Claim(ClaimTypes.MobilePhone, account.Mobile),
+                new Claim("City", account.City),
+                new Claim("Province", account.Province),
+                new Claim("Address", account.Address)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
