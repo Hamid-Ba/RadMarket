@@ -1,4 +1,5 @@
-﻿using AccountManagement.Domain.UserAgg;
+﻿using AccountManagement.Domain.AdminUserAgg;
+using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace AccountManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<AdminUser>().HasQueryFilter(u => !u.IsDelete);
         }
 
         public DbSet<User> User { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
     }
 }

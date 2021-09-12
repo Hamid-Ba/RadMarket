@@ -1,5 +1,7 @@
 ﻿using AccountManagement.Application;
+using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
+using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore;
 using AccountManagement.Infrastructure.EfCore.Repository;
@@ -20,6 +22,9 @@ namespace AccountManagement.Infrastructure.Configuration
 
             service.AddTransient<IUserRepository, UserRepository>();
             service.AddTransient<IUserApplication, UserApplication>();
+
+            service.AddTransient<IAdminUserRepository, AdminUserRepository>();
+            service.AddTransient<IAdminUserApplication, AdminUserApplication>();
         }
     }
 }
