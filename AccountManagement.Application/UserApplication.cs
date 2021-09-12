@@ -3,6 +3,7 @@ using AccountManagement.Domain.UserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using System;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -74,5 +75,20 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> ActiveAccount(ActiveAccountUserVM command)
+        {
+            OperationResult result = new();
+
+            var user = await _userRepository.GetUserBy(command.Mobile);
+
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+            if (user.ActivationCode != command.ActivationCode) return result.Failed("کد فعال سازی درست نمی باشد");
+
+            user.ActiveAccount();
+            user.ReActivateCode(Guid.NewGuid().ToString().Substring(0, 7));
+
+            await _userRepository.SaveChangesAsync();
+            return result.Succeeded();
+        }
     }
 }

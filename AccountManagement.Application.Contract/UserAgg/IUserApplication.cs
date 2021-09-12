@@ -9,5 +9,6 @@ namespace AccountManagement.Application.Contract.UserAgg
         Task<OperationResult> Delete(long id);
         Task<OperationResult> Login(LoginUserVM command);
         Task<OperationResult> Register(RegisterUserVM command);
+        Task<OperationResult> ActiveAccount(ActiveAcountUserVM command);
     }
 }
