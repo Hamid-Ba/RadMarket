@@ -29,6 +29,20 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> Delete(long id)
+        {
+            OperationResult result = new();
+
+            var user = await _userRepository.GetEntityByIdAsync(id);
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            user.Delete();
+
+            await _userRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Login(LoginUserVM command)
         {
             OperationResult result = new();
@@ -59,5 +73,6 @@ namespace AccountManagement.Application
 
             return result.Succeeded();
         }
+
     }
 }

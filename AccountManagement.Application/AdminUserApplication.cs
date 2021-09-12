@@ -32,6 +32,19 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> Delete(long id)
+        {
+            OperationResult result = new();
+
+            var user = await _adminUserRepository.GetEntityByIdAsync(id);
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            user.Delete();
+            await _adminUserRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Edit(EditAdminUserVM command)
         {
             OperationResult result = new();
@@ -52,6 +65,6 @@ namespace AccountManagement.Application
         }
 
         public async Task<EditAdminUserVM> GetDetailForEditBy(long id) => await _adminUserRepository.GetDetailForEditBy(id);
-        
+
     }
 }
