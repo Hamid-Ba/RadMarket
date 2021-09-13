@@ -21,6 +21,23 @@ namespace AccountManagement.Application
             _storeUserRepository = storeUserRepository;
         }
 
+        public async Task<OperationResult> ConfirmUser(long id, long storeId)
+        {
+            OperationResult result = new();
+
+            var storeUser = await _storeUserRepository.GetEntityByIdAsync(id);
+            if (storeUser is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            storeUser.ActiveAccount();
+            var storeCode = storeUser.FillStoreId(storeId);
+
+            await _storeUserRepository.SaveChangesAsync();
+
+            //ToDo send SMS
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Delete(long id)
         {
             OperationResult result = new();
@@ -56,6 +73,26 @@ namespace AccountManagement.Application
         public Task<EditStoreUserVM> GetDetailForEditBy(long id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<OperationResult> Login(LoginStoreUserVM command)
+        {
+            OperationResult result = new();
+
+            var storeUser = await _storeUserRepository.GetUserBy(command.Mobile);
+            if (storeUser is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            if (command.StoreCode != storeUser.StoreCode) return result.Failed(ApplicationMessage.WrongStoreCode);
+
+            var verification = _passwordHasher.Check(storeUser.Password, command.Password);
+            if (!verification.Verified) return result.Failed(ApplicationMessage.WrongPassword);
+
+            var authVM = new StoreUserAuthVM(storeUser.Id, storeUser.StoreId, storeUser.StoreCode, $"{storeUser.FirstName} {storeUser.LastName}", storeUser.Mobile,
+                storeUser.City, storeUser.Province, storeUser.Address, true);
+
+            _authHelper.SignIn(authVM);
+
+            return result.Succeeded();
         }
 
         public async Task<OperationResult> Register(RegisterStoreUserVM command)

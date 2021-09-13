@@ -14,6 +14,7 @@ namespace AccountManagement.Infrastructure.EfCore.Mapping
             builder.Property(p => p.LastName).HasMaxLength(100).IsRequired();
             builder.Property(p => p.Address).HasMaxLength(300).IsRequired();
             builder.Property(p => p.City).HasMaxLength(85).IsRequired();
+            builder.Property(p => p.StoreCode).HasMaxLength(8).IsRequired();
             builder.Property(p => p.Province).HasMaxLength(25).IsRequired();
             builder.Property(p => p.Mobile).HasMaxLength(11).IsRequired();
             builder.Property(p => p.Password).HasMaxLength(500).IsRequired();

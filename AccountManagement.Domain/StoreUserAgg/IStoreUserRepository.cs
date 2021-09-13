@@ -6,6 +6,7 @@ namespace AccountManagement.Domain.StoreUserAgg
 {
     public interface IStoreUserRepository : IRepository<StoreUser>
     {
+        Task<StoreUser> GetUserBy(string mobile);
         Task<EditStoreUserVM> GetDetailForEditBy(long id);
     }
 }

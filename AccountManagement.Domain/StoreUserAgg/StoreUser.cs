@@ -6,6 +6,7 @@ namespace AccountManagement.Domain.StoreUserAgg
     public class StoreUser : EntityBase
     {
         public long StoreId { get; private set; }
+        public string StoreCode { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Mobile { get; private set; }
@@ -14,7 +15,6 @@ namespace AccountManagement.Domain.StoreUserAgg
         public string Province { get; private set; }
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
-
 
         public StoreUser(long storeId, string firstName, string lastName, string mobile, string password, string city, string province, string address)
         {
@@ -45,10 +45,13 @@ namespace AccountManagement.Domain.StoreUserAgg
             LastUpdateDate = DateTime.Now;
         }
 
-        public void FillStoreId(long storeId)
+        public string FillStoreId(long storeId)
         {
             StoreId = storeId;
+            StoreCode = Guid.NewGuid().ToString().Substring(0, 8);
             LastUpdateDate = DateTime.Now;
+
+            return StoreCode;
         }
 
         public void ActiveAccount()

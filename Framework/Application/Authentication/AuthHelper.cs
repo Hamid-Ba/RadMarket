@@ -62,5 +62,31 @@ namespace Framework.Application.Authentication
             await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
         }
+
+        public async void SignIn(StoreUserAuthVM account)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim("StoreId", account.StoreId.ToString()),
+                new Claim("StoreCode", account.StoreCode.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Name, account.Fullname),
+                new Claim(ClaimTypes.MobilePhone, account.Mobile),
+                new Claim("City", account.City),
+                new Claim("Province", account.Province),
+                new Claim("Address", account.Address)
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+            {
+                IsPersistent = account.KeepMe
+            };
+
+            await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity), authProperties);
+        }
     }
 }

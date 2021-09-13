@@ -23,6 +23,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             City = s.City,
             Address = s.Address
         }).FirstOrDefaultAsync(s => s.Id == id);
+
+        public async Task<StoreUser> GetUserBy(string mobile) => await _context.StoreUser.FirstOrDefaultAsync(s => s.Mobile == mobile);
         
     }
 }
