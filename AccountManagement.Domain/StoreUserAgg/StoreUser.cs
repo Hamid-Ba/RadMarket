@@ -1,4 +1,5 @@
-﻿using Framework.Domain;
+﻿using System;
+using Framework.Domain;
 
 namespace AccountManagement.Domain.StoreUserAgg
 {
@@ -26,6 +27,34 @@ namespace AccountManagement.Domain.StoreUserAgg
             Province = province;
             Address = address;
             IsActive = false;
+        }
+
+        public void Edit(string firstName, string lastName, string mobile, string password, string city, string province, string address)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Mobile = mobile;
+
+            if (!string.IsNullOrWhiteSpace(mobile))
+                Password = password;
+
+            City = city;
+            Province = province;
+            Address = address;
+
+            LastUpdateDate = DateTime.Now;
+        }
+
+        public void FillStoreId(long storeId)
+        {
+            StoreId = storeId;
+            LastUpdateDate = DateTime.Now;
+        }
+
+        public void ActiveAccount()
+        {
+            IsActive = true;
+            LastUpdateDate = DateTime.Now;
         }
 
     }

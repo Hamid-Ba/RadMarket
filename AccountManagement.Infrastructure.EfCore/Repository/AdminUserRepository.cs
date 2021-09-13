@@ -16,6 +16,7 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
         public async Task<EditAdminUserVM> GetDetailForEditBy(long id) => await _context.AdminUsers.Select(a => new EditAdminUserVM
         {
             Id = a.Id,
+            AdminRoleId = a.AdminRoleId,
             FirstName = a.FirstName,
             LastName = a.LastName,
             Mobile = a.Mobile,
