@@ -1,5 +1,7 @@
 ﻿using AccountManagement.Application.Contract.AdminRoleAgg;
+using AccountManagement.Application.Contract.AdminRolePermissionAgg;
 using AccountManagement.Domain.AdminRoleAgg;
+using AccountManagement.Domain.AdminRolePermissionAgg;
 using Framework.Application;
 using System.Threading.Tasks;
 
@@ -8,8 +10,13 @@ namespace AccountManagement.Application
     public class AdminRoleApplication : IAdminRoleApplication
     {
         private readonly IAdminRoleRepository _adminRoleRepository;
+        private readonly IAdminRolePermissionApplication _adminRolePermissionApplication;
 
-        public AdminRoleApplication(IAdminRoleRepository adminRoleRepository) => _adminRoleRepository = adminRoleRepository;
+        public AdminRoleApplication(IAdminRoleRepository adminRoleRepository, IAdminRolePermissionApplication adminRolePermissionApplication)
+        {
+            _adminRoleRepository = adminRoleRepository;
+            _adminRolePermissionApplication = adminRolePermissionApplication;
+        }
 
         public async Task<OperationResult> Create(CreateAdminRoleVM command)
         {
@@ -22,6 +29,8 @@ namespace AccountManagement.Application
 
             await _adminRoleRepository.AddEntityAsync(role);
             await _adminRoleRepository.SaveChangesAsync();
+
+            await _adminRolePermissionApplication.AddPermissionsToRole(role.Id, command.PermissionsId);
 
             return result.Succeeded();
         }
@@ -52,6 +61,8 @@ namespace AccountManagement.Application
 
             role.Edit(command.Name, command.Description);
             await _adminRoleRepository.SaveChangesAsync();
+
+            await _adminRolePermissionApplication.AddPermissionsToRole(role.Id, command.PermissionsId);
 
             return result.Succeeded();
         }

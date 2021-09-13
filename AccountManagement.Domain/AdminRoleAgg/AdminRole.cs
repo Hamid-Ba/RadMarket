@@ -1,4 +1,6 @@
-﻿using Framework.Domain;
+﻿using AccountManagement.Domain.AdminRolePermissionAgg;
+using Framework.Domain;
+using System.Collections.Generic;
 
 namespace AccountManagement.Domain.AdminRoleAgg
 {
@@ -6,6 +8,8 @@ namespace AccountManagement.Domain.AdminRoleAgg
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
+
+        public List<AdminRolePermission> Permissions { get; private set; }
 
         public AdminRole(string name, string description)
         {

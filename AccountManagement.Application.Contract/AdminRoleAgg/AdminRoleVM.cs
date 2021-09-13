@@ -18,6 +18,9 @@ namespace AccountManagement.Application.Contract.AdminRoleAgg
 
         [Display(Name = "توضیحات")]
         public string Description { get; set; }
+
+        [Display(Name = "دسترسی ها")]
+        public long[] PermissionsId { get;  set; }
     }
 
     public class EditAdminRoleVM : CreateAdminRoleVM

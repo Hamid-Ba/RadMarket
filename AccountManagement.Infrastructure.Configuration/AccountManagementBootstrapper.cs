@@ -1,10 +1,12 @@
 ﻿using AccountManagement.Application;
 using AccountManagement.Application.Contract.AdminPermissionAgg;
 using AccountManagement.Application.Contract.AdminRoleAgg;
+using AccountManagement.Application.Contract.AdminRolePermissionAgg;
 using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
 using AccountManagement.Domain.AdminPermissionAgg;
 using AccountManagement.Domain.AdminRoleAgg;
+using AccountManagement.Domain.AdminRolePermissionAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore;
@@ -35,6 +37,9 @@ namespace AccountManagement.Infrastructure.Configuration
 
             service.AddTransient<IAdminPermissionRepository, AdminPermissionRepository>();
             service.AddTransient<IAdminPermissionApplication, AdminPermissionApplication>();
+
+            service.AddTransient<IAdminRolePermissionRepository, AdminRolePermissionRepository>();
+            service.AddTransient<IAdminRolePermissionApplication, AdminRolePermissionApplication>();
         }
     }
 }

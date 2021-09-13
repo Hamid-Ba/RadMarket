@@ -13,12 +13,18 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
 
         public AdminRoleRepository(AccountContext context) : base(context) => _context = context;
 
-        public async Task<EditAdminRoleVM> GetDetailForEditBy(long id) => await _context.AdminRoles.Select(a => new EditAdminRoleVM
+        public async Task<EditAdminRoleVM> GetDetailForEditBy(long id)
         {
-            Id = a.Id,
-            Name = a.Name,
-            Description = a.Description
-        }).FirstOrDefaultAsync(a => a.Id == id);
+            var result = await _context.AdminRoles.Select(a => new EditAdminRoleVM
+            {
+                Id = a.Id,
+                Name = a.Name,
+                Description = a.Description,
+            }).FirstOrDefaultAsync(a => a.Id == id);
 
+            result.PermissionsId = await _context.AdminRolePermissions.Where(p => p.AdminRoleId == result.Id).Select(p => p.AdminPermissionId).ToArrayAsync();
+
+            return result;
+        }
     }
 }
