@@ -1,4 +1,5 @@
-﻿using AccountManagement.Domain.AdminUserAgg;
+﻿using AccountManagement.Domain.AdminRoleAgg;
+using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,12 @@ namespace AccountManagement.Infrastructure.EfCore
 
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<AdminUser>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<AdminRole>().HasQueryFilter(u => !u.IsDelete);
         }
 
         public DbSet<User> User { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<AdminRole> AdminRoles { get; set; }
+
     }
 }

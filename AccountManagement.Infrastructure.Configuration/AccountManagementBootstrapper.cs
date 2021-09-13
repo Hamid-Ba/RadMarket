@@ -1,6 +1,8 @@
 ﻿using AccountManagement.Application;
+using AccountManagement.Application.Contract.AdminRoleAgg;
 using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
+using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore;
@@ -25,6 +27,9 @@ namespace AccountManagement.Infrastructure.Configuration
 
             service.AddTransient<IAdminUserRepository, AdminUserRepository>();
             service.AddTransient<IAdminUserApplication, AdminUserApplication>();
+
+            service.AddTransient<IAdminRoleRepository, AdminRoleRepository>();
+            service.AddTransient<IAdminRoleApplication, AdminRoleApplication>();
         }
     }
 }
