@@ -1,4 +1,5 @@
-﻿using AccountManagement.Domain.AdminRoleAgg;
+﻿using AccountManagement.Domain.AdminPermissionAgg;
+using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore.Mapping;
@@ -27,6 +28,7 @@ namespace AccountManagement.Infrastructure.EfCore
         public DbSet<User> User { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<AdminRole> AdminRoles { get; set; }
+        public DbSet<AdminPermission> AdminPermissions { get; set; }
 
     }
 }

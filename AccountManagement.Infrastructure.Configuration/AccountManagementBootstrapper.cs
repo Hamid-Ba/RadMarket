@@ -1,7 +1,9 @@
 ﻿using AccountManagement.Application;
+using AccountManagement.Application.Contract.AdminPermissionAgg;
 using AccountManagement.Application.Contract.AdminRoleAgg;
 using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
+using AccountManagement.Domain.AdminPermissionAgg;
 using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using AccountManagement.Domain.UserAgg;
@@ -30,6 +32,9 @@ namespace AccountManagement.Infrastructure.Configuration
 
             service.AddTransient<IAdminRoleRepository, AdminRoleRepository>();
             service.AddTransient<IAdminRoleApplication, AdminRoleApplication>();
+
+            service.AddTransient<IAdminPermissionRepository, AdminPermissionRepository>();
+            service.AddTransient<IAdminPermissionApplication, AdminPermissionApplication>();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Infrastructure
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly DbContext _context;
 
