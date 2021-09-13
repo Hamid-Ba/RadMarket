@@ -37,7 +37,7 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
-            var user = new AdminUser(command.FirstName, command.LastName, command.Mobile, password);
+            var user = new AdminUser(command.AdminRoleId,command.FirstName, command.LastName, command.Mobile, password);
 
             await _adminUserRepository.AddEntityAsync(user);
             await _adminUserRepository.SaveChangesAsync();
@@ -70,7 +70,7 @@ namespace AccountManagement.Application
             string newPassword = null;
             if (!string.IsNullOrWhiteSpace(command.Password)) newPassword = _passwordHasher.Hash(command.Password);
 
-            user.Edit(command.FirstName, command.LastName, command.Mobile, newPassword);
+            user.Edit(command.AdminRoleId,command.FirstName, command.LastName, command.Mobile, newPassword);
 
             await _adminUserRepository.SaveChangesAsync();
 
@@ -84,7 +84,7 @@ namespace AccountManagement.Application
             var user = await _adminUserRepository.GetUserBy(command.Mobile);
             if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
 
-            var userAuthVm = new AdminUserAuthVM(user.Id, $"{user.FirstName} {user.LastName}", user.Mobile, true);
+            var userAuthVm = new AdminUserAuthVM(user.Id,user.AdminRoleId, $"{user.FirstName} {user.LastName}", user.Mobile, true);
             
             _authHelper.SignIn(userAuthVm);
 

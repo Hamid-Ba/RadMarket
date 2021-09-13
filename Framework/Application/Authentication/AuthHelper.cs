@@ -14,7 +14,7 @@ namespace Framework.Application.Authentication
         {
             _contextAccessor = contextAccessor;
         }
-        
+
         public async void SignOut() => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         public async void SignIn(UserAuthViewModel account)
@@ -47,6 +47,7 @@ namespace Framework.Application.Authentication
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Role, account.AdminRoleId.ToString()),
                 new Claim(ClaimTypes.Name, account.Fullname),
                 new Claim(ClaimTypes.MobilePhone, account.Mobile)
             };

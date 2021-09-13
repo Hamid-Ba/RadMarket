@@ -6,6 +6,7 @@ namespace AccountManagement.Application.Contract.AdminUserAgg
     public class AdminUserVM
     {
         public long Id { get; set; }
+        public long AdminRoleId { get; set; }
         public string FirstName { get;  set; }
         public string LastName { get;  set; }
         public string Mobile { get;  set; }
@@ -14,6 +15,9 @@ namespace AccountManagement.Application.Contract.AdminUserAgg
 
     public class CreateAdminUserVM
     {
+        [Display(Name = "نقش")]
+        public long AdminRoleId { get; set; }
+
         [Display(Name = "نام")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string FirstName { get; set; }

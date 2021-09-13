@@ -29,15 +29,17 @@
     public class AdminUserAuthVM
     {
         public long Id { get; set; }
+        public long AdminRoleId { get; set; }
         public string Fullname { get; set; }
         public string Mobile { get; set; }
         public bool KeepMe { get; set; }
 
         public AdminUserAuthVM() { }
 
-        public AdminUserAuthVM(long id, string fullname, string mobile, bool keepMe)
+        public AdminUserAuthVM(long id, long adminRoleId, string fullname, string mobile, bool keepMe)
         {
             Id = id;
+            AdminRoleId = adminRoleId;
             Fullname = fullname;
             Mobile = mobile;
             KeepMe = keepMe;

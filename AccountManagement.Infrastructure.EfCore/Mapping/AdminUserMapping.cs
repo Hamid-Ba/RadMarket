@@ -14,6 +14,10 @@ namespace AccountManagement.Infrastructure.EfCore.Mapping
             builder.Property(p => p.LastName).HasMaxLength(100).IsRequired();
             builder.Property(p => p.Mobile).HasMaxLength(11).IsRequired();
             builder.Property(p => p.Password).HasMaxLength(500).IsRequired();
+
+            builder.HasOne(r => r.Role)
+                .WithMany(u => u.Users)
+                .HasForeignKey(f => f.AdminRoleId);
         }
     }
 }
