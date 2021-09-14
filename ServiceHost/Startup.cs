@@ -1,4 +1,5 @@
 using AccountManagement.Infrastructure.Configuration;
+using DiscountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,6 +33,7 @@ namespace ServiceHost
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
+            DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
