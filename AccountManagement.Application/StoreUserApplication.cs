@@ -64,7 +64,7 @@ namespace AccountManagement.Application
             string newPassword = null;
             if (!string.IsNullOrWhiteSpace(command.Password)) newPassword = _passwordHasher.Hash(command.Password);
 
-            storeUser.Edit(command.FirstName, command.LastName, command.Mobile, newPassword, command.City, command.Province, command.Address);
+            storeUser.Edit(command.StoreRoleId,command.FirstName, command.LastName, command.Mobile, newPassword, command.City, command.Province, command.Address);
             await _storeUserRepository.SaveChangesAsync();
 
             return result.Succeeded();
@@ -104,7 +104,7 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
-            var storeUser = new StoreUser(0, command.FirstName, command.LastName, command.Mobile, password, command.City, command.Province, command.Address);
+            var storeUser = new StoreUser(0,command.StoreRoleId, command.FirstName, command.LastName, command.Mobile, password, command.City, command.Province, command.Address);
 
             await _storeUserRepository.AddEntityAsync(storeUser);
             await _storeUserRepository.SaveChangesAsync();

@@ -1,4 +1,5 @@
 ﻿using System;
+using AccountManagement.Domain.StoreRoleAgg;
 using Framework.Domain;
 
 namespace AccountManagement.Domain.StoreUserAgg
@@ -6,6 +7,7 @@ namespace AccountManagement.Domain.StoreUserAgg
     public class StoreUser : EntityBase
     {
         public long StoreId { get; private set; }
+        public long StoreRoleId { get; private set; }
         public string StoreCode { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -16,9 +18,12 @@ namespace AccountManagement.Domain.StoreUserAgg
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
 
-        public StoreUser(long storeId, string firstName, string lastName, string mobile, string password, string city, string province, string address)
+        public StoreRole StoreRole { get; private set; }
+
+        public StoreUser(long storeId,long storeRoleId, string firstName, string lastName, string mobile, string password, string city, string province, string address)
         {
             StoreId = storeId;
+            StoreRoleId = storeRoleId;
             FirstName = firstName;
             LastName = lastName;
             Mobile = mobile;
@@ -29,8 +34,9 @@ namespace AccountManagement.Domain.StoreUserAgg
             IsActive = false;
         }
 
-        public void Edit(string firstName, string lastName, string mobile, string password, string city, string province, string address)
+        public void Edit(long storeRoleId,string firstName, string lastName, string mobile, string password, string city, string province, string address)
         {
+            StoreRoleId = storeRoleId;
             FirstName = firstName;
             LastName = lastName;
             Mobile = mobile;

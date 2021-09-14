@@ -3,12 +3,18 @@ using AccountManagement.Application.Contract.AdminPermissionAgg;
 using AccountManagement.Application.Contract.AdminRoleAgg;
 using AccountManagement.Application.Contract.AdminRolePermissionAgg;
 using AccountManagement.Application.Contract.AdminUserAgg;
+using AccountManagement.Application.Contract.StorePermissionAgg;
+using AccountManagement.Application.Contract.StoreRoleAgg;
+using AccountManagement.Application.Contract.StoreRolePermissionAgg;
 using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
 using AccountManagement.Domain.AdminPermissionAgg;
 using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminRolePermissionAgg;
 using AccountManagement.Domain.AdminUserAgg;
+using AccountManagement.Domain.StorePermissionAgg;
+using AccountManagement.Domain.StoreRoleAgg;
+using AccountManagement.Domain.StoreRolePermissionAgg;
 using AccountManagement.Domain.StoreUserAgg;
 using AccountManagement.Domain.UserAgg;
 using AccountManagement.Infrastructure.EfCore;
@@ -45,6 +51,15 @@ namespace AccountManagement.Infrastructure.Configuration
 
             service.AddTransient<IStoreUserRepository, StoreUserRepository>();
             service.AddTransient<IStoreUserApplication, StoreUserApplication>();
+
+            service.AddTransient<IStoreRoleRepository, StoreRoleRepository>();
+            service.AddTransient<IStoreRoleApplication, StoreRoleApplication>();
+
+            service.AddTransient<IStorePermissionRepository, StorePermissionRepository>();
+            service.AddTransient<IStorePermissionApplication, StorePermissionApplication>();
+
+            service.AddTransient<IStoreRolePermissionRepository, StoreRolePermissionRepository>();
+            service.AddTransient<IStoreRolePermissionApplication, StoreRolePermissionApplication>();
         }
     }
 }

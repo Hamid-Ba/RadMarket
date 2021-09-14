@@ -16,6 +16,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
         public async Task<EditStoreUserVM> GetDetailForEditBy(long id) => await _context.StoreUser.Select(s => new EditStoreUserVM
         {
             Id = s.Id,
+            StoreId = s.StoreId,
+            StoreRoleId = s.StoreRoleId,
             FirstName = s.FirstName,
             LastName = s.LastName,
             Mobile = s.Mobile,

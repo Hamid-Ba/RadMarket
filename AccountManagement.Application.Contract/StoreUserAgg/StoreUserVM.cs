@@ -7,6 +7,7 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
     {
         public long Id { get; set; }
         public long StoreId { get;  set; }
+        public long StoreRoleId { get; set; }
         public string FirstName { get;  set; }
         public string LastName { get;  set; }
         public string Mobile { get;  set; }
@@ -19,6 +20,11 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
 
     public class RegisterStoreUserVM
     {
+        public long StoreId { get; set; }
+
+        [Display(Name = "نقش")]
+        public long StoreRoleId { get; set; }
+
         [Display(Name = "نام")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string FirstName { get; set; }

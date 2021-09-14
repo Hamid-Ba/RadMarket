@@ -11,7 +11,7 @@ namespace AccountManagement.Domain.AdminUserAgg
         public string Mobile { get; private set; }
         public string Password { get; private set; }
 
-        public AdminRole Role { get; private set; }
+        public AdminRole AdminRole { get; private set; }
 
         public AdminUser(long adminRoleId,string firstName, string lastName, string mobile, string password)
         {
