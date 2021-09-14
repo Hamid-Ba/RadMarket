@@ -29,6 +29,8 @@ namespace DiscountManagement.Domain.DiscountAgg
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
+
+            LastUpdateDate = DateTime.Now;
         }
     }
 }

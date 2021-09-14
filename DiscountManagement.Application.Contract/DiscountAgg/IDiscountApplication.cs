@@ -6,8 +6,8 @@ namespace DiscountManagement.Application.Contract.DiscountAgg
     public interface IDiscountApplication
     {
         Task<OperationResult> Delete(long id);
-        Task<EditDiscountVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditDiscountVM command);
         Task<OperationResult> Create(CreateDiscountVM command);
+        Task<EditDiscountVM> GetDetailForEditBy(long id,long storeId);
     }
 }
