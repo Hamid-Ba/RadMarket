@@ -20,6 +20,7 @@ namespace CommentManagement.Application.Contract.CommentAgg
 
     public class CreateCommentVM
     {
+        public long StoreId { get; set; }
         public long OwnerId { get; set; }
         public string OwnerName { get; set; }
         public int Type { get; set; }
@@ -28,9 +29,12 @@ namespace CommentManagement.Application.Contract.CommentAgg
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Name { get; set; }
 
+        [Display(Name = "شماره موبایل")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [EmailAddress(ErrorMessage = "ایمیل نامعتبر هست !")]
-        public string Email { get; set; }
+        [MaxLength(11, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MinLength(11, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("(0|\\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string Mobile { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Message { get; set; }
@@ -39,6 +43,6 @@ namespace CommentManagement.Application.Contract.CommentAgg
     public class SearchCommentVM
     {
         public string Name { get; set; }
-        public string Email { get; set; }
+        public string Mobile { get; set; }
     }
 }
