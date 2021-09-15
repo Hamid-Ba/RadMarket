@@ -1,6 +1,7 @@
 ﻿using CommentManagement.Application.Contract.CommentAgg;
 using CommentManagement.Domain.CommentAgg;
 using Framework.Application;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CommentManagement.Application
@@ -15,8 +16,7 @@ namespace CommentManagement.Application
         {
             OperationResult result = new OperationResult();
 
-            var comment = new Comment(command.StoreId, command.Name, command.Mobile, command.Message, command.Type, command.OwnerId,
-                command.OwnerName, command.ParentId);
+            var comment = new Comment(command.StoreId, command.Name, command.Mobile, command.Score, command.Type, command.OwnerId, command.OwnerName);
 
             await _commentRepository.AddEntityAsync(comment);
             await _commentRepository.SaveChangesAsync();
@@ -38,31 +38,6 @@ namespace CommentManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<OperationResult> Confirm(long id)
-        {
-            OperationResult result = new OperationResult();
-
-            var comment = await _commentRepository.GetEntityByIdAsync(id);
-            if (comment is null) return result.Failed(ApplicationMessage.NotExist);
-
-            comment.ConfirmedComment();
-            await _commentRepository.SaveChangesAsync();
-
-            return result.Succeeded();
-        }
-
-        public async Task<OperationResult> DisConfirm(long id)
-        {
-            OperationResult result = new OperationResult();
-
-            var comment = await _commentRepository.GetEntityByIdAsync(id);
-            if (comment is null) return result.Failed(ApplicationMessage.NotExist);
-
-            comment.DisConfirmedComment();
-            await _commentRepository.SaveChangesAsync();
-
-            return result.Succeeded();
-        }
-
+        public async Task<IEnumerable<CommentVM>> GetAll(SearchCommentVM search) => await _commentRepository.GetAll(search);
     }
 }

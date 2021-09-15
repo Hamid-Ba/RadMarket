@@ -9,13 +9,10 @@ namespace CommentManagement.Application.Contract.CommentAgg
         public long StoreId { get; set; }
         public string Name { get; set; }
         public string Mobile { get; set; }
-        public string Message { get; set; }
-        public bool IsConfirmed { get; set; }
+        public int Score{ get; set; }
         public int Type { get; set; }
         public long OwnerId { get; set; }
         public string OwnerName { get; set; }
-
-        public long ParentId { get; set; }
     }
 
     public class CreateCommentVM
@@ -24,8 +21,6 @@ namespace CommentManagement.Application.Contract.CommentAgg
         public long OwnerId { get; set; }
         public string OwnerName { get; set; }
         public int Type { get; set; }
-        public long ParentId { get; set; }
-
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Name { get; set; }
 
@@ -36,8 +31,10 @@ namespace CommentManagement.Application.Contract.CommentAgg
         [RegularExpression("(0|\\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
         public string Mobile { get; set; }
 
+        [Display(Name = "امتیاز")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string Message { get; set; }
+        [Range(0,5,ErrorMessage = "لطفا امتیاز را وارد کنید")]
+        public int Score { get; set; }
     }
 
     public class SearchCommentVM
