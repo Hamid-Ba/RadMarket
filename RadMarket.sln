@@ -33,15 +33,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DM.Domain", "DM.Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DM.Infrastructure", "DM.Infrastructure", "{551451FF-6833-4220-9F12-31EAB1B772B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Domain", "DiscountManagement.Domain\DiscountManagement.Domain.csproj", "{B1634FE8-059A-4CAC-9B63-8910728B5EA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Domain", "DiscountManagement.Domain\DiscountManagement.Domain.csproj", "{B1634FE8-059A-4CAC-9B63-8910728B5EA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Application.Contract", "DiscountManagement.Application.Contract\DiscountManagement.Application.Contract.csproj", "{EE40B2CC-4440-4934-B985-F20F61E059C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Application.Contract", "DiscountManagement.Application.Contract\DiscountManagement.Application.Contract.csproj", "{EE40B2CC-4440-4934-B985-F20F61E059C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Infrastructure.EfCore", "DiscountManagement.Infrastructure.EfCore\DiscountManagement.Infrastructure.EfCore.csproj", "{031EC7B5-26E4-472E-8A7E-DE2570957649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Infrastructure.EfCore", "DiscountManagement.Infrastructure.EfCore\DiscountManagement.Infrastructure.EfCore.csproj", "{031EC7B5-26E4-472E-8A7E-DE2570957649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Application", "DiscountManagement.Application\DiscountManagement.Application.csproj", "{8C6FDF56-C24F-4D6C-A927-6EFE28403964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Application", "DiscountManagement.Application\DiscountManagement.Application.csproj", "{8C6FDF56-C24F-4D6C-A927-6EFE28403964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Infrastructure.Configuration", "DiscountManagement.Infrastructure.Configuration\DiscountManagement.Infrastructure.Configuration.csproj", "{5FD09441-1DA6-463F-9E29-176EA83452CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Infrastructure.Configuration", "DiscountManagement.Infrastructure.Configuration\DiscountManagement.Infrastructure.Configuration.csproj", "{5FD09441-1DA6-463F-9E29-176EA83452CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommentManagement", "CommentManagement", "{2925F030-1BC1-4546-9F1B-38B9DC1C6A2D}"
 EndProject
@@ -51,13 +51,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CM.Application", "CM.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CM.Infrastructure", "CM.Infrastructure", "{3ED6A896-26F7-4327-95AC-C66FF0F5CD4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentManagement.Domain", "CommentManagement.Domain\CommentManagement.Domain.csproj", "{3008D35D-A882-4F5F-9132-ED11FD52236C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommentManagement.Domain", "CommentManagement.Domain\CommentManagement.Domain.csproj", "{3008D35D-A882-4F5F-9132-ED11FD52236C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentManagement.Application.Contract", "CommentManagement.Application.Contract\CommentManagement.Application.Contract.csproj", "{DB9C1A74-8DD3-42C6-B278-CF4F1CA72C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommentManagement.Application.Contract", "CommentManagement.Application.Contract\CommentManagement.Application.Contract.csproj", "{DB9C1A74-8DD3-42C6-B278-CF4F1CA72C06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentManagement.Application", "CommentManagement.Application\CommentManagement.Application.csproj", "{6F218E5D-1BB9-4A6B-B51A-18A67FCF7196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommentManagement.Application", "CommentManagement.Application\CommentManagement.Application.csproj", "{6F218E5D-1BB9-4A6B-B51A-18A67FCF7196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentManagement.Infrastructure.EfCore", "CommentManagement.Infrastructure.EfCore\CommentManagement.Infrastructure.EfCore.csproj", "{9A736260-4D2D-494B-ADC4-D4293B51D891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommentManagement.Infrastructure.EfCore", "CommentManagement.Infrastructure.EfCore\CommentManagement.Infrastructure.EfCore.csproj", "{9A736260-4D2D-494B-ADC4-D4293B51D891}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentManagement.Infrastructure.Configuration", "CommentManagement.Infrastructure.Configuration\CommentManagement.Infrastructure.Configuration.csproj", "{A3AC4C48-8B3C-4B2C-B608-40D15E307123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{9A736260-4D2D-494B-ADC4-D4293B51D891}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A736260-4D2D-494B-ADC4-D4293B51D891}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A736260-4D2D-494B-ADC4-D4293B51D891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3AC4C48-8B3C-4B2C-B608-40D15E307123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3AC4C48-8B3C-4B2C-B608-40D15E307123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3AC4C48-8B3C-4B2C-B608-40D15E307123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3AC4C48-8B3C-4B2C-B608-40D15E307123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{DB9C1A74-8DD3-42C6-B278-CF4F1CA72C06} = {BB8ADFC4-827A-4DE1-93D7-8A6E4419A5C3}
 		{6F218E5D-1BB9-4A6B-B51A-18A67FCF7196} = {BB8ADFC4-827A-4DE1-93D7-8A6E4419A5C3}
 		{9A736260-4D2D-494B-ADC4-D4293B51D891} = {3ED6A896-26F7-4327-95AC-C66FF0F5CD4B}
+		{A3AC4C48-8B3C-4B2C-B608-40D15E307123} = {3ED6A896-26F7-4327-95AC-C66FF0F5CD4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FB4480E-E091-4136-A89A-DC8F7C803DDF}

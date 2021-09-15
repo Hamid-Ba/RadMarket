@@ -1,4 +1,5 @@
 using AccountManagement.Infrastructure.Configuration;
+using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
@@ -32,6 +33,7 @@ namespace ServiceHost
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
+            CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
 
