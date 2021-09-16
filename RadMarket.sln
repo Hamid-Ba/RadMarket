@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminManagement.Domain", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminManagement.Application.Contract", "AdminManagement.Application.Contract\AdminManagement.Application.Contract.csproj", "{D765FA35-8278-486F-A7B4-C12DBC99ECE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminManagement.Application", "AdminManagement.Application\AdminManagement.Application.csproj", "{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,10 @@ Global
 		{D765FA35-8278-486F-A7B4-C12DBC99ECE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D765FA35-8278-486F-A7B4-C12DBC99ECE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D765FA35-8278-486F-A7B4-C12DBC99ECE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,6 +241,7 @@ Global
 		{888AE7D1-935E-4B8C-9043-0DACFA044281} = {473FABF7-1774-46DD-A1B3-B973DC7F4601}
 		{333D16AD-C1C6-4762-B417-A4F3D885FDD4} = {DB7EF16E-D500-4258-A4B5-035B3D8EA489}
 		{D765FA35-8278-486F-A7B4-C12DBC99ECE3} = {2EC93361-67AE-48E4-BC0C-354DBE045D7C}
+		{BE684ECB-3BF0-4DEC-9B4C-AA4B9459A5DE} = {2EC93361-67AE-48E4-BC0C-354DBE045D7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FB4480E-E091-4136-A89A-DC8F7C803DDF}
