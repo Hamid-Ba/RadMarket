@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StoreManagement.Infrastructure.Configuration;
 using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -33,6 +34,7 @@ namespace ServiceHost
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
+            StoreManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
