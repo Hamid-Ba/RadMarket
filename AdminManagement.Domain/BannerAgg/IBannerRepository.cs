@@ -1,8 +1,11 @@
-﻿using Framework.Domain;
+﻿using AdminManagement.Application.Contract.BannerAgg;
+using Framework.Domain;
+using System.Threading.Tasks;
 
 namespace AdminManagement.Domain.BannerAgg
 {
     public interface IBannerRepository : IRepository<Banner>
     {
+        Task<EditBannerVM> GetDetailForEditBy(long id);
     }
 }
