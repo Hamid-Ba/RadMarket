@@ -7,7 +7,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
     public class StoreVM
     {
         public long Id { get; set; }
-        public long AdminUserId { get; set; }
+        public long StoreAdminUserId { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string MobileNumber { get; set; }
@@ -19,7 +19,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
 
     public class CreateStoreVM
     {
-        public long AdminUserId { get; set; }
+        public long StoreAdminUserId { get; set; }
 
         [Display(Name = "شماره موبایل")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
@@ -33,7 +33,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
     {
         public long Id { get; set; }
 
-        public long AdminUserId { get; set; }
+        public long StoreAdminUserId { get; set; }
 
         [Display(Name = "نام فروشگاه")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

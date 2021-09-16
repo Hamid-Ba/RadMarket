@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Domain", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Application.Contract", "StoreManagement.Application.Contract\StoreManagement.Application.Contract.csproj", "{1A8BD27A-09E5-4321-8F4C-4E6BC03BDF00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Application", "StoreManagement.Application\StoreManagement.Application.csproj", "{5EC351DD-3E41-48BB-97BE-B3A586161F30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{1A8BD27A-09E5-4321-8F4C-4E6BC03BDF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8BD27A-09E5-4321-8F4C-4E6BC03BDF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8BD27A-09E5-4321-8F4C-4E6BC03BDF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC351DD-3E41-48BB-97BE-B3A586161F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC351DD-3E41-48BB-97BE-B3A586161F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC351DD-3E41-48BB-97BE-B3A586161F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC351DD-3E41-48BB-97BE-B3A586161F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +195,7 @@ Global
 		{0D1391C1-D46B-441F-98E1-87E8CC05C643} = {106E771E-FAB5-4886-84CF-F952E2CAA0B5}
 		{FB4CD985-CC67-45B9-8A94-ABF09711F46C} = {0B395F30-B949-4EE0-8B65-EC6C01827A91}
 		{1A8BD27A-09E5-4321-8F4C-4E6BC03BDF00} = {C93E08CC-B0E4-42DE-BD86-9AD36FC36C9D}
+		{5EC351DD-3E41-48BB-97BE-B3A586161F30} = {C93E08CC-B0E4-42DE-BD86-9AD36FC36C9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FB4480E-E091-4136-A89A-DC8F7C803DDF}

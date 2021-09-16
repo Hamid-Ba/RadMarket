@@ -5,7 +5,7 @@ namespace StoreManagement.Domain.StoreAgg
 {
     public class Store : EntityBase
     {
-        public long AdminUserId { get; private set; }
+        public long StoreAdminUserId { get; private set; }
         public string Name { get; private set; }
         public string PhoneNumber { get; private set; }
         public string MobileNumber { get; private set; }
@@ -14,9 +14,15 @@ namespace StoreManagement.Domain.StoreAgg
         public string Address { get; private set; }
         public string StoreGivenStatusReason { get; private set; }
 
-        public Store(long adminUserId, string name,string phoneNumber, string mobileNumber, StoreStatus status, string address)
+        public Store(long storeAdminUserId,string mobile)
         {
-            AdminUserId = adminUserId;
+            StoreAdminUserId = storeAdminUserId;
+            MobileNumber = mobile;
+        }
+
+        public Store(long storeAdminUserId, string name,string phoneNumber, string mobileNumber, StoreStatus status, string address)
+        {
+            StoreAdminUserId = storeAdminUserId;
             Name = name;
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
