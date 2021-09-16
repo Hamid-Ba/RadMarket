@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StoreManagement.Application;
+using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Application.Contract.StoreAgg;
+using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.StoreAgg;
 using StoreManagement.Infrastructure.EfCore;
 using StoreManagement.Infrastructure.EfCore.Repository;
@@ -20,6 +22,9 @@ namespace StoreManagement.Infrastructure.Configuration
 
             service.AddTransient<IStoreRepository, StoreRepository>();
             service.AddTransient<IStoreApplication, StoreApplication>();
+
+            service.AddTransient<ICategoryRepository, CategoryRepository>();
+            service.AddTransient<ICategoryApplication, CategoryApplication>();
         }
     }
 }

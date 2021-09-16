@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.StoreAgg;
 using StoreManagement.Infrastructure.EfCore.Mapping;
 using System.Linq;
@@ -18,9 +19,12 @@ namespace StoreManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Store>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
 
         }
 
         public DbSet<Store> Stores { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
     }
 }
