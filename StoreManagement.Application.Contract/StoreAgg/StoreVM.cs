@@ -8,6 +8,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
     {
         public long Id { get; set; }
         public long StoreAdminUserId { get; set; }
+        public string UniqueCode { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string MobileNumber { get; set; }

@@ -6,6 +6,7 @@ namespace StoreManagement.Domain.StoreAgg
     public class Store : EntityBase
     {
         public long StoreAdminUserId { get; private set; }
+        public string UniqueCode { get; private set; }
         public string Name { get; private set; }
         public string PhoneNumber { get; private set; }
         public string MobileNumber { get; private set; }
@@ -17,12 +18,14 @@ namespace StoreManagement.Domain.StoreAgg
         public Store(long storeAdminUserId,string mobile)
         {
             StoreAdminUserId = storeAdminUserId;
+            UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
             MobileNumber = mobile;
         }
 
         public Store(long storeAdminUserId, string name,string phoneNumber, string mobileNumber, StoreStatus status, string address)
         {
             StoreAdminUserId = storeAdminUserId;
+            UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
             Name = name;
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
