@@ -1,4 +1,4 @@
-﻿namespace Framework.Application
+﻿namespace Framework.Domain
 {
     public enum BannerPosition
     {
