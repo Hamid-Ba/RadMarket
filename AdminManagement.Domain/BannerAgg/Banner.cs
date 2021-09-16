@@ -12,10 +12,10 @@ namespace AdminManagement.Domain.BannerAgg
         public string Url { get; private set; }
         public BannerPosition Position { get; private set; }
 
-        public Banner(string picture,string pictureAlt,string pictureTitle, string colSize, string url, BannerPosition position)
+        public Banner(string picture, string pictuerAlt, string pictureTitle, string colSize, string url, BannerPosition position)
         {
             Picture = picture;
-            PictuerAlt = pictureAlt;
+            PictuerAlt = pictuerAlt;
             PictureTitle = pictureTitle;
             ColSize = colSize;
             Url = url;

@@ -1,4 +1,5 @@
 using AccountManagement.Infrastructure.Configuration;
+using AdminManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
@@ -35,6 +36,7 @@ namespace ServiceHost
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
             StoreManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
+            AdminManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
