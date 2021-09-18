@@ -72,14 +72,12 @@ namespace StoreManagement.Application.Contract.ProductAgg
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public double PurchacePrice { get; set; }
 
-
         [Display(Name = "تعداد در انبار")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public int Stock { get; set; }
 
         [Display(Name = "جایزه به ازای تعداد")]
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public int Prize { get; set; }
 
@@ -103,5 +101,6 @@ namespace StoreManagement.Application.Contract.ProductAgg
     public class EditProductVM : CreateProductVM
     {
         public long Id { get; set; }
+        public string PictureName { get; set; }
     }
 }
