@@ -9,6 +9,8 @@ namespace Framework.Application
         [Display(Name = "تایید شده")]
         Accepted,
         [Display(Name = "رد شده")]
-        Rejected
+        Rejected,
+        [Display(Name = "حذف شده")]
+        Deleted
     }
 }

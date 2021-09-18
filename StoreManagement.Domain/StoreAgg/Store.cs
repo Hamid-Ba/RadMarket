@@ -1,5 +1,7 @@
 ﻿using Framework.Domain;
+using StoreManagement.Domain.ProductAgg;
 using System;
+using System.Collections.Generic;
 
 namespace StoreManagement.Domain.StoreAgg
 {
@@ -14,6 +16,8 @@ namespace StoreManagement.Domain.StoreAgg
         public string Description { get; private set; }
         public string Address { get; private set; }
         public string StoreGivenStatusReason { get; private set; }
+
+        public List<Product> Products { get; private set; }
 
         public Store(long storeAdminUserId,string mobile)
         {

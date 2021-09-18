@@ -1,4 +1,6 @@
 ﻿using Framework.Domain;
+using StoreManagement.Domain.ProductAgg;
+using System.Collections.Generic;
 
 namespace StoreManagement.Domain.CategoryAgg
 {
@@ -12,6 +14,8 @@ namespace StoreManagement.Domain.CategoryAgg
         //public string PictureTitle { get; private set; }
         public string MetaDescription { get; private set; }
         public string Slug { get; private set; }
+
+        public List<Product> Products { get; private set; }
 
         public Category(string name, string description, string keyWords, /*string picture, string pictureAlt, string pictureTitle,*/ string metaDescription, string slug)
         {
