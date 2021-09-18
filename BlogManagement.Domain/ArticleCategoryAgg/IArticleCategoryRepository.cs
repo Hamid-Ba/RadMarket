@@ -1,10 +1,12 @@
-﻿using Framework.Domain;
+﻿using BlogManagement.Application.Contract.ArticleCategoryAgg;
+using Framework.Domain;
+using System.Threading.Tasks;
 
 namespace BlogManagement.Domain.ArticleCategoryAgg
 {
     public interface IArticleCategoryRepository : IRepository<ArticleCategory>
     {
-        EditArticleCategoryVM GetDetailForEditBy(long id);
+        Task<EditArticleCategoryVM> GetDetailForEditBy(long id);
         string GetCategorySlugBy(long id);
     }
 }
