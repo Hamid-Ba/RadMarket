@@ -21,11 +21,11 @@ namespace BlogManagement.Domain.ArticleAgg
 
         public ArticleCategory ArticleCategory { get; private set; }
 
-        public Article(string title, long categoryId, string pictureName, string pictureAlt, string pictureTitle, DateTime publishDate,
-            string author, string shortDescription, string description, string slug, string keywords, string metaDescription)
+        public Article(string title, long articleCategoryId, string pictureName, string pictureAlt, string pictureTitle,
+            DateTime publishDate, string author, string shortDescription, string description, string slug, string keywords, string metaDescription)
         {
             Title = title;
-            ArticleCategoryId = categoryId;
+            ArticleCategoryId = articleCategoryId;
             PictureName = pictureName;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
