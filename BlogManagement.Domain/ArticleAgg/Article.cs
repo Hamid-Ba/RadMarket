@@ -12,6 +12,7 @@ namespace BlogManagement.Domain.ArticleAgg
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
         public DateTime PublishDate { get; private set; }
+        public string Author { get; private set; }
         public string ShortDescription { get; private set; }
         public string Description { get; private set; }
         public string Slug { get; private set; }
@@ -20,8 +21,8 @@ namespace BlogManagement.Domain.ArticleAgg
 
         public ArticleCategory ArticleCategory { get; private set; }
 
-        public Article(string title, long categoryId, string pictureName, string pictureAlt, string pictureTitle, DateTime publishDate, 
-            string shortDescription, string description, string slug, string keywords, string metaDescription)
+        public Article(string title, long categoryId, string pictureName, string pictureAlt, string pictureTitle, DateTime publishDate,
+            string author, string shortDescription, string description, string slug, string keywords, string metaDescription)
         {
             Title = title;
             ArticleCategoryId = categoryId;
@@ -29,6 +30,7 @@ namespace BlogManagement.Domain.ArticleAgg
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             PublishDate = publishDate;
+            Author = author;
             ShortDescription = shortDescription;
             Description = description;
             Slug = slug;
@@ -36,8 +38,8 @@ namespace BlogManagement.Domain.ArticleAgg
             MetaDescription = metaDescription;
         }
 
-        public void Edit(string title, long categoryId, string pictureName, string pictureAlt, string pictureTitle, 
-            DateTime publishDate, string shortDescription, string description, string slug, string keywords, string metaDescription)
+        public void Edit(string title, long categoryId, string pictureName, string pictureAlt, string pictureTitle,
+            DateTime publishDate, string author, string shortDescription, string description, string slug, string keywords, string metaDescription)
         {
             Title = title;
             ArticleCategoryId = categoryId;
@@ -48,6 +50,7 @@ namespace BlogManagement.Domain.ArticleAgg
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             PublishDate = publishDate;
+            Author = author;
             ShortDescription = shortDescription;
             Description = description;
             Slug = slug;
