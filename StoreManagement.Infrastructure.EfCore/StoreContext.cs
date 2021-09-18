@@ -22,7 +22,6 @@ namespace StoreManagement.Infrastructure.EfCore
             modelBuilder.Entity<Store>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Product>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
-
         }
 
         public DbSet<Store> Stores { get; set; }
