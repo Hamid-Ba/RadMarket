@@ -34,7 +34,6 @@ namespace ServiceHost
             services.AddHttpContextAccessor();
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
             BlogManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             StoreManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
@@ -42,15 +41,26 @@ namespace ServiceHost
             CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
+            
+
+            #region Config Authentication
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
                 {
-                    o.LoginPath = "/Account";
-                    o.LogoutPath = "/Account/Logout";
+                    o.LoginPath = "/";
+                    o.LogoutPath = "/Logout";
                     o.AccessDeniedPath = new PathString("/AccessDenied");
                     o.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
                 });
+
+            #endregion
+
+            #region html encoder
+
+            services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Arabic }));
+
+            #endregion
 
             services.AddControllersWithViews();
         }

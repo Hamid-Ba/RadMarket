@@ -1,7 +1,28 @@
 ﻿@model AccountManagement.Application.Contract.UserAgg.ActiveAccountUserVM
 @{
-    ViewData["Title"] = "ActiveAccount";
+    Layout = "_Layout";
+    ViewData["Title"] = "فعال سازی حساب";
 }
 
-<h1>ActiveAccount</h1>
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ثبت نام کاربر</h4>
+    </div>
+    <div class="auth">
+        <div class="p-3">
+            <form class="p-3" asp-area="" asp-controller="Account" asp-action="ActiveAccount" method="post">
 
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">کد فعال سازی</label>
+                    <input type="" asp-for="ActivationCode" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <span asp-validation-for="ActivationCode" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <input type="hidden" asp-for="Mobile" />
+                    <button type="submit" class="btn btn-outline-danger w-50">ثبت نام</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using Framework.Domain;
+﻿using System;
+using Framework.Domain;
 namespace AccountManagement.Domain.UserAgg
 {
     public class User : EntityBase
@@ -24,10 +25,11 @@ namespace AccountManagement.Domain.UserAgg
             City = city;
             Province = province;
             Address = address;
+            ActivationCode = Guid.NewGuid().ToString().Substring(0, 7);
         }
 
         public void ActiveAccount() => IsActive = true;
 
-        public void ReActivateCode(string newActivatationCode) => ActivationCode = newActivatationCode;
+        public void ReActivateCode(string newActivationCode) => ActivationCode = newActivationCode;
     }
 }

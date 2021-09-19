@@ -28,12 +28,12 @@
     <!-- navbar -->
 
     @RenderBody()
-
-
-
+    
     <partial name="_FooterReferencesPV" />
-    <partial name="_SiteMessage" />
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_SiteMessage" />
+
+    @await RenderSectionAsync("Scripts", false)
 </body>
 
 </html>
