@@ -1,4 +1,5 @@
 ﻿using AdminManagement.Domain.BannerAgg;
+using AdminManagement.Domain.ProvinceAgg;
 using AdminManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -18,9 +19,11 @@ namespace AdminManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Banner>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Province>().HasQueryFilter(u => !u.IsDelete);
         }
 
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Province> Provinces { get; set; }
 
     }
 }
