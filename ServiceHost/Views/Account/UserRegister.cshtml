@@ -1,4 +1,4 @@
-﻿
+﻿@model AccountManagement.Application.Contract.UserAgg.RegisterUserVM
 @{
     ViewData["Title"] = "ثبت نام کاربر";
 }
@@ -13,46 +13,44 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">نام</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="" asp-for="FirstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col-6">
-                        <label for="exampleInputEmail1" class="form-label">نام</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">نام خانوادگی</label>
+                        <input type="" asp-for="LastName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">موبایل</label>
+                        <input type="" asp-for="Mobile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">رمز عبور</label>
+                        <input type="" asp-for="Password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">استان</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">زاهدان</option>
-                            <option value="2">مشهد</option>
-                            <option value="3">بیرجند</option>
+                        <select asp-for="Province" asp-items="@ViewBag.Provinces" class="form-select" aria-label="Default select example">
+                            <option value="">انتخاب کنید...</option>
                         </select>
                     </div>
                     <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">شهر</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">زاهدان</option>
-                            <option value="2">مشهد</option>
-                            <option value="3">بیرجند</option>
-                        </select>
+                        <input type="" asp-for="City" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">آدرس</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea asp-for="Address" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">مرا به خاطر بسپار</label>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">کد بازاریاب</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
+                
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-outline-danger w-50">ورود</button>
+                    <button type="submit" class="btn btn-outline-danger w-50">ثبت نام</button>
                 </div>
             </form>
         </div>

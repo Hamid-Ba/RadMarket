@@ -105,15 +105,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Application", "BM.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Infrastructure", "BM.Infrastructure", "{FEF9531E-329F-47CC-80CF-8F33D222E84D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManagement.Domain", "BlogManagement.Domain\BlogManagement.Domain.csproj", "{912F89BD-E318-4726-A421-69340E470306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Domain", "BlogManagement.Domain\BlogManagement.Domain.csproj", "{912F89BD-E318-4726-A421-69340E470306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManagement.Application.Contract", "BlogManagement.Application.Contract\BlogManagement.Application.Contract.csproj", "{71369D3D-6F4C-4C41-A3C7-9106ACE3647A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Application.Contract", "BlogManagement.Application.Contract\BlogManagement.Application.Contract.csproj", "{71369D3D-6F4C-4C41-A3C7-9106ACE3647A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManagement.Application", "BlogManagement.Application\BlogManagement.Application.csproj", "{C507FBDF-F083-4C35-9B7F-890F69CDEDD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Application", "BlogManagement.Application\BlogManagement.Application.csproj", "{C507FBDF-F083-4C35-9B7F-890F69CDEDD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManagement.Infrastructure.EfCore", "BlogManagement.Infrastructure.EfCore\BlogManagement.Infrastructure.EfCore.csproj", "{90544DBE-EFF1-4A87-9192-D302EDD11608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.EfCore", "BlogManagement.Infrastructure.EfCore\BlogManagement.Infrastructure.EfCore.csproj", "{90544DBE-EFF1-4A87-9192-D302EDD11608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogManagement.Infrastructure.Configuration", "BlogManagement.Infrastructure.Configuration\BlogManagement.Infrastructure.Configuration.csproj", "{07011775-3671-496E-86F8-1073DA675333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.Configuration", "BlogManagement.Infrastructure.Configuration\BlogManagement.Infrastructure.Configuration.csproj", "{07011775-3671-496E-86F8-1073DA675333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadMarket.Query", "RadMarket.Query\RadMarket.Query.csproj", "{9C025673-BA44-42C8-81A0-BDCABA014A35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +251,10 @@ Global
 		{07011775-3671-496E-86F8-1073DA675333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07011775-3671-496E-86F8-1073DA675333}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07011775-3671-496E-86F8-1073DA675333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C025673-BA44-42C8-81A0-BDCABA014A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C025673-BA44-42C8-81A0-BDCABA014A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C025673-BA44-42C8-81A0-BDCABA014A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C025673-BA44-42C8-81A0-BDCABA014A35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
