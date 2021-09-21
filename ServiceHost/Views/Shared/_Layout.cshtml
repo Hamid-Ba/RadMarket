@@ -28,7 +28,11 @@
     <!-- navbar -->
 
     @RenderBody()
-    
+
+    <!-- footer -->
+    @await Component.InvokeAsync("SiteFooter")
+    <!-- footer -->
+
     <partial name="_FooterReferencesPV" />
     <partial name="_ValidationScriptsPartial" />
     <partial name="_SiteMessage" />

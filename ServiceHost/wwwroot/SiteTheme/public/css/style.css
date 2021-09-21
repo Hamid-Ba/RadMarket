@@ -450,3 +450,7 @@ nav .menu-large ul li a {
 }
 
 /* single-blog */
+
+footer {
+    background-color: var(--background);
+}
