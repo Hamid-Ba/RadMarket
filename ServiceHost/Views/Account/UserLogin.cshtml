@@ -1,0 +1,27 @@
+﻿@model AccountManagement.Application.Contract.UserAgg.LoginUserVM
+@{
+    ViewData["Title"] = "ورود کاربر";
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ورود کاربر</h4>
+    </div>
+    <div class="auth">
+        <form class="p-3" asp-controller="Account" asp-action="UserLogin">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">شماره تماس</label>
+                <input type="" asp-for="Mobile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">کلمه عبور</label>
+                <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-danger w-50">ورود</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -22,4 +22,9 @@
     <ProjectReference Include="..\StoreManagement.Infrastructure.Configuration\StoreManagement.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="Areas\User\Models\" />
+  </ItemGroup>
+
 </Project>

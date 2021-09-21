@@ -3,18 +3,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using System.Threading.Tasks;
 using AccountManagement.Application.Contract.UserAgg;
+using Framework.Application.Authentication;
 
 namespace ServiceHost.Controllers
 {
     public class AccountController : BaseController
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IProvinceQuery _provinceQuery;
         private readonly IUserApplication _userApplication;
 
-        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication)
+        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper)
         {
             _provinceQuery = provinceQuery;
             _userApplication = userApplication;
+            _authHelper = authHelper;
         }
 
         [HttpGet]
@@ -70,5 +73,42 @@ namespace ServiceHost.Controllers
             return View(command);
         }
 
+        [HttpGet]
+        public IActionResult UserLogin() => User.Identity != null && User.Identity.IsAuthenticated? RedirectToAction("Index", "Home") : View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserLogin(LoginUserVM command)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userApplication.Login(command);
+
+                if (result.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Message;
+                    return RedirectToAction("Index", "Home");
+                }
+
+                TempData[ErrorMessage] = result.Message;
+            }
+
+            return View(command);
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                _authHelper.SignOut();
+                TempData[SuccessMessage] = "با موفقیت خارج شدید";
+            }
+            else
+                TempData[ErrorMessage] = "هنوز وارد نشده اید که";
+            
+
+            return RedirectToAction("Index", "Home");
+        } 
     }
 }
