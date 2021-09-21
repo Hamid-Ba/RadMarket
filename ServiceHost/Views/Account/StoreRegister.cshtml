@@ -51,6 +51,26 @@
 
                 </div>
 
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">شماره حساب</label>
+                    <input type="" asp-for="AccountNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">شماره شبا</label>
+                    <p class="text-danger">شماره شبا را بدون IR وارد نمایید</p>
+                    <input type="" asp-for="ShabaNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <span asp-validation-for="ShabaNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">شماره کارت</label>
+                    <input type="" asp-for="CardNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <span asp-validation-for="CardNumber" class="text-danger"></span>
+                </div>
+
+
                 <div class="row">
                     <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">استان</label>

@@ -12,6 +12,9 @@ namespace StoreManagement.Infrastructure.EfCore.Mapping
 
             builder.Property(p => p.UniqueCode).HasMaxLength(8);
             builder.Property(p => p.Name).HasMaxLength(85).IsRequired();
+            builder.Property(p => p.AccountNumber).HasMaxLength(16).IsRequired();
+            builder.Property(p => p.ShabaNumber).HasMaxLength(26).IsRequired();
+            builder.Property(p => p.CardNumber).HasMaxLength(16).IsRequired();
             builder.Property(p => p.MobileNumber).HasMaxLength(11).IsRequired();
             builder.Property(p => p.PhoneNumber).IsRequired();
             builder.Property(p => p.City).IsRequired().HasMaxLength(250);

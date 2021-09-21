@@ -10,6 +10,9 @@ namespace StoreManagement.Domain.StoreAgg
         public long StoreAdminUserId { get; private set; }
         public string UniqueCode { get; private set; }
         public string Name { get; private set; }
+        public string AccountNumber { get; private set; }
+        public string ShabaNumber { get; private set; }
+        public string CardNumber { get; private set; }
         public string PhoneNumber { get; private set; }
         public string MobileNumber { get; private set; }
         public StoreStatus Status { get; private set; }
@@ -32,11 +35,14 @@ namespace StoreManagement.Domain.StoreAgg
             Address = address;
         }
 
-        public Store(long storeAdminUserId, string name,string phoneNumber, string mobileNumber, string province, string city, string address, StoreStatus status)
+        public Store(long storeAdminUserId, string name,string accountNumber,string shabaNumber,string cardNumber,string phoneNumber, string mobileNumber, string province, string city, string address, StoreStatus status)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
             Name = name;
+            AccountNumber = accountNumber;
+            ShabaNumber = "IR"+shabaNumber;
+            CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
             Status = status;

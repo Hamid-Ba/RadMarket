@@ -10,6 +10,9 @@ namespace StoreManagement.Application.Contract.StoreAgg
         public long StoreAdminUserId { get; set; }
         public string UniqueCode { get; set; }
         public string Name { get; set; }
+        public string AccountNumber { get; set; }
+        public string ShabaNumber { get; set; }
+        public string CardNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string MobileNumber { get; set; }
         public StoreStatus Status { get; set; }
@@ -28,6 +31,26 @@ namespace StoreManagement.Application.Contract.StoreAgg
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [MaxLength(85, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string Name { get; set; }
+
+        [Display(Name = "شماره حساب")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(16, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string AccountNumber { get;set; }
+
+        [Display(Name = "شماره شبا")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(24, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MinLength(24, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string ShabaNumber { get; set; }
+
+        [Display(Name = "شماره کارت")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(16, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MinLength(16, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string CardNumber { get; set; }
 
         [Display(Name = "شماره موبایل")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

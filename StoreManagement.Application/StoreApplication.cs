@@ -34,7 +34,8 @@ namespace StoreManagement.Application
             && s.Status == Framework.Domain.StoreStatus.Confirmed))
                 return (result.Failed(ApplicationMessage.StoreOwnerHasAlreadyAStore), 0);
 
-            var store = new Store(command.StoreAdminUserId, command.Name, command.PhoneNumber, command.MobileNumber, 
+            var store = new Store(command.StoreAdminUserId, command.Name,command.AccountNumber,command.ShabaNumber,command.CardNumber,
+                command.PhoneNumber, command.MobileNumber, 
                 command.Province, command.City, command.Address,StoreStatus.UnderProgressed);
 
             await _storeRepository.AddEntityAsync(store);
