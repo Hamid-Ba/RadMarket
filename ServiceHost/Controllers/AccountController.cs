@@ -161,6 +161,29 @@ namespace ServiceHost.Controllers
             return View(command);
         }
 
+        [HttpGet]
+        public IActionResult StoreLogin() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StoreLogin(LoginStoreUserVM command)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _storeUserApplication.Login(command);
+
+                if (result.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Message;
+                    return RedirectToAction("Index", "Home");
+                }
+
+                TempData[ErrorMessage] = result.Message;
+            }
+
+            return View(command);
+        }
+
         #endregion
 
 
