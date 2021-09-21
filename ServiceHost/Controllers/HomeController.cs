@@ -33,5 +33,13 @@ namespace ServiceHost.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        [Route("NotFound")]
+        public IActionResult NotFound()
+        {
+            TempData[WarningMessage] = "صفحه مورد نظر پیدا نشد!";
+            return View();
+        }
     }
 }

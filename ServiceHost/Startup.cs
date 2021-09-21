@@ -16,6 +16,7 @@ using StoreManagement.Infrastructure.Configuration;
 using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using System.Threading.Tasks;
 
 namespace ServiceHost
 {
@@ -96,6 +97,11 @@ namespace ServiceHost
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapFallback(context => {
+                    context.Response.Redirect("/NotFound");
+                    return Task.CompletedTask;
+                });
             });
         }
     }
