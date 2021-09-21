@@ -5,10 +5,11 @@ namespace StoreManagement.Application.Contract.StoreAgg
 {
     public interface IStoreApplication
     {
+        Task<string> GetStoreCode(long id);
         Task<OperationResult> Delete(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditStoreVM command);
-        Task<OperationResult> Create(CreateStoreVM command);
+        Task<(OperationResult,long)> Create(CreateStoreVM command);
         Task<OperationResult> ChangeStatus(SpecifyStatusOfStoreVM command);
     }
 }

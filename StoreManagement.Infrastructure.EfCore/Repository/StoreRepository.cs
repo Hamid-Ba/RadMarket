@@ -13,6 +13,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public StoreRepository(StoreContext context) : base(context) => _context = context;
 
+        public async Task<string> GetStoreCode(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).UniqueCode;
+
         public async Task<EditStoreVM> GetDetailForEditBy(long id) => await _context.Stores.Select(s => new EditStoreVM
         {
             Id = s.Id,

@@ -21,7 +21,7 @@ namespace AccountManagement.Application
             _storeUserRepository = storeUserRepository;
         }
 
-        public async Task<OperationResult> ConfirmUser(long id, long storeId)
+        public async Task<OperationResult> InitialStore(long id, long storeId,string storeCode)
         {
             OperationResult result = new();
 
@@ -29,7 +29,7 @@ namespace AccountManagement.Application
             if (storeUser is null) return result.Failed(ApplicationMessage.UserNotExist);
 
             storeUser.ActiveAccount();
-            var storeCode = storeUser.FillStoreId(storeId);
+            var code = storeUser.FillStoreId(storeId,storeCode);
 
             await _storeUserRepository.SaveChangesAsync();
 
@@ -50,6 +50,8 @@ namespace AccountManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task FillStoreId(long id,long storeId, string code) => await _storeUserRepository.FillStoreId(id,storeId, code);
 
         public async Task<OperationResult> Edit(EditStoreUserVM command)
         {
@@ -95,12 +97,12 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<OperationResult> Register(RegisterStoreUserVM command)
+        public async Task<(OperationResult,long)> Register(RegisterStoreUserVM command)
         {
             OperationResult result = new();
 
             if (_storeUserRepository.Exists(s => s.Mobile == command.Mobile))
-                return result.Failed(ApplicationMessage.DuplicatedMobile);
+                return (result.Failed(ApplicationMessage.DuplicatedMobile),0);
 
             var password = _passwordHasher.Hash(command.Password);
 
@@ -111,7 +113,7 @@ namespace AccountManagement.Application
 
             //send sms
 
-            return result.Succeeded();
+            return (result.Succeeded(),storeUser.Id);
         }
     }
 }

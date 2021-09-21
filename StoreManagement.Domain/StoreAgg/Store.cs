@@ -14,19 +14,25 @@ namespace StoreManagement.Domain.StoreAgg
         public string MobileNumber { get; private set; }
         public StoreStatus Status { get; private set; }
         public string Description { get; private set; }
+        public string City { get; private set; }
+        public string Province { get; private set; }
         public string Address { get; private set; }
         public string StoreGivenStatusReason { get; private set; }
 
         public List<Product> Products { get; private set; }
 
-        public Store(long storeAdminUserId,string mobile)
+        public Store(long storeAdminUserId,string name,string mobile, string province, string city,string address)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
+            Name = name;
             MobileNumber = mobile;
+            Province = province;
+            City = city;
+            Address = address;
         }
 
-        public Store(long storeAdminUserId, string name,string phoneNumber, string mobileNumber, StoreStatus status, string address)
+        public Store(long storeAdminUserId, string name,string phoneNumber, string mobileNumber, string province, string city, string address, StoreStatus status)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
@@ -34,8 +40,10 @@ namespace StoreManagement.Domain.StoreAgg
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
             Status = status;
+            City = city;
+            Province = province;
             Address = address;
-            StoreGivenStatusReason = "";
+            StoreGivenStatusReason = "شرکت تازه ثبت شده";
         }
 
         public void Edit(string name,string phoneNumber, string mobileNumber, string description, string address)

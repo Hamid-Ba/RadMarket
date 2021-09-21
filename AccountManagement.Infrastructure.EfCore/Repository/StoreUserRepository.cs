@@ -13,6 +13,12 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
 
         public StoreUserRepository(AccountContext context) : base(context) => _context = context;
 
+        public async Task FillStoreId(long id,long storeId, string code)
+        {
+            var user = await _context.StoreUser.FirstOrDefaultAsync(s => s.Id == id);
+            user.FillStoreId(storeId, code);
+        }
+
         public async Task<EditStoreUserVM> GetDetailForEditBy(long id) => await _context.StoreUser.Select(s => new EditStoreUserVM
         {
             Id = s.Id,

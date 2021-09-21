@@ -1,0 +1,81 @@
+﻿@model StoreManagement.Application.Contract.StoreAgg.CreateStoreVM
+@{
+    ViewData["Title"] = "ثبت شرکت";
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ثبت شرکت</h4>
+    </div>
+    <div class="auth">
+        <div class="p-3">
+            <form class="p-3" asp-controller="Account" asp-action="StoreRegister" method="post">
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">نام</label>
+                        <input type="" asp-for="FirstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">نام خانوادگی</label>
+                        <input type="" asp-for="LastName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">نام شرکت</label>
+                        <input type="" asp-for="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">رمز عبور</label>
+                        <input type="" asp-for="Password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">موبایل</label>
+                        <input type="" asp-for="MobileNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">شماره تلفن</label>
+                        <input type="" asp-for="PhoneNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">استان</label>
+                        <select asp-for="Province" asp-items="@ViewBag.Provinces" class="form-select" aria-label="Default select example">
+                            <option value="">انتخاب کنید...</option>
+                        </select>
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleInputEmail1" class="form-label">شهر</label>
+                        <input type="" asp-for="City" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">آدرس</label>
+                    <textarea asp-for="Address" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-danger w-50">ثبت نام</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -51,10 +51,10 @@ namespace AccountManagement.Domain.StoreUserAgg
             LastUpdateDate = DateTime.Now;
         }
 
-        public string FillStoreId(long storeId)
+        public string FillStoreId(long storeId,string storeCode)
         {
             StoreId = storeId;
-            StoreCode = Guid.NewGuid().ToString().Substring(0, 8);
+            StoreCode = storeCode;
             LastUpdateDate = DateTime.Now;
 
             return StoreCode;

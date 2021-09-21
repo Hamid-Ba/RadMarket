@@ -7,9 +7,10 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
     {
         Task<OperationResult> Delete(long id);
         Task<EditStoreUserVM> GetDetailForEditBy(long id);
+        Task FillStoreId(long id,long storeId, string code);
         Task<OperationResult> Edit(EditStoreUserVM command);
         Task<OperationResult> Login(LoginStoreUserVM command);
-        Task<OperationResult> ConfirmUser(long id, long storeId);
-        Task<OperationResult> Register(RegisterStoreUserVM command);
+        Task<OperationResult> InitialStore(long id, long storeId,string storeCode);
+        Task<(OperationResult,long)> Register(RegisterStoreUserVM command);
     }
 }

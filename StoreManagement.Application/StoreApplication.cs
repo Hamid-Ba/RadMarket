@@ -26,21 +26,24 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<OperationResult> Create(CreateStoreVM command)
+        public async Task<(OperationResult, long)> Create(CreateStoreVM command)
         {
             OperationResult result = new();
 
             if (_storeRepository.Exists(s => (s.MobileNumber == command.MobileNumber || s.StoreAdminUserId == command.StoreAdminUserId)
             && s.Status == Framework.Domain.StoreStatus.Confirmed))
-                return result.Failed(ApplicationMessage.StoreOwnerHasAlreadyAStore);
+                return (result.Failed(ApplicationMessage.StoreOwnerHasAlreadyAStore), 0);
 
-            var store = new Store(command.StoreAdminUserId, command.MobileNumber);
+            var store = new Store(command.StoreAdminUserId, command.Name, command.PhoneNumber, command.MobileNumber, 
+                command.Province, command.City, command.Address,StoreStatus.UnderProgressed);
 
             await _storeRepository.AddEntityAsync(store);
             await _storeRepository.SaveChangesAsync();
 
-            return result.Succeeded();
+            return (result.Succeeded(), store.Id);
         }
+
+        public async Task<string> GetStoreCode(long id) => await _storeRepository.GetStoreCode(id);
 
         public async Task<OperationResult> Delete(long id)
         {

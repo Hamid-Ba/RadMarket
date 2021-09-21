@@ -6,6 +6,7 @@ namespace StoreManagement.Domain.StoreAgg
 {
     public interface IStoreRepository : IRepository<Store>
     {
+        Task<string> GetStoreCode(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
     }
 }

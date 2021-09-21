@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using System.Threading.Tasks;
+using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
 using Framework.Application.Authentication;
+using StoreManagement.Application.Contract.StoreAgg;
 
 namespace ServiceHost.Controllers
 {
@@ -12,13 +14,19 @@ namespace ServiceHost.Controllers
         private readonly IAuthHelper _authHelper;
         private readonly IProvinceQuery _provinceQuery;
         private readonly IUserApplication _userApplication;
+        private readonly IStoreApplication _storeApplication;
+        private readonly IStoreUserApplication _storeUserApplication;
 
-        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper)
+        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper, IStoreUserApplication storeUserApplication, IStoreApplication storeApplication)
         {
             _provinceQuery = provinceQuery;
             _userApplication = userApplication;
             _authHelper = authHelper;
+            _storeUserApplication = storeUserApplication;
+            _storeApplication = storeApplication;
         }
+
+        #region Client User
 
         [HttpGet]
         public async Task<IActionResult> UserRegister()
@@ -74,7 +82,7 @@ namespace ServiceHost.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserLogin() => User.Identity != null && User.Identity.IsAuthenticated? RedirectToAction("Index", "Home") : View();
+        public IActionResult UserLogin() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,6 +104,66 @@ namespace ServiceHost.Controllers
             return View(command);
         }
 
+        #endregion
+
+        #region Store User
+
+        [HttpGet]
+        public async Task<IActionResult> StoreRegister()
+        {
+            ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            return User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StoreRegister(CreateStoreVM command)
+        {
+            ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            if (ModelState.IsValid)
+            {
+                var storeUser = new RegisterStoreUserVM
+                {
+                    StoreId = 0,
+                    FirstName = command.FirstName,
+                    LastName = command.LastName,
+                    Mobile = command.MobileNumber,
+                    Password = command.Password,
+                    Province = command.Province,
+                    City = command.City,
+                    Address = command.Address
+                };
+                var result = await _storeUserApplication.Register(storeUser);
+
+                if (result.Item1.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Item1.Message;
+                    TempData[InfoMessage] = "پس از تایید مدیریت ،پیامی حاوی دستورالعمل برای شما ارسال خواهد شد";
+
+                    //Define Store
+                    command.StoreAdminUserId = result.Item2;
+                    var resultStore = await _storeApplication.Create(command);
+
+                    if (resultStore.Item1.IsSucceeded)
+                    {
+                        TempData[SuccessMessage] = resultStore.Item1.Message;
+
+                        //Initial Store For Store Admin User
+                        var storeCode = await _storeApplication.GetStoreCode(resultStore.Item2);
+                        await _storeUserApplication.InitialStore(result.Item2, resultStore.Item2, storeCode);
+                    }
+                    else TempData[ErrorMessage] = resultStore.Item1.Message;
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(command);
+        }
+
+        #endregion
+
+
         [HttpGet]
         public IActionResult Logout()
         {
@@ -106,9 +174,9 @@ namespace ServiceHost.Controllers
             }
             else
                 TempData[ErrorMessage] = "هنوز وارد نشده اید که";
-            
+
 
             return RedirectToAction("Index", "Home");
-        } 
+        }
     }
 }

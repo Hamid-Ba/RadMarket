@@ -8,5 +8,6 @@ namespace AccountManagement.Domain.StoreUserAgg
     {
         Task<StoreUser> GetUserBy(string mobile);
         Task<EditStoreUserVM> GetDetailForEditBy(long id);
+        Task FillStoreId(long id,long storeId, string code);
     }
 }
