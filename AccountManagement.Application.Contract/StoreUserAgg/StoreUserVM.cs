@@ -67,7 +67,7 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
     {
         [Display(Name = "کد فروشگاه")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [MaxLength(7, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MaxLength(8, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string StoreCode { get; set; }
 
         [Display(Name = "شماره موبایل")]

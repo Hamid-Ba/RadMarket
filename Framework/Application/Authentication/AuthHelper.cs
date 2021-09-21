@@ -16,7 +16,7 @@ namespace Framework.Application.Authentication
         }
 
         public async void SignOut() => await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
+       
         public async void SignIn(UserAuthViewModel account)
         {
             //var permissions = JsonConvert.SerializeObject(account.Permissions);

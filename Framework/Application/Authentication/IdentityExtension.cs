@@ -11,5 +11,11 @@ namespace Framework.Application.Authentication
             var data = user?.Claims.SingleOrDefault(s => s.Type == ClaimTypes.NameIdentifier);
             return data is null ? default(long) : Convert.ToInt64(data.Value);
         }
+
+        public static long GetStoreId(this ClaimsPrincipal user)
+        {
+            var data = user?.Claims.SingleOrDefault(s => s.Type == "StoreId");
+            return data is null ? default(long) : Convert.ToInt64(data.Value);
+        }
     }
 }

@@ -35,7 +35,8 @@ namespace StoreManagement.Domain.StoreAgg
             Address = address;
         }
 
-        public Store(long storeAdminUserId, string name,string accountNumber,string shabaNumber,string cardNumber,string phoneNumber, string mobileNumber, string province, string city, string address, StoreStatus status)
+        public Store(long storeAdminUserId, string name,string accountNumber,string shabaNumber,string cardNumber,string phoneNumber, 
+            string mobileNumber, string province, string city, string address, StoreStatus status)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);

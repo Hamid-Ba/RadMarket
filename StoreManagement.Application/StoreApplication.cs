@@ -26,6 +26,30 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> IsStoreConfirmedBy(long id)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetEntityByIdAsync(id);
+            
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+            if (store.Status != StoreStatus.Confirmed) return result.Failed("شرکت شما تایید نشده است!");
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> IsStoreConfirmedBy(string code)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetStoreBy(code);
+
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+            if (store.Status != StoreStatus.Confirmed) return result.Failed("شرکت شما تایید نشده است!");
+
+            return result.Succeeded();
+        }
+
         public async Task<(OperationResult, long)> Create(CreateStoreVM command)
         {
             OperationResult result = new();

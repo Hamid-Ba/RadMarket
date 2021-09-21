@@ -170,15 +170,22 @@ namespace ServiceHost.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _storeUserApplication.Login(command);
+                var isConfirmed = await _storeApplication.IsStoreConfirmedBy(command.StoreCode);
 
-                if (result.IsSucceeded)
+                if (!isConfirmed.IsSucceeded) TempData[ErrorMessage] = isConfirmed.Message;
+
+                else
                 {
-                    TempData[SuccessMessage] = result.Message;
-                    return RedirectToAction("Index", "Home");
-                }
+                    var result = await _storeUserApplication.Login(command);
 
-                TempData[ErrorMessage] = result.Message;
+                    if (result.IsSucceeded)
+                    {
+                        TempData[SuccessMessage] = result.Message;
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    TempData[ErrorMessage] = result.Message;
+                }
             }
 
             return View(command);

@@ -29,6 +29,11 @@
                     <li><a asp-area="User" asp-controller="Dashboard">حساب کاربری</a></li>
                 }
 
+                else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value))
+                {
+                    <li><a asp-area="Store" asp-controller="Dashboard">پنل شرکت</a></li>
+                }
+
                 <li><a asp-controller="Account" asp-action="Logout">خروج</a></li>
             }
             else
@@ -36,10 +41,8 @@
                 <li><a asp-controller="Account" asp-action="UserRegister">ثبت نام کاربر</a></li>
                 <li><a asp-controller="Account" asp-action="UserLogin">ورود کاربر</a></li>
                 <li><a asp-controller="Account" asp-action="StoreRegister">ثبت شرکت</a></li>
-                <li><a asp-controller="Account" asp-action="">ورود شرکت</a></li>
-                <li><a href="">ورود شرکت</a></li>
+                <li><a asp-controller="Account" asp-action="StoreLogin">ورود شرکت</a></li>
             }
-
 
         </ul>
     </div>

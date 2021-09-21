@@ -9,6 +9,8 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<OperationResult> Delete(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditStoreVM command);
+        Task<OperationResult> IsStoreConfirmedBy(long id);
+        Task<OperationResult> IsStoreConfirmedBy(string code);
         Task<(OperationResult,long)> Create(CreateStoreVM command);
         Task<OperationResult> ChangeStatus(SpecifyStatusOfStoreVM command);
     }
