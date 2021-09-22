@@ -28,6 +28,19 @@ namespace AccountManagement.Domain.UserAgg
             ActivationCode = Guid.NewGuid().ToString().Substring(0, 7);
         }
 
+        public void Edit(string firstName, string lastName, string password, string city, string province, string address)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+
+            if (!string.IsNullOrWhiteSpace(password))
+                Password = password;
+
+            City = city;
+            Province = province;
+            Address = address;
+        }
+
         public void ActiveAccount() => IsActive = true;
 
         public void ReActivateCode(string newActivationCode) => ActivationCode = newActivationCode;

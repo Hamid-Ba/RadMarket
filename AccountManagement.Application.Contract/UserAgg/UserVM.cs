@@ -85,4 +85,40 @@ namespace AccountManagement.Application.Contract.UserAgg
         [MaxLength(7, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string ActivationCode { get; set; }
     }
+
+    public class EditUserVM
+    {
+        public long Id { get; set; }
+
+        [Display(Name = "نام")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string FirstName { get; set; }
+
+        [Display(Name = "نام خانوادگی")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string LastName { get; set; }
+
+        [Display(Name = "رمز عبور")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(200, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        public string Password { get; set; }
+
+        [Display(Name = " تکرار رمز عبور")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(200, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [Compare("Password",ErrorMessage = "رمز های عبور مطابقت ندارند")]
+        public string ConfirmPassword { get; set; }
+
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string City { get; set; }
+
+        [Display(Name = "استان")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Province { get; set; }
+
+        [Display(Name = "آدرس")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Address { get; set; }
+    }
 }

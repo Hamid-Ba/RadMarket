@@ -7,6 +7,8 @@ namespace AccountManagement.Application.Contract.UserAgg
     {
         OperationResult Logout();
         Task<OperationResult> Delete(long id);
+        Task<EditUserVM> GetDetailForEditBy(long id);
+        Task<OperationResult> Edit(EditUserVM command);
         Task<OperationResult> Login(LoginUserVM command);
         Task<OperationResult> Register(RegisterUserVM command);
         Task<OperationResult> ActiveAccount(ActiveAccountUserVM command);

@@ -44,6 +44,27 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<EditUserVM> GetDetailForEditBy(long id) => await _userRepository.GetDetailForEditBy(id);
+
+        public async Task<OperationResult> Edit(EditUserVM command)
+        {
+            OperationResult result = new();
+
+            var user = await _userRepository.GetEntityByIdAsync(command.Id);
+
+            if (user is null) return result.Failed(ApplicationMessage.NotExist);
+
+            string newPassword = null;
+
+            if (!string.IsNullOrWhiteSpace(command.Password))
+                if (command.Password == command.ConfirmPassword) newPassword = _passwordHasher.Hash(command.Password);
+
+            user.Edit(command.FirstName,command.LastName,newPassword,command.City,command.Province,command.Address);
+            await _userRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Login(LoginUserVM command)
         {
             OperationResult result = new();
