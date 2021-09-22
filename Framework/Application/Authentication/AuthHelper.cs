@@ -50,7 +50,8 @@ namespace Framework.Application.Authentication
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim(ClaimTypes.Role, account.AdminRoleId.ToString()),
                 new Claim(ClaimTypes.Name, account.Fullname),
-                new Claim(ClaimTypes.MobilePhone, account.Mobile)
+                new Claim(ClaimTypes.MobilePhone, account.Mobile),
+                new Claim("IsAdminUser", true.ToString()),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

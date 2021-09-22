@@ -34,6 +34,11 @@
                     <li><a asp-area="Store" asp-controller="Dashboard">پنل شرکت</a></li>
                 }
 
+                else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "IsAdminUser")?.Value))
+                {
+                    <li><a asp-area="Admin" asp-controller="Dashboard">پنل مدیریت</a></li>
+                }
+
                 <li><a asp-area="" asp-controller="Account" asp-action="Logout">خروج</a></li>
             }
             else

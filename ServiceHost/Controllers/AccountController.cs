@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using System.Threading.Tasks;
+using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
 using Framework.Application.Authentication;
@@ -16,14 +17,17 @@ namespace ServiceHost.Controllers
         private readonly IUserApplication _userApplication;
         private readonly IStoreApplication _storeApplication;
         private readonly IStoreUserApplication _storeUserApplication;
+        private readonly IAdminUserApplication _adminUserApplication;
 
-        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper, IStoreUserApplication storeUserApplication, IStoreApplication storeApplication)
+        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper,
+            IStoreUserApplication storeUserApplication, IStoreApplication storeApplication, IAdminUserApplication adminUserApplication)
         {
             _provinceQuery = provinceQuery;
             _userApplication = userApplication;
             _authHelper = authHelper;
             _storeUserApplication = storeUserApplication;
             _storeApplication = storeApplication;
+            _adminUserApplication = adminUserApplication;
         }
 
         #region Client User
@@ -193,6 +197,34 @@ namespace ServiceHost.Controllers
 
         #endregion
 
+        #region Admin User
+
+        [HttpGet]
+        [Route("AdminLogin")]
+        public IActionResult AdminLogin() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("AdminLogin")]
+        public async Task<IActionResult> AdminLogin(LoginAdminUserVM command)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _adminUserApplication.Login(command);
+
+                if (result.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Message;
+                    return RedirectToAction("Index", "Home");
+                }
+
+                TempData[ErrorMessage] = result.Message;
+            }
+
+            return View(command);
+        }
+
+        #endregion
 
         [HttpGet]
         public IActionResult Logout()
