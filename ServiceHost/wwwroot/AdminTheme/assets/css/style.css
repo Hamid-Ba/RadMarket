@@ -968,6 +968,7 @@ a:focus {
 }
 
 .portlet .portlet-heading .portlet-title {
+    float: left;
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 0;
@@ -1003,12 +1004,6 @@ a:focus {
 .portlet .portlet-heading.bg-purple a, .portlet .portlet-heading.bg-info a, .portlet .portlet-heading.bg-success a, .portlet .portlet-heading.bg-primary a, .portlet .portlet-heading.bg-danger a, .portlet .portlet-heading.bg-warning a, .portlet .portlet-heading.bg-inverse a, .portlet .portlet-heading.bg-pink a { color: #fff; }
 
 .portlet .portlet-heading a { color: #999; }
-
-.portlet-content{
-    margin : auto !important;
-    width:25%;
-    height:25%;
-}
 
 .panel-disabled {
     position: absolute;

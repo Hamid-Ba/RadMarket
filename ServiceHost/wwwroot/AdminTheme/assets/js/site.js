@@ -16,7 +16,7 @@ SinglePage.LoadModal = function () {
             $.validator.unobtrusive.parse(newForm);
             showModal();
         }).fail(function (error) {
-            ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error')
+            alert("خطایی رخ داده، لطفا با مدیر سیستم تماس بگیرید.");
         });
 };
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
                         CallBackHandler(data, action, form);
                     },
                     error: function (data) {
-                        ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error')
+                        alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
                     }
                 });
             }
@@ -82,13 +82,13 @@ $(document).ready(function () {
 function CallBackHandler(data, action, form) {
     switch (action) {
         case "Message":
-            ShowMessage('', data.message, 'error')
+            alert(data.Message);
             break;
         case "Refresh":
             if (data.isSucceeded) {
                 window.location.reload();
             } else {
-                ShowMessage('', data.message, 'error')
+                alert(data.message);
             }
             break;
         case "RefereshList":
@@ -179,7 +179,7 @@ function handleAjaxCall(method, url, data) {
             function (data) {
 
             }).fail(function (error) {
-            ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error')
+                alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
             });
     }
 }
