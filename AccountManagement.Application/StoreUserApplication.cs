@@ -38,6 +38,8 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<string> GetAdminNameBy(long id) => await _storeUserRepository.GetAdminName(id);
+
         public async Task<OperationResult> Delete(long id)
         {
             OperationResult result = new();

@@ -1,5 +1,6 @@
 ﻿using StoreManagement.Application.Contract.StoreAgg;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Framework.Domain;
 using Framework.Application;
@@ -19,6 +20,9 @@ namespace StoreManagement.Application
 
             var store = await _storeRepository.GetEntityByIdAsync(command.Id);
             if (store is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (command.Status == StoreStatus.Rejected && string.IsNullOrWhiteSpace(command.StoreGivenStatusReason))
+                command.StoreGivenStatusReason = "شرکت رد شد";
 
             store.ChangeStatus(command.Status, command.StoreGivenStatusReason);
             await _storeRepository.SaveChangesAsync();
@@ -69,6 +73,8 @@ namespace StoreManagement.Application
         }
 
         public async Task<string> GetStoreCode(long id) => await _storeRepository.GetStoreCode(id);
+
+        public async Task<IEnumerable<StoreVM>> GetAll() => await _storeRepository.GetAll();
 
         public async Task<OperationResult> Delete(long id)
         {

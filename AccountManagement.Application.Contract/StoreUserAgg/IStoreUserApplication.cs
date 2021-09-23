@@ -5,6 +5,7 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
 {
     public interface IStoreUserApplication
     {
+        Task<string> GetAdminNameBy(long id);
         Task<OperationResult> Delete(long id);
         Task<EditStoreUserVM> GetDetailForEditBy(long id);
         Task FillStoreId(long id,long storeId, string code);

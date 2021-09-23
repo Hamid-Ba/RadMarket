@@ -21,6 +21,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
         public string Province { get; set; }
         public string Address { get; set; }
         public string StoreGivenStatusReason { get; set; }
+        public string CreationDate { get; set; }
     }
 
     public class CreateStoreVM

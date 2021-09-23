@@ -32,6 +32,12 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             Address = s.Address
         }).FirstOrDefaultAsync(s => s.Id == id);
 
+        public async Task<string> GetAdminName(long id)
+        {
+            var user = await _context.StoreUser.FirstOrDefaultAsync(u => u.Id == id);
+            return $"{user.FirstName} {user.LastName}";
+        }
+
         public async Task<StoreUser> GetUserBy(string mobile) => await _context.StoreUser.FirstOrDefaultAsync(s => s.Mobile == mobile);
         
     }
