@@ -14,6 +14,21 @@ namespace StoreManagement.Application
 
         public StoreApplication(IStoreRepository storeRepository) => _storeRepository = storeRepository;
 
+        public async Task<OperationResult> SendMessage(SendMessageStoreVM command)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetEntityByIdAsync(command.Id);
+
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+            if (string.IsNullOrWhiteSpace(store.MobileNumber))
+                return result.Failed("شماره موبایلی برای این شرکت تریف نشده است");
+
+            //ToDo Send Message
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> ChangeStatus(SpecifyStatusOfStoreVM command)
         {
             OperationResult result = new();

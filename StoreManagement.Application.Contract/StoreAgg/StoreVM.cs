@@ -176,4 +176,14 @@ namespace StoreManagement.Application.Contract.StoreAgg
         [Display(Name = "دلیل")]
         public string StoreGivenStatusReason { get; set; }
     }
+
+    public class SendMessageStoreVM
+    {
+        public long Id { get; set; }
+
+        [Display(Name = "پیام")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(500, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        public string Message { get; set; }
+    }
 }

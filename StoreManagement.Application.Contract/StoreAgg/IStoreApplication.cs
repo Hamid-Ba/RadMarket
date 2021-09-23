@@ -16,6 +16,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<OperationResult> IsStoreConfirmedBy(long id);
         Task<OperationResult> IsStoreConfirmedBy(string code);
         Task<(OperationResult,long)> Create(CreateStoreVM command);
+        Task<OperationResult> SendMessage(SendMessageStoreVM command);
         Task<OperationResult> ChangeStatus(SpecifyStatusOfStoreVM command);
     }
 }

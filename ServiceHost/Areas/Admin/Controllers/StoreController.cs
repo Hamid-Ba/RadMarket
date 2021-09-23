@@ -80,5 +80,18 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> BankInfo(long id) => PartialView(await _storeApplication.GetBankInfoBy(id));
 
+        [HttpGet]
+        public IActionResult SendMessage(long id) => PartialView(new SendMessageStoreVM(){ Id = id });
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendMessage(SendMessageStoreVM command)
+        {
+            var result = await _storeApplication.SendMessage(command);
+
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+
+            return new JsonResult(result);
+        }
     }
 }
