@@ -118,6 +118,25 @@ namespace StoreManagement.Application.Contract.StoreAgg
         [MaxLength(125, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string Name { get; set; }
 
+        [Display(Name = "شماره حساب")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(16, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string AccountNumber { get; set; }
+
+        [Display(Name = "شماره شبا")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(26, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MinLength(26, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
+        public string ShabaNumber { get; set; }
+
+        [Display(Name = "شماره کارت")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MaxLength(16, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
+        [MinLength(16, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "لطفا شماره خود را به فرم صحیح وارد نمایید")]
+        public string CardNumber { get; set; }
+
         [Display(Name = "شماره تلفن")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string PhoneNumber { get; set; }
@@ -130,7 +149,6 @@ namespace StoreManagement.Application.Contract.StoreAgg
         public string MobileNumber { get; set; }
 
         [Display(Name = "درباره فروشگاه")]
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [MaxLength(1500, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string Description { get; set; }
 

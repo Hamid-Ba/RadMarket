@@ -35,7 +35,7 @@ namespace StoreManagement.Application
             OperationResult result = new();
 
             var store = await _storeRepository.GetEntityByIdAsync(id);
-            
+
             if (store is null) return result.Failed(ApplicationMessage.NotExist);
             if (store.Status != StoreStatus.Confirmed) return result.Failed("شرکت شما تایید نشده است!");
 
@@ -62,9 +62,9 @@ namespace StoreManagement.Application
             && s.Status == Framework.Domain.StoreStatus.Confirmed))
                 return (result.Failed(ApplicationMessage.StoreOwnerHasAlreadyAStore), 0);
 
-            var store = new Store(command.StoreAdminUserId, command.Name,command.AccountNumber,command.ShabaNumber,command.CardNumber,
-                command.PhoneNumber, command.MobileNumber, 
-                command.Province, command.City, command.Address,StoreStatus.UnderProgressed);
+            var store = new Store(command.StoreAdminUserId, command.Name, command.AccountNumber, command.ShabaNumber, command.CardNumber,
+                command.PhoneNumber, command.MobileNumber,
+                command.Province, command.City, command.Address, StoreStatus.UnderProgressed);
 
             await _storeRepository.AddEntityAsync(store);
             await _storeRepository.SaveChangesAsync();
@@ -103,7 +103,8 @@ namespace StoreManagement.Application
             if (_storeRepository.Exists(s => (s.MobileNumber == command.MobileNumber || s.StoreAdminUserId == command.StoreAdminUserId) && s.Id != command.Id))
                 return result.Failed(ApplicationMessage.StoreOwnerHasAlreadyAStore);
 
-            store.Edit(command.Name, command.PhoneNumber, command.MobileNumber, command.Description, command.Address);
+            store.Edit(command.Name, command.PhoneNumber, command.MobileNumber, command.AccountNumber, command.ShabaNumber, command.CardNumber
+                , command.Description, command.Province, command.City, command.Address);
             store.ChangeStatus(StoreStatus.UnderProgressed, "مشخصات فروشگاه تغییر یافت");
 
             await _storeRepository.SaveChangesAsync();

@@ -16,7 +16,7 @@ SinglePage.LoadModal = function () {
             $.validator.unobtrusive.parse(newForm);
             showModal();
         }).fail(function (error) {
-            alert("خطایی رخ داده، لطفا با مدیر سیستم تماس بگیرید.");
+            ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error');
         });
 };
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
                         CallBackHandler(data, action, form);
                     },
                     error: function (data) {
-                        alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
+                        ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error');
                     }
                 });
             }
@@ -82,13 +82,13 @@ $(document).ready(function () {
 function CallBackHandler(data, action, form) {
     switch (action) {
         case "Message":
-            alert(data.Message);
+            ShowMessage('پیام', data.message, 'info');
             break;
         case "Refresh":
             if (data.isSucceeded) {
                 window.location.reload();
             } else {
-                alert(data.message);
+                ShowMessage('مشکل سیستم', data.message ,'error');
             }
             break;
         case "RefereshList":
@@ -137,7 +137,7 @@ function checkSlugDuplication(url, dist) {
         url: url + '/' + id,
         success: function (data) {
             if (data) {
-                sendNotification('error', 'top right', "خطا", "اسلاگ نمی تواند تکراری باشد");
+                ShowMessage('مشکل سیستم', "اسلاگ نمی تواند تکراری باشد.", 'error');
             }
         }
     });
@@ -179,7 +179,7 @@ function handleAjaxCall(method, url, data) {
             function (data) {
 
             }).fail(function (error) {
-                alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
+                ShowMessage('مشکل سیستم', "خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.", 'error');
             });
     }
 }

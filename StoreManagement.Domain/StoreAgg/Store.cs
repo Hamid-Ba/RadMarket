@@ -24,7 +24,7 @@ namespace StoreManagement.Domain.StoreAgg
 
         public List<Product> Products { get; private set; }
 
-        public Store(long storeAdminUserId,string name,string mobile, string province, string city,string address)
+        public Store(long storeAdminUserId, string name, string mobile, string province, string city, string address)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
@@ -35,14 +35,14 @@ namespace StoreManagement.Domain.StoreAgg
             Address = address;
         }
 
-        public Store(long storeAdminUserId, string name,string accountNumber,string shabaNumber,string cardNumber,string phoneNumber, 
+        public Store(long storeAdminUserId, string name, string accountNumber, string shabaNumber, string cardNumber, string phoneNumber,
             string mobileNumber, string province, string city, string address, StoreStatus status)
         {
             StoreAdminUserId = storeAdminUserId;
             UniqueCode = Guid.NewGuid().ToString().Substring(0, 8);
             Name = name;
             AccountNumber = accountNumber;
-            ShabaNumber = "IR"+shabaNumber;
+            ShabaNumber = "IR" + shabaNumber;
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
@@ -53,12 +53,18 @@ namespace StoreManagement.Domain.StoreAgg
             StoreGivenStatusReason = "شرکت تازه ثبت شده";
         }
 
-        public void Edit(string name,string phoneNumber, string mobileNumber, string description, string address)
+        public void Edit(string name, string phoneNumber, string mobileNumber, string accountNumber, string shabaNumber, string cardNumber
+            , string description, string province, string city, string address)
         {
             Name = name;
             PhoneNumber = phoneNumber;
             MobileNumber = mobileNumber;
+            AccountNumber = accountNumber;
+            ShabaNumber = shabaNumber;
+            CardNumber = cardNumber;
             Description = description;
+            Province = province;
+            City = city;
             Address = address;
             LastUpdateDate = DateTime.Now;
         }

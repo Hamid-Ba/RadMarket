@@ -53,9 +53,14 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Id = s.Id,
             StoreAdminUserId = s.StoreAdminUserId,
             Name = s.Name,
+            AccountNumber = s.AccountNumber,
+            ShabaNumber = s.ShabaNumber,
+            CardNumber = s.CardNumber,
             PhoneNumber = s.PhoneNumber,
             MobileNumber = s.MobileNumber,
             Description = s.Description,
+            Province = s.Province,
+            City = s.City,
             Address = s.Address
         }).FirstOrDefaultAsync(s => s.Id == id);
 
