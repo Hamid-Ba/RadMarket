@@ -10,6 +10,8 @@ namespace StoreManagement.Domain.StoreAgg
         Task<string> GetStoreCode(long id);
         Task<IEnumerable<StoreVM>> GetAll();
         Task<Store> GetStoreBy(string code);
+        Task<BankStoreVM> GetBankInfo(long id);
+        Task<AddressStoreVM> GetAddressInfo(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
     }
 }

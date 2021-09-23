@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AccountManagement.Application.Contract.StoreUserAgg;
 using Framework.Domain;
 using StoreManagement.Application.Contract.StoreAgg;
 

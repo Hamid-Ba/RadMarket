@@ -89,6 +89,10 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<BankStoreVM> GetBankInfoBy(long id) => await _storeRepository.GetBankInfo(id);
+
+        public async Task<AddressStoreVM> GetAddressInfoBy(long id) => await _storeRepository.GetAddressInfo(id);
+
         public async Task<OperationResult> Edit(EditStoreVM command)
         {
             OperationResult result = new();

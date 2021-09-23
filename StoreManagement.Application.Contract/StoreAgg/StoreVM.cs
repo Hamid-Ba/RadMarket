@@ -24,6 +24,22 @@ namespace StoreManagement.Application.Contract.StoreAgg
         public string CreationDate { get; set; }
     }
 
+    public class BankStoreVM
+    {
+        public long Id { get; set; }
+        public string AccountNumber { get; set; }
+        public string ShabaNumber { get; set; }
+        public string CardNumber { get; set; }
+    }
+
+    public class AddressStoreVM
+    {
+        public long Id { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string Address { get; set; }
+    }
+
     public class CreateStoreVM
     {
         public long StoreAdminUserId { get; set; }

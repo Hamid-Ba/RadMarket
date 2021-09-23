@@ -32,6 +32,22 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public async Task<Store> GetStoreBy(string code) => await _context.Stores.FirstOrDefaultAsync(s => s.UniqueCode == code);
 
+        public async Task<BankStoreVM> GetBankInfo(long id) => await _context.Stores.Select(s => new BankStoreVM()
+        {
+            Id = s.Id,
+            AccountNumber = s.AccountNumber,
+            CardNumber = s.CardNumber,
+            ShabaNumber = s.ShabaNumber
+        }).FirstOrDefaultAsync(s => s.Id == id);
+
+        public async Task<AddressStoreVM> GetAddressInfo(long id)  => await _context.Stores.Select(s => new AddressStoreVM()
+        {
+            Id = s.Id,
+            Province = s.Province,
+            City = s.City,
+            Address = s.Address
+        }).FirstOrDefaultAsync(s => s.Id == id);
+
         public async Task<EditStoreVM> GetDetailForEditBy(long id) => await _context.Stores.Select(s => new EditStoreVM
         {
             Id = s.Id,

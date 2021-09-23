@@ -9,7 +9,9 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<string> GetStoreCode(long id);
         Task<IEnumerable<StoreVM>> GetAll();
         Task<OperationResult> Delete(long id);
+        Task<BankStoreVM> GetBankInfoBy(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
+        Task<AddressStoreVM> GetAddressInfoBy(long id);
         Task<OperationResult> Edit(EditStoreVM command);
         Task<OperationResult> IsStoreConfirmedBy(long id);
         Task<OperationResult> IsStoreConfirmedBy(string code);
