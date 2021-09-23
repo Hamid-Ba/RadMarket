@@ -1,4 +1,5 @@
-﻿using AdminManagement.Application.Contract.ProvinceAgg;
+﻿using System.Collections.Generic;
+using AdminManagement.Application.Contract.ProvinceAgg;
 using AdminManagement.Domain.ProvinceAgg;
 using Framework.Application;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace AdminManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<IEnumerable<ProvinceVM>> GetAll() => await _provinceRepository.GetAll();
+
         public async Task<OperationResult> Edit(EditProvinceVM command)
         {
             OperationResult result = new();
@@ -53,6 +56,6 @@ namespace AdminManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<EditProvinceVM> GetDetialForEditBy(long id) => await _provinceRepository.GetDetialForEditBy(id);
+        public async Task<EditProvinceVM> GetDetailForEditBy(long id) => await _provinceRepository.GetDetailForEditBy(id);
     }
 }
