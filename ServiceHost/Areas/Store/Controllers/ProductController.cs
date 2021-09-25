@@ -26,7 +26,7 @@ namespace ServiceHost.Areas.Store.Controllers
 
             var model = PagingList.Create(products, 10, pageIndex);
 
-            ViewBag.Rows = (10 * pageIndex) - 9;
+            ViewBag.Rows = (10 * pageIndex);
 
             model.RouteValue = new RouteValueDictionary()
             {
