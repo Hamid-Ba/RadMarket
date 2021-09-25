@@ -1,4 +1,5 @@
-﻿using Framework.Application;
+﻿using System.Collections.Generic;
+using Framework.Application;
 using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Domain.CategoryAgg;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace StoreManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<CategoryVM>> GetAll() => await _categoryRepository.GetAll();
 
         public async Task<OperationResult> Edit(EditCategoryVM command)
         {

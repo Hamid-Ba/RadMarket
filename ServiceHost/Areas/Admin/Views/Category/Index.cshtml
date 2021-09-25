@@ -1,7 +1,7 @@
-﻿@model IEnumerable<AdminManagement.Application.Contract.ProvinceAgg.ProvinceVM>
+﻿@model IEnumerable<StoreManagement.Application.Contract.CategoryAgg.CategoryVM>
 
 @{
-    ViewData["Title"] = "استان ها";
+    ViewData["Title"] = "دسته بندی ها";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,7 +9,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Action("Create", "Province")">ایجاد استان جدید</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Action("Create", "Category")">ایجاد دسته بندی جدید</a>
         </p>
     </div>
 </div>
@@ -28,7 +28,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>نام</th>
-                                    
+                                    <th>اسلاگ</th>
+                                    <th>توضیحات</th>
+
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
@@ -38,16 +40,18 @@
                                     <tr class="text-center">
                                         <td>@entity.Id</td>
                                         <td>@entity.Name</td>
+                                        <td>@entity.Slug</td>
+                                        <td>@entity.Description</td>
 
                                         <td style="text-align: center;">
 
                                             <a class="btn btn-warning pull-right m-rl-5"
-                                               href="#showmodal=@Url.Action("Edit", "Province", new {id = entity.Id})">
+                                               href="#showmodal=@Url.Action("Edit", "Category", new {id = entity.Id})">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
                                             <a class="btn btn-danger pull-right m-rl-5"
-                                               href="#showmodal=@Url.Action("Delete", "Province", new {id = entity.Id})">
+                                               href="#showmodal=@Url.Action("Delete", "Category", new {id = entity.Id})">
                                                 <i class="fa fa-trash"></i>
                                             </a>
 

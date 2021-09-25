@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using System.Collections.Generic;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Domain.CategoryAgg;
@@ -12,6 +13,14 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
         private readonly StoreContext _context;
 
         public CategoryRepository(StoreContext context) : base(context) => _context = context;
+
+        public async Task<IEnumerable<CategoryVM>> GetAll() => await _context.Categories.Select(c => new CategoryVM()
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Description = c.Description,
+            Slug = c.Slug
+        }).AsNoTracking().ToListAsync();
 
         public async Task<EditCategoryVM> GetDetailForEditBy(long id) => await _context.Categories.Select(c => new EditCategoryVM
         {
