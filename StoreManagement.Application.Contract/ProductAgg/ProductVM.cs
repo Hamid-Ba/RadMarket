@@ -1,14 +1,15 @@
 ﻿using Framework.Application;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace StoreManagement.Application.Contract.ProductAgg
 {
     public class ProductVM
     {
+        public long Id { get; set; }
         public long StoreId { get; set; }
         public long CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Picture { get; set; }
@@ -16,7 +17,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public string PictureTitle { get; set; }
         public int EachBoxCount { get; set; }
         public double ConsumerPrice { get; set; }
-        public double PurchacePrice { get; set; }
+        public double PurchasePrice { get; set; }
         public double MoneyGain { get; set; }
         public int Stock { get; set; }
         public int Prize { get; set; }

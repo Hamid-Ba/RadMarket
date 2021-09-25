@@ -142,7 +142,7 @@ namespace StoreManagement.Infrastructure.EfCore.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("int");
 
-                    b.Property<double>("PurchacePrice")
+                    b.Property<double>("PurchasePrice")
                         .HasColumnType("float");
 
                     b.Property<string>("Slug")

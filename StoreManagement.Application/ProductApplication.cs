@@ -1,4 +1,5 @@
-﻿using Framework.Application;
+﻿using System.Collections.Generic;
+using Framework.Application;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Domain.ProductAgg;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace StoreManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<ProductVM>> GetAll() => await _productRepository.GetAll();
 
         public async Task<OperationResult> Delete(long id)
         {
