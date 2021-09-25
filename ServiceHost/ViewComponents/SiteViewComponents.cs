@@ -17,5 +17,13 @@ namespace ServiceHost.ViewComponents
             return View();
         }
     }
-    
+
+    public class ResponsiveMenuViewComponent : ViewComponent
+    {
+        public IViewComponentResult Invoke()
+        {
+            return View();
+        }
+    }
+
 }
