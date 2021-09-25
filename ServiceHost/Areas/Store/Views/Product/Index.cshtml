@@ -22,8 +22,7 @@
 <div class="table-me container my-5">
     @if (Model.Count == 0 || Model.Any() is false)
     {
-        <div class="my-5"><p class="alert alert-warning"> هنوز هیچ محصولی ثبت نشده است </p></div>
-        
+        <p class="alert alert-warning"> هنوز هیچ محصولی ثبت نشده است </p>
     }
     else
     {
@@ -91,7 +90,7 @@
         </div>
     }
 </div>
-
+<!-- tabels -->
 <!-- Paginate -->
 <div class="my-5">
     <div class="my-5" aria-label="Page navigation example">
@@ -112,5 +111,4 @@
         </ul>
     </div>
 </div>
-@*Paginate*@
-<!-- tabels -->
+<!-- Paginate -->

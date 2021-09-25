@@ -79,6 +79,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public int Stock { get; set; }
 
         [Display(Name = "جایزه به ازای تعداد")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public int Prize { get; set; }
 
