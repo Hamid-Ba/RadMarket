@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Framework.Application.Authentication;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
 using ReflectionIT.Mvc.Paging;
@@ -19,15 +20,17 @@ namespace ServiceHost.Areas.Store.Controllers
             _categoryApplication = categoryApplication;
         }
 
-        public async Task<IActionResult> Index(string code, int pageIndex = 1)
+        public async Task<IActionResult> Index(SearchStoreVM search, int pageIndex = 1)
         {
-            var products = await _productApplication.GetAll();
+            var products = await _productApplication.GetAll(User.GetStoreId(),search);
 
             var model = PagingList.Create(products, 10, pageIndex);
 
+            ViewBag.Rows = (10 * pageIndex) - 9;
+
             model.RouteValue = new RouteValueDictionary()
             {
-                {"code", code}
+                {"search", search},
             };
 
             //if (pageIndex > model.PageCount) return NotFound();
@@ -35,10 +38,34 @@ namespace ServiceHost.Areas.Store.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateProductVM command)
+        {
+            ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
+            if (ModelState.IsValid)
+            {
+                command.StoreId = User.GetStoreId();
+                var result = await _productApplication.Create(command);
+
+                if (result.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Message;
+                    return RedirectToAction("Index", "Product");
+                }
+
+                TempData[ErrorMessage] = result.Message;
+            }
+
+            return View(command);
+        }
+
     }
 }

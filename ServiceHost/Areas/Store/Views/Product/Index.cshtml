@@ -19,7 +19,7 @@
 </div>
 <!-- .search-box-me -->
 <!-- tabels -->
-<div class="table-me container my-5">
+<div class="table-me container my-5" style="overflow-y: scroll !important">
     @if (Model.Count == 0 || Model.Any() is false)
     {
         <p class="alert alert-warning"> هنوز هیچ محصولی ثبت نشده است </p>
@@ -34,9 +34,9 @@
                     <th scope="col">کد</th>
                     <th scope="col">دسته بندی</th>
                     <th scope="col">تعداد در انبار</th>
-                    <th scope="col">قیمت خریدار</th>
-                    <th scope="col">قیمت مصرف کننده</th>
-                    <th scope="col">سود</th>
+                    <th scope="col">(تومان)قیمت خریدار</th>
+                    <th scope="col">قیمت مصرف کننده(تومان)</th>
+                    <th scope="col">سود(تومان)</th>
                     <th scope="col">وضعیت</th>
                     <th scope="col">عملیات</th>
 
@@ -49,7 +49,7 @@
                 @foreach (var entity in Model)
                 {
                     <tr>
-                        <th scope="row">1</th>
+                        <td scope="row"> @(ViewBag.Rows++)</td>
                         <td>@entity.Name</td>
                         <td>@entity.Code</td>
                         <td>@entity.CategoryName</td>
@@ -57,8 +57,8 @@
                         <td>@entity.PurchasePrice</td>
                         <td>@entity.ConsumerPrice</td>
                         <td>@entity.MoneyGain</td>
-                        <td>
-                            @entity.ProductAcceptanceState
+                        <td class="text-center">
+                            @entity.ProductAcceptanceState.GetEnumName()
 
                             <hr />
 
@@ -66,9 +66,13 @@
                             {
                                 <span class="text-success"> @entity.ProductAcceptOrRejectDescription </span>
                             }
-                            else
+                            else if (entity.ProductAcceptanceState == ProductAcceptanceState.Rejected)
                             {
                                 <span class="text-danger"> @entity.ProductAcceptOrRejectDescription </span>
+                            }
+                            else
+                            {
+                                <span class="text-warning"> @entity.ProductAcceptOrRejectDescription </span>
                             }
                         </td>
                         <td><a href="" class="btn-sm btn-outline-danger">ویرایش</a></td>

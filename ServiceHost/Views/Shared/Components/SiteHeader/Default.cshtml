@@ -31,7 +31,7 @@
 
                 else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value))
                 {
-                    <li><a asp-area="Store" asp-controller="Dashboard">پنل شرکت</a></li>
+                    <li><a asp-area="Store" asp-controller="Dashboard" asp-action="Index">پنل شرکت</a></li>
                 }
 
                 else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "IsAdminUser")?.Value))

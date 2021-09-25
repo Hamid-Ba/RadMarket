@@ -14,23 +14,30 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public ProductRepository(StoreContext context) : base(context) => _context = context;
 
-        public async Task<IEnumerable<ProductVM>> GetAll() => await _context.Products.Include(c => c.Category).Select(
-            p => new ProductVM()
-            {
-                Id = p.Id,
-                StoreId = p.StoreId,
-                Name = p.Name,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.Name,
-                Code = p.Code,
-                Stock = p.Stock,
-                ConsumerPrice = p.ConsumerPrice,
-                PurchasePrice = p.PurchacePrice,
-                MoneyGain = p.MoneyGain,
-                ProductAcceptanceState = p.ProductAcceptanceState,
-                ProductAcceptOrRejectDescription = p.ProductAcceptOrRejectDescription
-            }).AsNoTracking().ToListAsync();
-        
+        public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search)
+        {
+            var result =  _context.Products.Include(c => c.Category).Select(
+                p => new ProductVM()
+                {
+                    Id = p.Id,
+                    StoreId = p.StoreId,
+                    Name = p.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    Code = p.Code,
+                    Stock = p.Stock,
+                    ConsumerPrice = p.ConsumerPrice,
+                    PurchasePrice = p.PurchacePrice,
+                    MoneyGain = p.MoneyGain,
+                    ProductAcceptanceState = p.ProductAcceptanceState,
+                    ProductAcceptOrRejectDescription = p.ProductAcceptOrRejectDescription
+                }).AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
+
+            return await result.ToListAsync();
+        }
+
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _context.Products.Select(p => new EditProductVM
         {
@@ -52,6 +59,30 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Slug = p.Slug,
             Stock = p.Stock
         }).FirstOrDefaultAsync(p => p.Id == id);
-        
+
+        public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search)
+        {
+            var result = _context.Products.Where(s => s.StoreId == storeId).Include(c => c.Category).Select(
+                p => new ProductVM()
+                {
+                    Id = p.Id,
+                    StoreId = p.StoreId,
+                    Name = p.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    Code = p.Code,
+                    Stock = p.Stock,
+                    ConsumerPrice = p.ConsumerPrice,
+                    PurchasePrice = p.PurchacePrice,
+                    MoneyGain = p.MoneyGain,
+                    ProductAcceptanceState = p.ProductAcceptanceState,
+                    ProductAcceptOrRejectDescription = p.ProductAcceptOrRejectDescription
+                }).AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
+
+            return await result.ToListAsync();
+        }
+
     }
 }

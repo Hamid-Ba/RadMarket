@@ -105,4 +105,9 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public long Id { get; set; }
         public string PictureName { get; set; }
     }
+
+    public class SearchStoreVM
+    {
+        public string Code { get; set; }
+    }
 }

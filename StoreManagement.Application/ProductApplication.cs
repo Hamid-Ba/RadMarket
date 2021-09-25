@@ -16,6 +16,9 @@ namespace StoreManagement.Application
         {
             OperationResult result = new();
 
+            if (string.IsNullOrWhiteSpace(command.Description))
+                return result.Failed("درباره محصول نمی تواند خالی باشد");
+
             if (_productRepository.Exists(p => p.Code == command.Code && p.StoreId == command.StoreId))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
@@ -31,7 +34,9 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<IEnumerable<ProductVM>> GetAll() => await _productRepository.GetAll();
+        public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search) => await _productRepository.GetAll(search);
+        
+        public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search) => await _productRepository.GetAll(storeId,search);
 
         public async Task<OperationResult> Delete(long id)
         {
