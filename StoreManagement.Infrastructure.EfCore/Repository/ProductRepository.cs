@@ -14,6 +14,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public ProductRepository(StoreContext context) : base(context) => _context = context;
 
+        public async Task<bool> IsProductBelongToStore(long id, long storeId) => await _context.Products.AnyAsync(p => p.Id == id && p.StoreId == storeId);
+
         public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search)
         {
             var result =  _context.Products.Include(c => c.Category).Select(

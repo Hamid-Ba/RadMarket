@@ -1,0 +1,129 @@
+﻿@model StoreManagement.Application.Contract.ProductAgg.EditProductVM
+@{
+    ViewData["Title"] = "ویرایش محصول";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="https://cdn.tiny.cloud/1/bofsilxqs8ay4n0o4a3vj02ny82abzm5uryl93ih0pkmq2tm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#TinyArea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ویرایش محصول</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="Product" asp-action="Edit" method="post" enctype="multipart/form-data" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">نام محصول</label>
+                    <input type="" asp-for="Name" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">اسلاگ</label>
+                    <input type="" asp-for="Slug" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">کد محصول</label>
+                    <input type="" asp-for="Code" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">دسته بندی</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="CategoryId" asp-items="@ViewBag.Categories">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="exampleInputPassword1" class="form-label">تصویر</label>
+                    <input class="form-control" asp-for="Picture" type="file" id="formFile">
+                    <span asp-validation-for="Picture" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">جایگزین تصویر</label>
+                    <input type="" asp-for="PictureAlt" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="PictureAlt" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">عنوان تصویر</label>
+                    <input class="form-control" asp-for="PictureTitle" type="">
+                    <span asp-validation-for="PictureTitle" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">تعداد در انبار</label>
+                    <input class="form-control" asp-for="Stock" type="number">
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">تعداد در هر بسته</label>
+                    <input type="number" asp-for="EachBoxCount" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="EachBoxCount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">قیمت خریدار</label>
+                    <input class="form-control" asp-for="PurchacePrice" type="number">
+                    <span asp-validation-for="PurchacePrice" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">قیمت مصرف کننده</label>
+                    <input type="number" asp-for="ConsumerPrice" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="ConsumerPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">جایزه به ازای تعداد</label>
+                    <input class="form-control" asp-for="Prize" type="number">
+                    <span asp-validation-for="Prize" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">کلمات کلیدی</label>
+                    <input type="" asp-for="Keywords" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Keywords" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">درباره محصول</label>
+                <textarea asp-for="Description" class="form-control" id="TinyArea" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">توضیحات متا</label>
+                <textarea asp-for="MetaDescription" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="PictureName" />
+                <button type="submit" class="btn btn-outline-danger w-50">ویرایش محصول</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -75,7 +75,7 @@
                                 <span class="text-warning"> @entity.ProductAcceptOrRejectDescription </span>
                             }
                         </td>
-                        <td><a href="" class="btn-sm btn-outline-danger">ویرایش</a></td>
+                        <td><a asp-controller="Product" asp-action="Edit" asp-route-id="@entity.Id" class="btn-sm btn-outline-danger">ویرایش</a></td>
                     </tr>
                 }
             </tbody>
