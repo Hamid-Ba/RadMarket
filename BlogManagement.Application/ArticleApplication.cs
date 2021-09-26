@@ -1,4 +1,5 @@
-﻿using BlogManagement.Application.Contract.ArticleAgg;
+﻿using System.Collections.Generic;
+using BlogManagement.Application.Contract.ArticleAgg;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using Framework.Application;
@@ -56,6 +57,8 @@ namespace BlogManagement.Application
             await _articleRepository.SaveChangesAsync();
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<ArticleVM>> GetAll() => await _articleRepository.GetAll();
 
         public async Task<OperationResult> Edit(EditArticleVM command)
         {

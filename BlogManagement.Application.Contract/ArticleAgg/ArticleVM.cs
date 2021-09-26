@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Framework.Application;
 using Microsoft.AspNetCore.Http;
 
@@ -10,6 +9,7 @@ namespace BlogManagement.Application.Contract.ArticleAgg
         public long Id { get; set; }
         public string Title { get;  set; }
         public long ArticleCategoryId { get;  set; }
+        public string ArticleCategoryName { get;  set; }
         public string PictureName { get;  set; }
         public string PictureAlt { get;  set; }
         public string PictureTitle { get;  set; }
@@ -19,6 +19,7 @@ namespace BlogManagement.Application.Contract.ArticleAgg
         public string Description { get;  set; }
         public string Slug { get;  set; }
         public string Keywords { get;  set; }
+        public string CreationDate { get; set; }
         public string MetaDescription { get;  set; }
     }
 

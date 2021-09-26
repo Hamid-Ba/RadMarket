@@ -1,4 +1,5 @@
-﻿using BlogManagement.Application.Contract.ArticleAgg;
+﻿using System.Collections.Generic;
+using BlogManagement.Application.Contract.ArticleAgg;
 using BlogManagement.Domain.ArticleAgg;
 using Framework.Application;
 using Framework.Infrastructure;
@@ -13,6 +14,20 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
         private readonly BlogContext _context;
 
         public ArticleRepository(BlogContext context) : base(context) => _context = context;
+
+        public async Task<IEnumerable<ArticleVM>> GetAll() => await _context.Articles.Include(c => c.ArticleCategory)
+            .Select(a => new ArticleVM()
+            {
+                Id = a.Id,
+                ArticleCategoryId = a.ArticleCategoryId,
+                ArticleCategoryName = a.ArticleCategory.Name,
+                Title = a.Title,
+                PictureName = a.PictureName,
+                Author = a.Author,
+                PublishDate = a.PublishDate.ToFarsi(),
+                CreationDate = a.CreationDate.ToFarsi(),
+                ShortDescription = a.ShortDescription.Substring(0,25)
+            }).AsNoTracking().ToListAsync();
 
         public async Task<EditArticleVM> GetDetailForEditBy(long id) => await _context.Articles.Select(a => new EditArticleVM
         {
