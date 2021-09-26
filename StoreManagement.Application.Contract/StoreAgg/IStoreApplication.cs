@@ -7,6 +7,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
     public interface IStoreApplication
     {
         Task<string> GetStoreCode(long id);
+        Task<string> GetStoreName(long id);
         Task<IEnumerable<StoreVM>> GetAll();
         Task<OperationResult> Delete(long id);
         Task<BankStoreVM> GetBankInfoBy(long id);

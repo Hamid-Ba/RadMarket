@@ -8,6 +8,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
     {
         public long Id { get; set; }
         public long StoreId { get; set; }
+        public string StoreName { get; set; }
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Code { get; set; }
@@ -25,6 +26,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public string Slug { get; set; }
         public string Keywords { get; set; }
         public string MetaDescription { get; set; }
+        public string CreationDate { get; set; }
         public string ProductAcceptOrRejectDescription { get; set; }
         public ProductAcceptanceState ProductAcceptanceState { get; set; }
     }
@@ -172,6 +174,13 @@ namespace StoreManagement.Application.Contract.ProductAgg
         [Display(Name = "توضیحات متا")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string MetaDescription { get; set; }
+    }
+
+    public class ChangeStatusProductVM
+    {
+        public long Id { get; set; }
+        public ProductAcceptanceState State { get; set; }
+        public string Description { get; set; }
     }
 
     public class SearchStoreVM

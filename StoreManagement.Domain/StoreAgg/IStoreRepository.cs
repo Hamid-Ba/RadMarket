@@ -8,6 +8,7 @@ namespace StoreManagement.Domain.StoreAgg
     public interface IStoreRepository : IRepository<Store>
     {
         Task<string> GetStoreCode(long id);
+        Task<string> GetStoreName(long id);
         Task<IEnumerable<StoreVM>> GetAll();
         Task<Store> GetStoreBy(string code);
         Task<BankStoreVM> GetBankInfo(long id);

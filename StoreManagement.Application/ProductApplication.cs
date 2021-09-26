@@ -38,8 +38,24 @@ namespace StoreManagement.Application
         public async Task<bool> IsProductBelongToStore(long id, long storeId) => await _productRepository.IsProductBelongToStore(id, storeId);
 
         public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search) => await _productRepository.GetAll(search);
-        
-        public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search) => await _productRepository.GetAll(storeId,search);
+
+        public async Task<OperationResult> ChangeStatus(ChangeStatusProductVM command)
+        {
+            OperationResult result = new();
+
+            var product = await _productRepository.GetEntityByIdAsync(command.Id);
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (command.State == ProductAcceptanceState.Rejected && string.IsNullOrWhiteSpace(command.Description))
+                command.Description = "محصول رد شده";
+
+            product.SetProductState(command.State, command.Description);
+            await _productRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
+        public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search) => await _productRepository.GetAll(storeId, search);
 
         public async Task<OperationResult> Delete(long id)
         {
@@ -61,7 +77,7 @@ namespace StoreManagement.Application
             OperationResult result = new();
 
             var product = await _productRepository.GetEntityByIdAsync(command.Id);
-            
+
             if (product is null) return result.Failed(ApplicationMessage.NotExist);
             if (_productRepository.Exists(p => p.Code == command.Code && p.StoreId == command.StoreId && p.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);

@@ -17,6 +17,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public async Task<string> GetStoreCode(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).UniqueCode;
 
+        public async Task<string> GetStoreName(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).Name;
+
         public async Task<IEnumerable<StoreVM>> GetAll() => await _context.Stores.Select(s => new StoreVM()
         {
             Id = s.Id,
@@ -40,7 +42,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             ShabaNumber = s.ShabaNumber
         }).FirstOrDefaultAsync(s => s.Id == id);
 
-        public async Task<AddressStoreVM> GetAddressInfo(long id)  => await _context.Stores.Select(s => new AddressStoreVM()
+        public async Task<AddressStoreVM> GetAddressInfo(long id) => await _context.Stores.Select(s => new AddressStoreVM()
         {
             Id = s.Id,
             Province = s.Province,

@@ -89,6 +89,8 @@ namespace StoreManagement.Application
 
         public async Task<string> GetStoreCode(long id) => await _storeRepository.GetStoreCode(id);
 
+        public async Task<string> GetStoreName(long id) => await _storeRepository.GetStoreName(id);
+
         public async Task<IEnumerable<StoreVM>> GetAll() => await _storeRepository.GetAll();
 
         public async Task<OperationResult> Delete(long id)
