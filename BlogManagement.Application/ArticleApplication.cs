@@ -45,7 +45,7 @@ namespace BlogManagement.Application
             OperationResult result = new OperationResult();
 
             var article = await _articleRepository.GetEntityByIdAsync(id);
-            if (article == null) return result.Failed(ApplicationMessage.NotExist);
+            if (article is null) return result.Failed(ApplicationMessage.NotExist);
 
             var slug = article.Slug;
             var categorySlug = _articleCategoryRepository.GetCategorySlugBy(article.ArticleCategoryId);
