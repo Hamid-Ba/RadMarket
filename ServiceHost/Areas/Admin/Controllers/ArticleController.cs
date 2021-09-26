@@ -74,6 +74,19 @@ namespace ServiceHost.Areas.Admin.Controllers
 
             return View(command);
         }
-        
+
+        [HttpGet]
+        public IActionResult Delete(long id) => PartialView("Delete",id);
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PostDelete(long id)
+        {
+            var result = await _articleApplication.Delete(id);
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            return new JsonResult(result);
+        }
+
     }
 }
