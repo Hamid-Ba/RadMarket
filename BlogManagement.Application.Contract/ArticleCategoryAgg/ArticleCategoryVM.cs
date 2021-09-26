@@ -23,6 +23,7 @@ namespace BlogManagement.Application.Contract.ArticleCategoryAgg
         public string Description { get; set; }
 
         [Range(1,int.MaxValue,ErrorMessage = ValidationMessage.IsRequired)]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public int ShowOrder { get; set; }
         
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
