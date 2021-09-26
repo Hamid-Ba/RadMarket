@@ -1,4 +1,5 @@
-﻿using BlogManagement.Application.Contract.ArticleCategoryAgg;
+﻿using System.Collections.Generic;
+using BlogManagement.Application.Contract.ArticleCategoryAgg;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,16 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
         private readonly BlogContext _context;
 
         public ArticleCategoryRepository(BlogContext context) : base(context) => _context = context;
+
+        public async Task<IEnumerable<ArticleCategoryVM>> GetAll() => await _context.ArticleCategories.Select(c =>
+            new ArticleCategoryVM()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                ArticleCount = c.Articles.Count,
+                ShowOrder = c.ShowOrder,
+                Slug = c.Slug
+            }).AsNoTracking().ToListAsync();
 
         public async Task<EditArticleCategoryVM> GetDetailForEditBy(long id) => await _context.ArticleCategories.Select(c =>
             new EditArticleCategoryVM()

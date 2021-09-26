@@ -1,4 +1,5 @@
-﻿using BlogManagement.Application.Contract.ArticleCategoryAgg;
+﻿using System.Collections.Generic;
+using BlogManagement.Application.Contract.ArticleCategoryAgg;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using Framework.Application;
 using System.Threading.Tasks;
@@ -38,6 +39,8 @@ namespace BlogManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<ArticleCategoryVM>> GetAll() => await _articleCategoryRepository.GetAll();
 
         public async Task<OperationResult> Edit(EditArticleCategoryVM command)
         {
