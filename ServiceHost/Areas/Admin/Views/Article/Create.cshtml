@@ -1,4 +1,4 @@
-﻿@model BlogManagement.Application.Contract.ArticleAgg.CreateArticleVM 
+﻿@model BlogManagement.Application.Contract.ArticleAgg.CreateArticleVM
 
 @{
     ViewData["Title"] = "ایجاد مقاله";
@@ -20,21 +20,21 @@
                             <div class="form-group">
                                 <label asp-for="Title" class="control-label">عنوان</label>
                                 <input type="text" class="form-control" asp-for="Title" onchange="makeSlug('Title', 'Slug')">
-                                <span asp-validation-for="Title" class="error"></span>
+                                <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="Slug" class="control-label">اسلاگ</label>
                                 <input type="text" class="form-control" asp-for="Slug">
-                                <span asp-validation-for="Slug" class="error"></span>
+                                <span asp-validation-for="Slug" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="PublishDate" class="control-label">تاریخ انتشار</label>
                                 <input class="form-control persianDateInput" asp-for="PublishDate">
-                                <span asp-validation-for="PublishDate" class="error"></span>
+                                <span asp-validation-for="PublishDate" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -45,21 +45,21 @@
                                 <select class="form-control" asp-for="ArticleCategoryId" asp-items="@ViewBag.Categories">
                                     <option value="0">گروه...</option>
                                 </select>
-                                <span asp-validation-for="ArticleCategoryId" class="error"></span>
+                                <span asp-validation-for="ArticleCategoryId" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="Picture" class="control-label">عکس</label>
                                 <input type="file" class="form-control" asp-for="Picture" accept="image/*">
-                                <span asp-validation-for="Picture" class="error"></span>
+                                <span asp-validation-for="Picture" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="PictureAlt" class="control-label">Picture Alt</label>
                                 <input type="text" class="form-control" asp-for="PictureAlt">
-                                <span asp-validation-for="PictureAlt" class="error"></span>
+                                <span asp-validation-for="PictureAlt" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -68,21 +68,21 @@
                             <div class="form-group">
                                 <label asp-for="PictureTitle" class="control-label">عنوان عکس</label>
                                 <input type="text" class="form-control" asp-for="PictureTitle">
-                                <span asp-validation-for="PictureTitle" class="error"></span>
+                                <span asp-validation-for="PictureTitle" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="Author" class="control-label">نویسنده</label>
                                 <input type="text" class="form-control" asp-for="Author">
-                                <span asp-validation-for="Author" class="error"></span>
+                                <span asp-validation-for="Author" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="Keywords" class="control-label">کلمات کلیدی</label>
                                 <input type="text" class="form-control" asp-for="Keywords">
-                                <span asp-validation-for="Keywords" class="error"></span>
+                                <span asp-validation-for="Keywords" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 <label asp-for="ShortDescription" class="control-label">خلاصه</label>
                                 <textarea class="form-control autogrow" asp-for="ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
                                           style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
-                                <span asp-validation-for="ShortDescription" class="error"></span>
+                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                 <label asp-for="Description" class="control-label">توضیحات</label>
                                 <textarea id="TinyArea" class="form-control autogrow" asp-for="Description"
                                           style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
-                                <span asp-validation-for="Description" class="error"></span>
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                                 <label asp-for="MetaDescription" class="control-label">توضیحات متا</label>
                                 <textarea class="form-control autogrow" asp-for="MetaDescription"
                                           style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
-                                <span asp-validation-for="MetaDescription" class="error"></span>
+                                <span asp-validation-for="MetaDescription" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
 
 
                 <div class="modal-footer">
-                    <a asp-page="Index" type="button" class="btn btn-default waves-effect">بازگشت</a>
+                    <a asp-controller="Article" asp-action="Index" type="button" class="btn btn-default waves-effect">بازگشت</a>
                     <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
                 </div>
             </form>

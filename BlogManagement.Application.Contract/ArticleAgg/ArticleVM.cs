@@ -61,10 +61,44 @@ namespace BlogManagement.Application.Contract.ArticleAgg
         public string MetaDescription { get; set; }
     }
 
-    public class EditArticleVM : CreateArticleVM
+    public class EditArticleVM 
     {
         public long Id { get; set; }
         public string PictureName { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Title { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long ArticleCategoryId { get; set; }
+
+        public IFormFile Picture { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string PictureAlt { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string PictureTitle { get; set; }
+
+        public string PublishDate { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Author { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string ShortDescription { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Slug { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Keywords { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string MetaDescription { get; set; }
     }
 
     public class SearchArticleVM

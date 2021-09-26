@@ -9,7 +9,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" asp-controller="Article" asp-action="Create">ایجاد مقاله جدید</a>
+            <a class="btn btn-success btn-lg" asp-area="Admin" asp-controller="Article" asp-action="Create">ایجاد مقاله جدید</a>
         </p>
     </div>
 </div>
@@ -53,12 +53,12 @@
                                         <td>@article.CreationDate</td>
                                         <td class="text-center">
                                             <a class="btn btn-warning btn-block"
-                                               asp-page="Edit" asp-route-id="@article.Id">
+                                               asp-action="Edit" asp-route-id="@article.Id">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
                                             <a class="btn btn-danger btn-block"
-                                               asp-page="Index" asp-page-handler="Delete" asp-route-id="@article.Id">
+                                               href="#showmodal=@Url.Action("Delete", "Article", new {id = @article.Id})">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
