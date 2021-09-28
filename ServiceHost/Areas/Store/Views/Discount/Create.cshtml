@@ -1,0 +1,75 @@
+﻿@model DiscountManagement.Application.Contract.DiscountAgg.CreateDiscountVM
+@{
+    ViewData["Title"] = "ایجاد تخفیف";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    <link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
+    <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
+
+    <script>
+        $('.persianDateInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+
+        $('.persianDateInput1').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+    </script>
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ایجاد تخفیف</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="Discount" asp-action="Create" method="post" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">نام محصول</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="ProductId" asp-items="@ViewBag.Products">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">درصد تخفیف</label>
+                    <input type="number" asp-for="DiscountRate" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="DiscountRate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">تاریخ شروع</label>
+                    <input type="" asp-for="StartDate" class="form-control persianDateInput" id="exampleInputPassword1">
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">تاریخ پایان</label>
+                    <input type="" asp-for="EndDate" class="form-control persianDateInput1" id="exampleInputPassword1">
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">دلیل</label>
+                <textarea asp-for="Reason" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-danger w-50">ایجاد تخفیف</button>
+            </div>
+        </form>
+    </div>
+</div>

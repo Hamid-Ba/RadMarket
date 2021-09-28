@@ -19,7 +19,7 @@ namespace DiscountManagement.Infrastructure.Configuration
             #endregion
 
             service.AddTransient<IDiscountRepository, DiscountRepository>();
-            service.AddTransient<IDiscountApplication, DisocuntApplication>();
+            service.AddTransient<IDiscountApplication, DiscountApplication>();
         }
     }
 }

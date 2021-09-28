@@ -1,15 +1,18 @@
-﻿using DiscountManagement.Application.Contract.DiscountAgg;
+﻿using System.Collections.Generic;
+using DiscountManagement.Application.Contract.DiscountAgg;
 using Framework.Application;
 using System.Threading.Tasks;
 using DiscountManagement.Domain.DiscountAgg;
 
 namespace DiscountManagement.Application
 {
-    public class DisocuntApplication : IDiscountApplication
+    public class DiscountApplication : IDiscountApplication
     {
         private readonly IDiscountRepository _discountRepository;
 
-        public DisocuntApplication(IDiscountRepository discountRepository) => _discountRepository = discountRepository;
+        public DiscountApplication(IDiscountRepository discountRepository) => _discountRepository = discountRepository;
+
+        public async Task<IEnumerable<DiscountVM>> GetAllBy(long storeId) => await _discountRepository.GetAllBy(storeId);
 
         public async Task<OperationResult> Create(CreateDiscountVM command)
         {

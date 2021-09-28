@@ -47,7 +47,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
                     Prize = p.Prize
                 }).AsNoTracking().AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
+            if (search != null && !string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
 
             return await result.ToListAsync();
         }

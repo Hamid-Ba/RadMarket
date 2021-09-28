@@ -1,0 +1,74 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<DiscountManagement.Application.Contract.DiscountAgg.DiscountVM>
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "تخفیفات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- .create-box-me -->
+<div class="container my-5">
+        <div class="search-box-me">
+            <i class="fa fa-plus text-dark"></i>
+            <a asp-controller="Discount" asp-action="Create">افزودن تخفیف</a>
+        </div>
+</div>
+<!-- .create-box-me -->
+<!-- tabels -->
+<div class="table-me container my-5" style="overflow-y: scroll !important">
+    @if (Model.Count == 0 || Model.Any() is false)
+    {
+        <p class="alert alert-warning"> هنوز هیچ تخفیفی ثبت نشده است </p>
+    }
+    else
+    {
+        <table class="table table-striped table-hover" style="overflow-y: scroll;">
+            <thead>
+                <tr>
+                    <th scope="col">شماره</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">درصد تخفیف</th>
+                    <th scope="col">تاریخ شروع</th>
+                    <th scope="col">تاریخ پایان</th>
+                    <th scope="col">دلیل</th>
+
+                    <th scope="col">عملیات</th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @foreach (var entity in Model)
+                {
+                    <tr>
+                        <td scope="row"> @(ViewBag.Rows++)</td>
+                        <td>@entity.ProductName</td>
+                        <td>@entity.DiscountRate</td>
+                        <td>@entity.StartDate</td>
+                        <td>@entity.EndDate</td>
+                        <td>@entity.Reason</td>
+
+                        <td><a asp-controller="Discount" asp-action="Edit" asp-route-id="@entity.Id" class="btn-sm btn-outline-warning">ویرایش</a>
+                        <a asp-controller="Discount" asp-action="Delete" asp-route-id="@entity.Id" class="btn-sm btn-outline-danger">حذف</a></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
+
+
+</div>
+<!-- tabels -->
+<!-- Paginate -->
+@if (Model.PageCount > 1)
+{
+    <div class="my-5">
+        <nav aria-label="Suppliers navigation example">
+            <vc:pager paging-list="@Model" />
+        </nav>
+    </div>
+}
+<!-- Paginate -->
