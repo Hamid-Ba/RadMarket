@@ -7,6 +7,7 @@ namespace StoreManagement.Domain.ProductAgg
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Task<ProductVM> GetDetailBy(long id);
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<bool> IsProductBelongToStore(long id, long storeId);
         Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search);

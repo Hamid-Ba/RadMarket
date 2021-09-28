@@ -37,5 +37,8 @@ namespace ServiceHost.Areas.Admin.Controllers
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
             return new JsonResult(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(long id) => PartialView(await _productApplication.GetDetailBy(id));
     }
 }

@@ -6,6 +6,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
 {
     public interface IProductApplication
     {
+        Task<ProductVM> GetDetailBy(long id);
         Task<OperationResult> Delete(long id);
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditProductVM command);

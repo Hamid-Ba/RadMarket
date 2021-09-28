@@ -19,7 +19,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search)
         {
-            var result =  _context.Products.Include(s => s.Store).Include(c => c.Category).Select(
+            var result = _context.Products.Include(s => s.Store).Include(c => c.Category).Select(
                 p => new ProductVM()
                 {
                     Id = p.Id,
@@ -35,7 +35,16 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
                     MoneyGain = p.MoneyGain,
                     ProductAcceptanceState = p.ProductAcceptanceState,
                     ProductAcceptOrRejectDescription = p.ProductAcceptOrRejectDescription,
-                    CreationDate = p.CreationDate.ToFarsi()
+                    CreationDate = p.CreationDate.ToFarsi(),
+                    Description = p.Description,
+                    EachBoxCount = p.EachBoxCount,
+                    Keywords = p.Keywords,
+                    MetaDescription = p.MetaDescription,
+                    Picture = p.Picture,
+                    Slug = p.Slug,
+                    PictureAlt = p.PictureAlt,
+                    PictureTitle = p.PictureTitle,
+                    Prize = p.Prize
                 }).AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
@@ -43,6 +52,36 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             return await result.ToListAsync();
         }
 
+
+        public async Task<ProductVM> GetDetailBy(long id) => await _context.Products
+            .Include(s => s.Store)
+            .Include(c => c.Category)
+            .Select(p => new ProductVM()
+            {
+                Id = p.Id,
+                StoreId = p.StoreId,
+                StoreName = p.Store.Name,
+                Name = p.Name,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                Code = p.Code,
+                Stock = p.Stock,
+                ConsumerPrice = p.ConsumerPrice,
+                PurchasePrice = p.PurchacePrice,
+                MoneyGain = p.MoneyGain,
+                ProductAcceptanceState = p.ProductAcceptanceState,
+                ProductAcceptOrRejectDescription = p.ProductAcceptOrRejectDescription,
+                CreationDate = p.CreationDate.ToFarsi(),
+                Description = p.Description,
+                EachBoxCount = p.EachBoxCount,
+                Keywords = p.Keywords,
+                MetaDescription = p.MetaDescription,
+                Picture = p.Picture,
+                Slug = p.Slug,
+                PictureAlt = p.PictureAlt,
+                PictureTitle = p.PictureTitle,
+                Prize = p.Prize
+            }).FirstOrDefaultAsync(p => p.Id == id);
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _context.Products.Select(p => new EditProductVM
         {

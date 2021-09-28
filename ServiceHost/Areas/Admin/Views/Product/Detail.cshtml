@@ -1,0 +1,109 @@
+﻿@model StoreManagement.Application.Contract.ProductAgg.ProductVM
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">جزئیات محصول</h4>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">نام محصول</label>
+                <p>@Model.Name</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PictureAlt" class="control-label">جایگزین تصویر</label>
+                <p>@Model.PictureAlt</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PictureAlt" class="control-label">عنوان تصویر</label>
+                <p>@Model.PictureTitle</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EachBoxCount" class="control-label">تعداد در هر بسته</label>
+                <p>@Model.EachBoxCount</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ConsumerPrice" class="control-label">قیمت مصرف کننده</label>
+                <p>@Model.ConsumerPrice</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="PurchasePrice" class="control-label">قیمت خریدار</label>
+                <p>@Model.PurchasePrice</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MoneyGain" class="control-label">سود</label>
+                <p>@Model.MoneyGain</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label">تعداد در انبار</label>
+                <p>@Model.Stock</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Prize" class="control-label">جایزه</label>
+                <p>@Model.Prize</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label">اسلاگ</label>
+                <p>@Model.Slug</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Keywords" class="control-label">کلمات کلیدی</label>
+                <p>@Model.Keywords</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">درباره محصول</label>
+                <p>@Html.Raw(Model.Description)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="MetaDescription" class="control-label">توضیحات متا</label>
+                <p>@Model.MetaDescription</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

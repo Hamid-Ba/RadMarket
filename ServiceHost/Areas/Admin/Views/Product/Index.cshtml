@@ -26,6 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>تصویر</th>
                                     <th>نام</th>
                                     <th>کد محصول</th>
                                     <th>شرکت</th>
@@ -41,6 +42,9 @@
                                 {
                                     <tr>
                                         <td>@entity.Id</td>
+                                        <td>
+                                            <img src="~/Pictures/@entity.Picture" style="width: 85px; height: 85px; border-radius: 10px" />
+                                        </td>
                                         <td>@entity.Name</td>
                                         <td>@entity.Code</td>
                                         <td>@entity.StoreName</td>
@@ -83,7 +87,7 @@
                                                href="#showmodal=@Url.Action("Detail", "Product",new {id = entity.Id , area= "Admin"})">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            
+
                                         </td>
                                     </tr>
                                 }

@@ -57,6 +57,8 @@ namespace StoreManagement.Application
 
         public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search) => await _productRepository.GetAll(storeId, search);
 
+        public async Task<ProductVM> GetDetailBy(long id) => await _productRepository.GetDetailBy(id);
+
         public async Task<OperationResult> Delete(long id)
         {
             OperationResult result = new();
