@@ -11,6 +11,7 @@ namespace StoreManagement.Domain.ProductAgg
         public long StoreId { get; private set; }
         public long CategoryId { get; private set; }
         public string Code { get; private set; }
+        public long OrderCount { get; private set; }
         public string Name { get; private set; }
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
@@ -39,6 +40,7 @@ namespace StoreManagement.Domain.ProductAgg
             StoreId = storeId;
             CategoryId = categoryId;
             Code = code;
+            OrderCount = 0;
             Name = name;
             Picture = picture;
             PictureAlt = pictureAlt;
@@ -91,5 +93,7 @@ namespace StoreManagement.Domain.ProductAgg
 
             LastUpdateDate = DateTime.Now;
         }
+
+        public void AddOrder() => ++OrderCount;
     }
 }

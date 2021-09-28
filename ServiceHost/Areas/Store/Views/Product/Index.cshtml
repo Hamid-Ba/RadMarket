@@ -37,6 +37,7 @@
                     <th scope="col">(تومان)قیمت خریدار</th>
                     <th scope="col">قیمت مصرف کننده(تومان)</th>
                     <th scope="col">سود(تومان)</th>
+                    <th scope="col">تعداد سفارش</th>
                     <th scope="col">وضعیت</th>
                     <th scope="col">عملیات</th>
 
@@ -57,6 +58,7 @@
                         <td>@entity.PurchasePrice</td>
                         <td>@entity.ConsumerPrice</td>
                         <td>@entity.MoneyGain</td>
+                        <td>@entity.OrderCount</td>
                         <td class="text-center">
                             @entity.ProductAcceptanceState.GetEnumName()
 

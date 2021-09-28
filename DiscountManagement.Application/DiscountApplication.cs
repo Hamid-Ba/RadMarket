@@ -18,8 +18,7 @@ namespace DiscountManagement.Application
         {
             OperationResult result = new();
 
-            if (_discountRepository.Exists(c => c.StoreId == command.StoreId &&
-                c.ProductId == command.ProductId && c.DiscountRate == command.DiscountRate))
+            if (_discountRepository.Exists(c => c.StoreId == command.StoreId && c.ProductId == command.ProductId))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
             var discount = new Discount(command.StoreId, command.ProductId, command.DiscountRate,
@@ -52,7 +51,7 @@ namespace DiscountManagement.Application
 
             if (discount is null) return result.Failed(ApplicationMessage.NotExist);
             if (_discountRepository.Exists(c => c.StoreId == command.StoreId &&
-                c.ProductId == command.ProductId && c.DiscountRate == command.DiscountRate && c.Id != command.Id))
+                c.ProductId == command.ProductId && c.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
             discount.Edit(command.ProductId, command.DiscountRate,
