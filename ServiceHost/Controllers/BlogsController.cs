@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
-    public class BlogController : Controller
+    public class BlogsController : Controller
     {
         private readonly IArticleQuery _articleQuery;
 
-        public BlogController(IArticleQuery articleQuery) => _articleQuery = articleQuery;
+        public BlogsController(IArticleQuery articleQuery) => _articleQuery = articleQuery;
 
         public async Task<IActionResult> Index(int pageIndex = 1)
         {
@@ -21,5 +21,8 @@ namespace ServiceHost.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> Blog(string slug) => View(await _articleQuery.GetBy(slug));
+        
     }
 }

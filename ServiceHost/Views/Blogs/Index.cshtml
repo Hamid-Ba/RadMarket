@@ -24,10 +24,14 @@
                             <p class="card-blog-text">
                                 @article.ShortDescription
                             </p>
-                            <a href="" class="btn btn-outline-danger">بخوانید</a>
+                            <a asp-controller="Blogs" asp-action="Blog" asp-route-slug="@article.Slug" class="btn btn-outline-danger">بخوانید</a>
                         </div>
                     </div>
                 }
+            }
+            else
+            {
+                <p class="alert alert-warning">هیچ مقاله ای منتشر نشده است</p>
             }
         </div>
     </div>

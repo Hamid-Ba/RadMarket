@@ -1,0 +1,16 @@
+﻿@model IEnumerable<RadMarket.Query.Contracts.ArticleAgg.ArticleQueryVM>
+
+@foreach (var entity in Model)
+{
+    <a asp-controller="Blogs" asp-action="Blog" asp-route-slug="@entity.Slug">
+        <hr>
+        <p>
+            @entity.Title
+        </p>
+        <br>
+        <span style="font-size: smaller;">
+            @entity.ShortDescription
+        </span>
+        <hr>
+    </a>
+}   
