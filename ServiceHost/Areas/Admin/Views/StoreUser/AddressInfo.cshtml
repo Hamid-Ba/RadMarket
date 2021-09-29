@@ -1,0 +1,33 @@
+﻿@model AccountManagement.Application.Contract.StoreUserAgg.AddressStoreUserVM
+
+@{
+    ViewData["Title"] = "آدرس";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">آدرس کاربر</h4>
+</div>
+
+<div class="modal-body myOverflow">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>استان</th>
+                <th>شهر</th>
+                <th>آدرس</th>
+        </thead>
+        <tbody>
+
+            <tr class="text-center">
+                <td>@Model.Province</td>
+                <td>@Model.City</td>
+                <td>@Model.Address</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

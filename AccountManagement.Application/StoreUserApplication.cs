@@ -4,6 +4,7 @@ using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -117,5 +118,9 @@ namespace AccountManagement.Application
 
             return (result.Succeeded(),storeUser.Id);
         }
+
+        public async Task<IEnumerable<StoreUserVM>> GetAll() => await _storeUserRepository.GetAll();
+
+        public async Task<AddressStoreUserVM> GetAddressInfoBy(long id) => await _storeUserRepository.GetAddressInfoBy(id);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Domain.StoreUserAgg;
+using Framework.Application;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +15,7 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
 
         public StoreUserRepository(AccountContext context) : base(context) => _context = context;
 
-        public async Task FillStoreId(long id,long storeId, string code)
+        public async Task FillStoreId(long id, long storeId, string code)
         {
             var user = await _context.StoreUser.FirstOrDefaultAsync(s => s.Id == id);
             user.FillStoreId(storeId, code);
@@ -39,6 +41,26 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
         }
 
         public async Task<StoreUser> GetUserBy(string mobile) => await _context.StoreUser.FirstOrDefaultAsync(s => s.Mobile == mobile);
-        
+
+        public async Task<IEnumerable<StoreUserVM>> GetAll() => await _context.StoreUser.Select(s => new StoreUserVM
+        {
+            Id = s.Id,
+            StoreId = s.StoreId,
+            StoreRoleId = s.StoreRoleId,
+            FirstName = s.FirstName,
+            LastName = s.LastName,
+            Mobile = s.Mobile,
+            IsActive = s.IsActive,
+            CreationDate = s.CreationDate.ToFarsi()
+        }).AsNoTracking().ToListAsync();
+
+        public async Task<AddressStoreUserVM> GetAddressInfoBy(long id) => await _context.StoreUser.Select(s => new AddressStoreUserVM
+        {
+            Id = s.Id,
+            Address = s.Address,
+            City = s.City,
+            Province = s.Province
+        }).FirstOrDefaultAsync(s => s.Id == id);
+
     }
 }

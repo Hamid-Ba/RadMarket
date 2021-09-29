@@ -3,19 +3,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AccountManagement.Application.Contract.StoreUserAgg
 {
-    public  class StoreUserVM
+    public class StoreUserVM
     {
         public long Id { get; set; }
-        public long StoreId { get;  set; }
+        public long StoreId { get; set; }
         public long StoreRoleId { get; set; }
-        public string FirstName { get;  set; }
-        public string LastName { get;  set; }
-        public string Mobile { get;  set; }
-        public string Password { get;  set; }
-        public string City { get;  set; }
-        public string Province { get;  set; }
-        public string Address { get;  set; }
-        public bool IsActive { get;  set; }
+        public string StoreName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
+        public string Password { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string Address { get; set; }
+        public bool IsActive { get; set; }
+        public string CreationDate { get; set; }
     }
 
     public class RegisterStoreUserVM
@@ -81,5 +83,22 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [MaxLength(200, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         public string Password { get; set; }
+    }
+
+    public class AddressStoreUserVM
+    {
+        public long Id { get; set; }
+
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string City { get; set; }
+
+        [Display(Name = "استان")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Province { get; set; }
+
+        [Display(Name = "آدرس")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Address { get; set; }
     }
 }
