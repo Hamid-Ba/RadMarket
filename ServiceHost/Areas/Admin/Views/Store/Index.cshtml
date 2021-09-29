@@ -2,7 +2,6 @@
 @using Framework.Domain
 @using AccountManagement.Application.Contract.StoreUserAgg
 @model IEnumerable<StoreManagement.Application.Contract.StoreAgg.StoreVM>
-@inject IStoreUserApplication StoreUserApplication
 @{
     ViewData["Title"] = "شرکت ها";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -45,7 +44,7 @@
                                         <td>@entity.Id</td>
                                         <td>@entity.Name</td>
                                         <td>@entity.UniqueCode</td>
-                                        <td>@await StoreUserApplication.GetAdminNameBy(entity.StoreAdminUserId)</td>
+                                        <td>@entity.StoreAdminName</td>
                                         <td>@entity.PhoneNumber</td>
                                         <td>@entity.MobileNumber</td>
                                         <td>@entity.Status.GetEnumName()</td>

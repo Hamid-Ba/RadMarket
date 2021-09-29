@@ -6,32 +6,46 @@ using StoreManagement.Domain.StoreAgg;
 using System.Linq;
 using System.Threading.Tasks;
 using Framework.Application;
+using AccountManagement.Infrastructure.EfCore;
 
 namespace StoreManagement.Infrastructure.EfCore.Repository
 {
     public class StoreRepository : Repository<Store>, IStoreRepository
     {
         private readonly StoreContext _context;
+        private readonly AccountContext _accountContext;
 
-        public StoreRepository(StoreContext context) : base(context) => _context = context;
+        public StoreRepository(StoreContext context, AccountContext accountContext) : base(context)
+        {
+            _context = context;
+            _accountContext = accountContext;
+        }
 
         public async Task<string> GetStoreCode(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).UniqueCode;
 
         public async Task<string> GetStoreName(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).Name;
 
-        public async Task<IEnumerable<StoreVM>> GetAll() => await _context.Stores.Select(s => new StoreVM()
+        public async Task<IEnumerable<StoreVM>> GetAll()
         {
-            Id = s.Id,
-            StoreAdminUserId = s.StoreAdminUserId,
-            Name = s.Name,
-            MobileNumber = s.MobileNumber,
-            PhoneNumber = s.PhoneNumber,
-            UniqueCode = s.UniqueCode,
-            Status = s.Status,
-            StoreGivenStatusReason = s.StoreGivenStatusReason,
-            CreationDate = s.CreationDate.ToFarsi()
-        }).AsNoTracking().ToListAsync();
+            var admins = await _accountContext.StoreUser.Select(s => new { Id = s.Id, StoreId = s.StoreId, Name = $"{s.FirstName} {s.LastName}" }).ToListAsync();
 
+            var result = await _context.Stores.Select(s => new StoreVM()
+            {
+                Id = s.Id,
+                StoreAdminUserId = s.StoreAdminUserId,
+                Name = s.Name,
+                MobileNumber = s.MobileNumber,
+                PhoneNumber = s.PhoneNumber,
+                UniqueCode = s.UniqueCode,
+                Status = s.Status,
+                StoreGivenStatusReason = s.StoreGivenStatusReason,
+                CreationDate = s.CreationDate.ToFarsi()
+            }).AsNoTracking().ToListAsync();
+
+            result.ForEach(s => s.StoreAdminName = admins.Find(a => a.StoreId == s.Id)?.Name);
+
+            return result;
+        }
         public async Task<Store> GetStoreBy(string code) => await _context.Stores.FirstOrDefaultAsync(s => s.UniqueCode == code);
 
         public async Task<BankStoreVM> GetBankInfo(long id) => await _context.Stores.Select(s => new BankStoreVM()
