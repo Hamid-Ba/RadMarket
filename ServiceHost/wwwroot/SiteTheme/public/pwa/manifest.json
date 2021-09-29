@@ -1,0 +1,50 @@
+{
+    "name": "راد کالا",
+    "short_name": "راد کالا",
+    "theme_color": "#536162",
+    "background_color": "#3367D6",
+    "display": "fullscreen",
+    "start_url": "/index.html?utm_source=homescreen",
+    "dir": "rtl",
+    "lang": "en-US",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./imagePWA/msapplication-icon-144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "./imagePWA/apple-touch-icon-180x180.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "./imagePWA/apple-touch-icon-152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "./imagePWA/android-chrome-maskable-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./imagePWA/android-chrome-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "./imagePWA/android-chrome-maskable-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./imagePWA/android-chrome-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

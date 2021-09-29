@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RadMarket.Query.Contracts.CategoryAgg;
 using RadMarket.Query.Contracts.ProductAgg;
 using RadMarket.Query.Queries;
 using StoreManagement.Application;
@@ -36,6 +37,7 @@ namespace StoreManagement.Infrastructure.Configuration
             #region Query
 
             service.AddTransient<IProductQuery, ProductQuery>();
+            service.AddTransient<ICategoryQuery, CategoryQuery>();
 
             #endregion
         }

@@ -47,4 +47,15 @@
     <Folder Include="Areas\User\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\SiteTheme\public\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\SiteTheme\public\fonts\Material-Design-Iconic-Font.woff2" />
+    <None Include="wwwroot\SiteTheme\public\js\all.min.js" />
+    <None Include="wwwroot\SiteTheme\public\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\SiteTheme\public\js\bootstrap.min.js" />
+    <None Include="wwwroot\SiteTheme\public\js\menu.js" />
+    <None Include="wwwroot\SiteTheme\public\js\radJs.js" />
+    <None Include="wwwroot\SiteTheme\public\pwa\main.js" />
+  </ItemGroup>
+
 </Project>
