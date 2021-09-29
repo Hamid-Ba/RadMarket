@@ -43,7 +43,7 @@ namespace RadMarket.Query.Queries
                     PictureAlt = p.PictureAlt,
                     PictureTitle = p.PictureTitle,
                     Name = p.Name,
-                    Description = p.MetaDescription.Substring(0, 20),
+                    Description = p.MetaDescription.Substring(0, 50) + " ...",
                     ConsumerPrice = p.ConsumerPrice,
                     PurchasePrice = p.PurchacePrice,
                     OrderCount = p.OrderCount
