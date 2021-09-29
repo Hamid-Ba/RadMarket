@@ -7,6 +7,8 @@ using BlogManagement.Infrastructure.EfCore;
 using BlogManagement.Infrastructure.EfCore.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RadMarket.Query.Contracts.ArticleAgg;
+using RadMarket.Query.Queries;
 
 namespace BlogManagement.Infrastructure.Configuration
 {
@@ -23,6 +25,12 @@ namespace BlogManagement.Infrastructure.Configuration
 
             service.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
             service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
+
+            #region Query
+
+            service.AddTransient<IArticleQuery, ArticleQuery>();
+
+            #endregion
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BlogManagement.Infrastructure.EfCore
             var assembly = typeof(ArticleMapping).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
-            modelBuilder.Entity<Article>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Article>().HasQueryFilter(u => !u.IsDelete && u.ArticleCategory != null);
             modelBuilder.Entity<ArticleCategory>().HasQueryFilter(u => !u.IsDelete);
         }
 

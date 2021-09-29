@@ -20,7 +20,7 @@ namespace StoreManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Store>().HasQueryFilter(u => !u.IsDelete);
-            modelBuilder.Entity<Product>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Product>().HasQueryFilter(u => !u.IsDelete || u.Category == null);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
         }
 

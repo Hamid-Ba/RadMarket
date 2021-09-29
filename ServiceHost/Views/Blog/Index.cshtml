@@ -1,0 +1,45 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<RadMarket.Query.Contracts.ArticleAgg.ArticleQueryVM>
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "مقالات";
+}
+
+<div class="best-seller-title my-5">
+    <h4>مقالات</h4>
+</div>
+
+<!-- blogs -->
+<div class="container">
+    <div class="blogs-boxs">
+        <div class="row">
+            @if (Model.Any())
+            {
+                @foreach (var article in Model)
+                {
+                    <div class="col-sm-12 col-md-4 blogs-box">
+                        <div class="card-blog text-center">
+                            <img src="~/Pictures/@article.PictureName" alt="@article.PictureAlt" title="@article.PictureTitle">
+                            <h6 class="card-blog-title my-3">@article.Title</h6>
+                            <p class="card-blog-text">
+                                @article.ShortDescription
+                            </p>
+                            <a href="" class="btn btn-outline-danger">بخوانید</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- blogs -->
+<!-- Paginate -->
+@if (Model.PageCount > 1)
+{
+    <div class="my-5">
+        <nav aria-label="Suppliers navigation example">
+            <vc:pager paging-list="@Model" />
+        </nav>
+    </div>
+}
+<!-- Paginate -->
