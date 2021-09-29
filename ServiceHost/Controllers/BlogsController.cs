@@ -22,6 +22,7 @@ namespace ServiceHost.Controllers
             return View(model);
         }
 
+        [Route("Blogs/{slug}")]
         public async Task<IActionResult> Blog(string slug) => View(await _articleQuery.GetBy(slug));
         
     }
