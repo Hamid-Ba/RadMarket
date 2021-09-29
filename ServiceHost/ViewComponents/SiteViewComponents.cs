@@ -34,11 +34,35 @@ namespace ServiceHost.ViewComponents
 
         public OfferProductsViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
 
-        public async Task<IViewComponentResult> InvokeAsync(bool discounts)
+        public async Task<IViewComponentResult> InvokeAsync(string filter)
         {
-            if(discounts) return View(await _productQuery.GetAllWhichHasDiscount(5));
-            return View(await _productQuery.GetAllBestSells(7));
+            switch (filter)
+            {
+                case "Discount":
+                    return View(await _productQuery.GetAll(filter, 5));
+                case "BestSells":
+                    return View(await _productQuery.GetAll(filter, 7));
+                default:
+                    return View(await _productQuery.GetAll(filter, 3));
+            }
         } 
     }
 
+    public class RoutineProductsViewComponent : ViewComponent
+    {
+        private readonly IProductQuery _productQuery;
+
+        public RoutineProductsViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
+
+        public async Task<IViewComponentResult> InvokeAsync(string filter)
+        {
+            switch (filter)
+            {
+                case "BestSells":
+                    return View(await _productQuery.GetAll(filter, 3));
+                default:
+                    return View(await _productQuery.GetAll(filter, 3));
+            }
+        }
+    }
 }

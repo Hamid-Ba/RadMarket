@@ -21,7 +21,7 @@
         </div>
         <div class="offer-cards">
             <div class="d-flex">
-                @await Component.InvokeAsync("OfferProducts", true)
+                @await Component.InvokeAsync("OfferProducts", "Discount")
                 <div class="offer-box rounded thumbnail">
                     <div class="offer-title-end text-center justify-content-center">
                         <h3>پیشنهادهای شگفت انگیز</h3>
@@ -78,7 +78,7 @@
         </div>
         <div class="offer-cards">
             <div class="d-flex">
-                @await Component.InvokeAsync("OfferProducts", false)
+                @await Component.InvokeAsync("OfferProducts", "BestSells")
                 <div class="offer-box rounded thumbnail">
                     <div class="offer-title-end text-center justify-content-center">
                         <h3>برترین های شرکت پخش</h3>
@@ -106,45 +106,7 @@
 <div class="container my-5">
     <div class="every-boxes">
         <div class="row justify-content-around">
-            <div class="col-sm-12 col-md-4 every-box rounded">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210 (1).png" alt="">
-                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 every-box ">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210.png" alt="">
-                    <h6 class="card-product-title">چای کیسه ای معطر بدون لفاف 25 عددی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 every-box ">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210 (1).png" alt="">
-                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
+            @await Component.InvokeAsync("RoutineProducts","Routine") 
         </div>
     </div>
 </div>
@@ -163,45 +125,7 @@
 <div class="container my-5">
     <div class="every-boxes">
         <div class="row justify-content-around">
-            <div class="col-sm-12 col-md-4 every-box rounded">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210 (1).png" alt="">
-                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 every-box ">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210.png" alt="">
-                    <h6 class="card-product-title">چای کیسه ای معطر بدون لفاف 25 عددی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 every-box ">
-                <div class="card-product text-center">
-                    <img src="~/SiteTheme/public/image/210 (1).png" alt="">
-                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
-                    <p class="card-product-text">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
-                    </p>
-                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
-                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
-                    <p class="offer-product-price">تخفیف <span>10%</span></p>
-                    <a href="" class="btn btn-outline-danger">مشاهده</a>
-                </div>
-            </div>
+            @await Component.InvokeAsync("RoutineProducts", "BestSells")
         </div>
     </div>
 </div>
