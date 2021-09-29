@@ -28,13 +28,17 @@ namespace ServiceHost.ViewComponents
         }
     }
 
-    public class ProductWithDiscountViewComponent : ViewComponent
+    public class OfferProductsViewComponent : ViewComponent
     {
         private readonly IProductQuery _productQuery;
 
-        public ProductWithDiscountViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
+        public OfferProductsViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
 
-        public async Task<IViewComponentResult> InvokeAsync() => View(await _productQuery.GetAllWhichHasDiscount());
+        public async Task<IViewComponentResult> InvokeAsync(bool discounts)
+        {
+            if(discounts) return View(await _productQuery.GetAllWhichHasDiscount(5));
+            return View(await _productQuery.GetAllBestSells(7));
+        } 
     }
 
 }

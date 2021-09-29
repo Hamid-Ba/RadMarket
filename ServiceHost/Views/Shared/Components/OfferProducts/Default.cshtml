@@ -1,0 +1,29 @@
+﻿@using Framework.Application
+@using System.Security.Claims
+@model IEnumerable<RadMarket.Query.Contracts.ProductAgg.ProductQueryVM>
+
+@foreach (var product in Model)
+{
+    <div class="offer-box rounded thumbnail">
+        <div class="offer-product text-center">
+            <img src="~/Pictures/@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle" style="height: 125px;">
+            <h6 class="offer-product-title">@product.Name</h6>
+            <p class="offer-product-text">
+                @product.Description
+            </p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+                {
+                    <p class="offer-product-price">قیمت مصرف کننده : <span>@product.ConsumerPrice.ToMoney() تومان</span></p>
+                    <p class="offer-product-price">قیمت خرید : <span>@product.PurchasePrice.ToMoney() تومان</span></p>
+                    @if (product.DiscountRate != null || product.DiscountRate > 0)
+                    {
+                        <p class="offer-product-price">تخفیف <span>@product.DiscountRate%</span></p>
+                    }
+                }
+            }
+            <a href="" class="btn btn-outline-danger">مشاهده</a>
+        </div>
+    </div>
+}
