@@ -4,6 +4,8 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using AccountManagement.Application.Contract.UserAgg;
+using System.Collections.Generic;
+using Framework.Application;
 
 namespace AccountManagement.Infrastructure.EfCore.Repository
 {
@@ -24,5 +26,25 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             City = u.City,
             Address = u.Address
         }).FirstOrDefaultAsync(u => u.Id == id);
+
+        public async Task<IEnumerable<UserVM>> GetAll() => await _context.User.Select(u => new UserVM
+        {
+            Id = u.Id,
+            FirstName = u.FirstName,
+            LastName = u.LastName,
+            Mobile = u.Mobile,
+            ActivationCode = u.ActivationCode,
+            IsActive = u.IsActive,
+            CreationDate = u.CreationDate.ToFarsi()
+        }).AsNoTracking().ToListAsync();
+
+        public async Task<AddressUserVM> GetAddressInfoBy(long id) => await _context.User.Select(u => new AddressUserVM
+        {
+            Id = u.Id,
+            Address = u.Address,
+            City = u.City,
+            Province = u.Province
+        }).FirstOrDefaultAsync(u => u.Id == id);
+        
     }
 }

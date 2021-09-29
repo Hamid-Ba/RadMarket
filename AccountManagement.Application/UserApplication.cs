@@ -4,6 +4,7 @@ using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -111,5 +112,10 @@ namespace AccountManagement.Application
             await _userRepository.SaveChangesAsync();
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<UserVM>> GetAll() => await _userRepository.GetAll();
+
+        public async Task<AddressUserVM> GetAddressInfoBy(long id) => await _userRepository.GetAddressInfoBy(id);
+        
     }
 }

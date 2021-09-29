@@ -16,6 +16,7 @@ namespace AccountManagement.Application.Contract.UserAgg
         public string Address { get; set; }
         public string ActivationCode { get; set; }
         public bool IsActive { get; set; }
+        public string CreationDate { get; set; }
     }
 
     public class RegisterUserVM
@@ -108,6 +109,23 @@ namespace AccountManagement.Application.Contract.UserAgg
         [MaxLength(200, ErrorMessage = "حداکثر تعداد کاراکتر مجاز {1} می باشد")]
         [Compare("Password",ErrorMessage = "رمز های عبور مطابقت ندارند")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string City { get; set; }
+
+        [Display(Name = "استان")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Province { get; set; }
+
+        [Display(Name = "آدرس")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Address { get; set; }
+    }
+
+    public class AddressUserVM
+    {
+        public long Id { get; set; }
 
         [Display(Name = "شهر")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
