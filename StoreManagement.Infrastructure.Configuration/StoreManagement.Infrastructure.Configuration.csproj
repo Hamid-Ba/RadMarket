@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RadMarket.Query\RadMarket.Query.csproj" />
     <ProjectReference Include="..\StoreManagement.Application\StoreManagement.Application.csproj" />
     <ProjectReference Include="..\StoreManagement.Domain\StoreManagement.Domain.csproj" />
     <ProjectReference Include="..\StoreManagement.Infrastructure.EfCore\StoreManagement.Infrastructure.EfCore.csproj" />

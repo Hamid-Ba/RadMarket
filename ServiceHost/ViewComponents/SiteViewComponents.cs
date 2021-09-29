@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using RadMarket.Query.Contracts.ProductAgg;
 
 namespace ServiceHost.ViewComponents
 {
@@ -24,6 +26,15 @@ namespace ServiceHost.ViewComponents
         {
             return View();
         }
+    }
+
+    public class ProductWithDiscountViewComponent : ViewComponent
+    {
+        private readonly IProductQuery _productQuery;
+
+        public ProductWithDiscountViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
+
+        public async Task<IViewComponentResult> InvokeAsync() => View(await _productQuery.GetAllWhichHasDiscount());
     }
 
 }
