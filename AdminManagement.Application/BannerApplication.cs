@@ -1,6 +1,7 @@
 ﻿using AdminManagement.Application.Contract.BannerAgg;
 using AdminManagement.Domain.BannerAgg;
 using Framework.Application;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdminManagement.Application
@@ -19,7 +20,7 @@ namespace AdminManagement.Application
             {
                 var pictureName = Uploader.ImageUploader(command.Picture, "Banners", null!);
 
-                var banner = new Banner(pictureName, command.PictuerAlt, command.PictureTitle, command.ColSize, command.Url, command.Position);
+                var banner = new Banner(command.StoreId,pictureName, command.PictuerAlt, command.PictureTitle, command.ColSize, command.Url, command.Position);
 
                 await _bannerRepository.AddEntityAsync(banner);
                 await _bannerRepository.SaveChangesAsync();
@@ -60,7 +61,7 @@ namespace AdminManagement.Application
                 if (banner is null) return result.Failed(ApplicationMessage.NotExist);
 
                 var pictureName = Uploader.ImageUploader(command.Picture, "Banners", banner.Picture);
-                banner.Edit(pictureName, command.PictuerAlt, command.PictureTitle, command.ColSize, command.Url, command.Position);
+                banner.Edit(command.StoreId,pictureName, command.PictuerAlt, command.PictureTitle, command.ColSize, command.Url, command.Position);
 
                 await _bannerRepository.SaveChangesAsync();
 
@@ -68,6 +69,8 @@ namespace AdminManagement.Application
             }
             catch { return result.Failed(ApplicationMessage.GoesWrong); }
         }
+
+        public async Task<IEnumerable<BannerVM>> GetAll() => await _bannerRepository.GetAll();
 
         public async Task<EditBannerVM> GetDetailForEditBy(long id) => await _bannerRepository.GetDetailForEditBy(id);
     }
