@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RadMarket.Query.Contracts.BannerAgg.BannerQueryVM>
+
+<div class="container-fluid" style="margin-top: -5rem;">
+    <div class="d-flex justify-content-around">
+        @if (Model.Any())
+        {
+            @foreach (var banner in Model)
+            {
+                <a href="@banner.Url">
+                    <div class="box">
+                        <img class="img-fluid rounded"
+                             src="~/Pictures/@banner.Picture" alt="@banner.PictuerAlt" title="@banner.PictureTitle">
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <p class="alert alert-info">محل تبلیغات شما</p>
+        }
+    </div>
+</div>

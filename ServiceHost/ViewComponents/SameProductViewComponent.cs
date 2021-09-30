@@ -9,7 +9,7 @@ namespace ServiceHost.ViewComponents
         private readonly IProductQuery _productQuery;
 
         public SameProductViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
-
-        public async Task<IViewComponentResult> InvokeAsync(long categoryId) => View(await _productQuery.GetBy(categoryId));
+        
+        public async Task<IViewComponentResult> InvokeAsync(long categoryId, long? productBeRemovedById) => View(await _productQuery.GetBy(categoryId,productBeRemovedById));
     }
 }

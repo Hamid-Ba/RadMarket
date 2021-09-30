@@ -123,7 +123,7 @@ namespace RadMarket.Query.Queries
             Slug = category.Slug,
         };
 
-        public async Task<IEnumerable<ProductQueryVM>> GetBy(long categoryId)
+        public async Task<IEnumerable<ProductQueryVM>> GetBy(long categoryId,long? productBeRemovedById)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
                 Select(d => new
@@ -152,11 +152,13 @@ namespace RadMarket.Query.Queries
                     PurchasePrice = p.PurchacePrice,
                     OrderCount = p.OrderCount,
                     EachBoxCount = p.EachBoxCount
-                }).AsNoTracking().OrderByDescending(c => c.Id).Take(3).ToListAsync();
+                }).AsNoTracking().OrderByDescending(c => c.OrderCount).ToListAsync();
+
+            products.Remove(products.FirstOrDefault(p => p.Id == productBeRemovedById));
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
-            return products;
+            return products.Take(3).ToList();
         }
     }
 }

@@ -1,31 +1,23 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RadMarket.Query.Contracts.BannerAgg;
 using RadMarket.Query.Contracts.ProductAgg;
 
 namespace ServiceHost.ViewComponents
 {
     public class SiteHeaderViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        public IViewComponentResult Invoke() => View();
     }
 
     public class SiteFooterViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        public IViewComponentResult Invoke() =>  View();
     }
 
     public class ResponsiveMenuViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        public IViewComponentResult Invoke() => View();
     }
 
     public class OfferProductsViewComponent : ViewComponent
@@ -64,5 +56,14 @@ namespace ServiceHost.ViewComponents
                     return View(await _productQuery.GetAll(filter, 3));
             }
         }
+    }
+
+    public class AdvertisingBannersViewComponent : ViewComponent
+    {
+        private readonly IBannerQuery _bannerQuery;
+
+        public AdvertisingBannersViewComponent(IBannerQuery bannerQuery) => _bannerQuery = bannerQuery;
+
+        public async Task<IViewComponentResult> InvokeAsync() => View(await _bannerQuery.GetForAdvertising());
     }
 }

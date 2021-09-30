@@ -7,6 +7,7 @@ using AdminManagement.Infrastructure.EfCore;
 using AdminManagement.Infrastructure.EfCore.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RadMarket.Query.Contracts.BannerAgg;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using RadMarket.Query.Queries;
 
@@ -28,7 +29,14 @@ namespace AdminManagement.Infrastructure.Configuration
             service.AddTransient<IProvinceRepository, ProvinceRepository>();
             service.AddTransient<IProvinceApplication, ProvinceApplication>();
 
+
+            #region Query
+
             service.AddTransient<IProvinceQuery, ProvinceQuery>();
+            
+            service.AddTransient<IBannerQuery, BannerQuery>();
+
+            #endregion
         }
     }
 }
