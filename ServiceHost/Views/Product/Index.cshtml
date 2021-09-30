@@ -1,4 +1,6 @@
-﻿@model RadMarket.Query.Contracts.ProductAgg.ProductQueryVM 
+﻿@using Framework.Application
+@using System.Security.Claims
+@model RadMarket.Query.Contracts.ProductAgg.ProductQueryVM
 @{
     ViewData["Title"] = Model.Name;
     ViewData["Keyword"] = Model.Keywords;
@@ -12,12 +14,23 @@
         <div class="col-sm-12 col-md-4 single-card-box">
             <div class="border p-3 text-center">
                 <p class="h6">نام محصول : <span>@Model.Name</span></p>
-                <p class="h6">قیمت مصرف کننده : <span>@Model.ConsumerPrice</span></p>
-                <p class="h6">قیمت خرید <span>@Model.PurchasePrice</span></p>
-                <p class="h6">سود شما <span>@Model.MoneyGain</span></p>
-                <p class="h6">کد محصول <span>@Model.MoneyGain</span></p>
-                <p class="h6">دسته بندی <span>@Model.CategoryName</span></p>
-                <p class="h6">تعداد در هر جعبه<span>@Model.EachBoxCount</span></p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+                    {
+                        <p class="h6">قیمت مصرف کننده : <span>@Model.ConsumerPrice.ToMoney() تومان</span></p>
+                        <p class="h6">قیمت خرید : <span>@Model.PurchasePrice.ToMoney() تومان</span></p>
+                        <p class="h6">سود شما : <span>@Model.MoneyGain.ToMoney() تومان</span></p>
+                        @if (Model.DiscountRate != null || Model.DiscountRate > 0)
+                        {
+                            <p class="h6">تخفیف : <span>%@Model.DiscountRate</span></p>
+                        }
+                    }
+                }
+
+                <p class="h6">کد محصول : <span>@Model.Code</span></p>
+                <p class="h6">دسته بندی : <span>@Model.CategoryName</span></p>
+                <p class="h6">تعداد در هر جعبه : <span>@Model.EachBoxCount</span></p>
                 <a href="" class="btn btn-outline-danger">خرید محصول</a>
                 <br>
                 <div class="my-3">

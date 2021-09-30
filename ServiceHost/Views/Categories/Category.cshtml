@@ -24,6 +24,7 @@
                     <div class="card-product text-center">
                         <img src="~/Pictures/@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle" style="height: 125px;">
                         <h6 class="card-product-title">@product.Name</h6>
+                        <p class="offer-product-price">تعداد در هر بسته: <span>@product.EachBoxCount</span></p>
 
                         @if (User.Identity.IsAuthenticated)
                         {

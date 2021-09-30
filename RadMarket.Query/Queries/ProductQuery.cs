@@ -50,7 +50,8 @@ namespace RadMarket.Query.Queries
                     Description = p.MetaDescription.Substring(0, 50) + " ...",
                     ConsumerPrice = p.ConsumerPrice,
                     PurchasePrice = p.PurchacePrice,
-                    OrderCount = p.OrderCount
+                    OrderCount = p.OrderCount,
+                    EachBoxCount = p.EachBoxCount
                 }).AsNoTracking().ToListAsync();
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);

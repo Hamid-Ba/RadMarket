@@ -22,6 +22,9 @@ namespace StoreManagement.Application
             if (_productRepository.Exists(p => p.Code == command.Code && p.StoreId == command.StoreId))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
+            if (_productRepository.Exists(p => p.Slug == command.Slug && p.StoreId == command.StoreId))
+                return result.Failed(ApplicationMessage.SlugIsExist);
+
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", null!);
 
             var product = new Product(command.StoreId, command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
@@ -83,6 +86,9 @@ namespace StoreManagement.Application
             if (product is null) return result.Failed(ApplicationMessage.NotExist);
             if (_productRepository.Exists(p => p.Code == command.Code && p.StoreId == command.StoreId && p.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
+
+            if (_productRepository.Exists(p => p.Slug == command.Slug && p.StoreId == command.StoreId && p.Id != command.Id))
+                return result.Failed(ApplicationMessage.SlugIsExist);
 
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", product.Picture);
 

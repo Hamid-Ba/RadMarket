@@ -14,6 +14,7 @@
         public const string WrongPassword = "رمز عبور صحیح نمی باشد";
         public const string WrongStoreCode = "فروشگاهی با این کد وجود ندارد";
         public const string StoreOwnerHasAlreadyAStore = "فروشگاه این کاربر قبلا تایید شده است";
+        public const string SlugIsExist = "محصولی با این اسلاگ وجود دارد";
 
     }
 }

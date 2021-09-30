@@ -100,6 +100,8 @@ namespace StoreManagement.Application.Contract.ProductAgg
 
         [Display(Name = "توضیحات متا")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MinLength(50,ErrorMessage ="حداقل کاراکتر {1} می باشد")]
+        [MaxLength(1000, ErrorMessage = "حداکثر کاراکتر {1} می باشد")]
         public string MetaDescription { get; set; }
     }
 
@@ -174,6 +176,8 @@ namespace StoreManagement.Application.Contract.ProductAgg
 
         [Display(Name = "توضیحات متا")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [MinLength(50, ErrorMessage = "حداقل کاراکتر {1} می باشد")]
+        [MaxLength(1000, ErrorMessage = "حداکثر کاراکتر {1} می باشد")]
         public string MetaDescription { get; set; }
     }
 
