@@ -5,7 +5,7 @@ namespace RadMarket.Query.Contracts.ProductAgg
 {
     public interface IProductQuery
     {
-        Task<ProductQueryVM> GetBy(string slug);
+        Task<ProductQueryVM> GetBy(long storeId,string slug);
         Task<IEnumerable<ProductQueryVM>> GetAll(string filter,int take = 0);
     }
 }

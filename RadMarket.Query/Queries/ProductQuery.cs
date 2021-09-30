@@ -40,11 +40,13 @@ namespace RadMarket.Query.Queries
                 .Select(p => new ProductQueryVM()
                 {
                     Id = p.Id,
+                    StoreId = p.StoreId,
                     CategoryId = p.CategoryId,
                     Picture = p.Picture,
                     PictureAlt = p.PictureAlt,
                     PictureTitle = p.PictureTitle,
                     Name = p.Name,
+                    Slug = p.Slug,
                     Description = p.MetaDescription.Substring(0, 50) + " ...",
                     ConsumerPrice = p.ConsumerPrice,
                     PurchasePrice = p.PurchacePrice,
@@ -71,7 +73,7 @@ namespace RadMarket.Query.Queries
             return products;
         }
 
-        public async Task<ProductQueryVM> GetBy(string slug)
+        public async Task<ProductQueryVM> GetBy(long storeId, string slug)
         {
             var product = await _storeContext.Products
                 .Include(c => c.Category)
@@ -98,15 +100,16 @@ namespace RadMarket.Query.Queries
                     Keywords = p.Keywords,
                     MetaDescription = p.MetaDescription,
                     Category = MapCategory(p.Category)
-                }).FirstOrDefaultAsync(p => p.Slug == slug);
+                }).FirstOrDefaultAsync(p => p.StoreId == storeId && p.Slug == slug);
 
-            if(product != null)
+            if (product != null)
             {
                 var discount = await _discountContext.Discounts
                     .Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
                     .FirstOrDefaultAsync(d => d.ProductId == product.Id);
 
-                product.DiscountRate = discount.DiscountRate;
+                if (discount != null)
+                    product.DiscountRate = discount.DiscountRate;
             }
 
             return product;
@@ -118,6 +121,6 @@ namespace RadMarket.Query.Queries
             Name = category.Name,
             Slug = category.Slug,
         };
-        
+
     }
 }

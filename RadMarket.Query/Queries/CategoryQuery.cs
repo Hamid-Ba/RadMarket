@@ -40,11 +40,13 @@ namespace RadMarket.Query.Queries
             .Select(p => new ProductQueryVM
             {
                 Id = p.Id,
+                StoreId = p.StoreId,
                 CategoryId = p.CategoryId,
                 Picture = p.Picture,
                 PictureAlt = p.PictureAlt,
                 PictureTitle = p.PictureTitle,
                 Name = p.Name,
+                Slug = p.Slug,
                 ConsumerPrice = p.ConsumerPrice,
                 PurchasePrice = p.PurchacePrice,
                 OrderCount = p.OrderCount
