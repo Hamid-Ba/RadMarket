@@ -6,5 +6,6 @@ namespace RadMarket.Query.Contracts.CategoryAgg
     public interface ICategoryQuery
     {
         Task<IEnumerable<CategoryQueryVM>> GetAll();
+        Task<CategoryQueryVM> GetAllProducts(string slug);
     }
 }

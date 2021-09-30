@@ -9,7 +9,10 @@ namespace ServiceHost.Controllers
     {
         private readonly IProductQuery _productQuery;
 
-        public ProductsController(IProductQuery productQuery) => _productQuery = productQuery;
+        public ProductsController(IProductQuery productQuery)
+        {
+            _productQuery = productQuery;
+        }
 
         [HttpGet("Incrideble-Offers")]
         public async Task<IActionResult> IncridebleOffers(int pageIndex = 1)
@@ -33,9 +36,8 @@ namespace ServiceHost.Controllers
             return View(model);
         }
 
-        
+
         [HttpGet("Products")]
-        [HttpGet]
         public async Task<IActionResult> Products(int pageIndex = 1)
         {
             var products = await _productQuery.GetAll("Routine");

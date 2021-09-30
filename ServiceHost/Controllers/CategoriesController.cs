@@ -8,43 +8,22 @@ namespace ServiceHost.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly IProductQuery _productQuery;
         private readonly ICategoryQuery _categoryQuery;
 
-        public CategoriesController(ICategoryQuery categoryQuery, IProductQuery productQuery)
-        {
-            _productQuery = productQuery;
-            _categoryQuery = categoryQuery;
-        }
+        public CategoriesController(ICategoryQuery categoryQuery) => _categoryQuery = categoryQuery;
 
         public async Task<IActionResult> Index() => View(await _categoryQuery.GetAll());
 
-        [Route("Incrideble-Offers")]
-        public async Task<IActionResult> IncridebleOffers(int pageIndex = 1)
+        [Route("category/{slug}")]
+        public async Task<IActionResult> Category(string slug,int pageIndex = 1)
         {
-            var products= await _productQuery.GetAll("Discount");
+            var result = await _categoryQuery.GetAllProducts(slug);            
 
-            var model = PagingList.Create(products, 6, pageIndex);
+            var model = PagingList.Create(result.Products, 6, pageIndex);
 
-            return View(model);
-        }
-
-        [Route("Best-Offers")]
-        public async Task<IActionResult> BestOffers(int pageIndex = 1)
-        {
-            var products = await _productQuery.GetAll("BestSells");
-
-            var model = PagingList.Create(products, 6, pageIndex);
-
-            return View(model);
-        }
-
-        [Route("Products")]
-        public async Task<IActionResult> Products(int pageIndex = 1)
-        {
-            var products = await _productQuery.GetAll("Routine");
-
-            var model = PagingList.Create(products, 2, pageIndex);
+            ViewBag.Name = result.Name;
+            ViewBag.Keyword = result.KeyWords;
+            ViewBag.Meta = result.MetaDescription;
 
             return View(model);
         }
