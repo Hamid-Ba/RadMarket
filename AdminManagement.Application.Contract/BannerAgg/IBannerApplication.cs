@@ -9,6 +9,7 @@ namespace AdminManagement.Application.Contract.BannerAgg
         Task<IEnumerable<BannerVM>> GetAll();
         Task<OperationResult> Delete(long id);
         Task<EditBannerVM> GetDetailForEditBy(long id);
+        Task<OperationResult> ActiveOrDeActive(long id);
         Task<OperationResult> Edit(EditBannerVM command);
         Task<OperationResult> Create(CreateBannerVM command);
     }

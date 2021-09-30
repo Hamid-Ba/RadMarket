@@ -58,6 +58,17 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ChangeStatus(long id)
+        {
+            var result = await _bannerApplication.ActiveOrDeActive(id);
+
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public IActionResult Delete(long id) => PartialView(id);
 
         [ActionName("Delete")]

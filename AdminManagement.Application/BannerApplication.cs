@@ -12,6 +12,19 @@ namespace AdminManagement.Application
 
         public BannerApplication(IBannerRepository bannerRepository) => _bannerRepository = bannerRepository;
 
+        public async Task<OperationResult> ActiveOrDeActive(long id)
+        {
+            OperationResult result = new();
+
+            var banner = await _bannerRepository.GetEntityByIdAsync(id);
+            if (banner is null) return result.Failed(ApplicationMessage.NotExist);
+
+            banner.ActiveOrDeActive(!banner.IsActive);
+            await _bannerRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Create(CreateBannerVM command)
         {
             var result = new OperationResult();

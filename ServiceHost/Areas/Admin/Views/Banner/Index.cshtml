@@ -63,6 +63,11 @@
                                         <td>@entity.LastUpdatedDate</td>
                                         <td>
 
+                                            <a class="btn @((entity.IsActive)? "btn-danger" : "btn-success") pull-right m-rl-5"
+                                               asp-action="ChangeStatus" asp-route-id="@entity.Id">
+                                                <i class="fa @((entity.IsActive)? "fa-thumbs-down" : "fa-thumbs-up")"></i>
+                                            </a>
+
                                             <a class="btn btn-warning pull-right m-rl-5"
                                                href="#showmodal=@Url.Action("Edit", "Banner", new {id = entity.Id})">
                                                 <i class="fa fa-edit"></i>
