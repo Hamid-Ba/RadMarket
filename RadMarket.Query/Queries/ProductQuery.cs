@@ -123,5 +123,40 @@ namespace RadMarket.Query.Queries
             Slug = category.Slug,
         };
 
+        public async Task<IEnumerable<ProductQueryVM>> GetBy(long categoryId)
+        {
+            var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
+                Select(d => new
+                {
+                    Id = d.Id,
+                    ProductId = d.ProductId,
+                    Rate = d.DiscountRate
+                }).ToListAsync();
+
+            var products = await _storeContext.Products
+                .Include(s => s.Store)
+                .Where(q => q.CategoryId == categoryId)
+                .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
+                .Select(p => new ProductQueryVM()
+                {
+                    Id = p.Id,
+                    StoreId = p.StoreId,
+                    CategoryId = p.CategoryId,
+                    Picture = p.Picture,
+                    PictureAlt = p.PictureAlt,
+                    PictureTitle = p.PictureTitle,
+                    Name = p.Name,
+                    Slug = p.Slug,
+                    Description = p.MetaDescription.Substring(0, 50) + " ...",
+                    ConsumerPrice = p.ConsumerPrice,
+                    PurchasePrice = p.PurchacePrice,
+                    OrderCount = p.OrderCount,
+                    EachBoxCount = p.EachBoxCount
+                }).AsNoTracking().OrderByDescending(c => c.Id).Take(3).ToListAsync();
+
+            products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
+
+            return products;
+        }
     }
 }

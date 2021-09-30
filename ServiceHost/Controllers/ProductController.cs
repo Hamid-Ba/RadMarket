@@ -8,10 +8,7 @@ namespace ServiceHost.Controllers
     {
         private readonly IProductQuery _productQuery;
 
-        public ProductController(IProductQuery productQuery)
-        {
-            _productQuery = productQuery;
-        }
+        public ProductController(IProductQuery productQuery) => _productQuery = productQuery;
 
         [HttpGet("Product/{storeId}/{slug}")]
         public async Task<IActionResult>  Index(long storeId, string slug) => View(await _productQuery.GetBy(storeId, slug));
