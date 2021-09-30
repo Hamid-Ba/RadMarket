@@ -39,5 +39,15 @@ namespace ServiceHost.Controllers
             return View(model);
         }
 
+        [Route("Products")]
+        public async Task<IActionResult> Products(int pageIndex = 1)
+        {
+            var products = await _productQuery.GetAll("Routine");
+
+            var model = PagingList.Create(products, 6, pageIndex);
+
+            return View(model);
+        }
+
     }
 }
