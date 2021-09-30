@@ -1,0 +1,100 @@
+﻿@model RadMarket.Query.Contracts.ProductAgg.ProductQueryVM 
+@{
+    ViewData["Title"] = Model.Name;
+    ViewData["Keyword"] = Model.Keywords;
+    ViewData["MetaDescription"] = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- singleCard -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 single-card-box">
+            <div class="border p-3 text-center">
+                <p class="h6">نام محصول : <span>@Model.Name</span></p>
+                <p class="h6">قیمت مصرف کننده : <span>@Model.ConsumerPrice</span></p>
+                <p class="h6">قیمت خرید <span>@Model.PurchasePrice</span></p>
+                <p class="h6">سود شما <span>@Model.MoneyGain</span></p>
+                <p class="h6">کد محصول <span>@Model.MoneyGain</span></p>
+                <p class="h6">دسته بندی <span>@Model.CategoryName</span></p>
+                <p class="h6">تعداد در هر جعبه<span>@Model.EachBoxCount</span></p>
+                <a href="" class="btn btn-outline-danger">خرید محصول</a>
+                <br>
+                <div class="my-3">
+                    <label for="">تعداد :</label>
+                    <input type="number">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 border p-3 ">
+            <div class="single-card">
+                <div class="single-card-img text-center">
+                    <img class="img-fluid rounded"
+                         src="~/Pictures/@Model.Picture" alt="@Model.PictureAlt" title="@Model.PictureTitle">
+                </div>
+                <div class="border p-3 my-3">
+                    <p class="h6">توضیحات محصول</p>
+                    <p>
+                        @(Model.MetaDescription.Substring(0,50) + " ...")
+                    </p>
+                </div>
+                <div class="text-single-card border p-3 my-3">
+                    <p class="h6">
+                        @Html.Raw(Model.Description)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- singleCard -->
+<!-- same product -->
+
+<div class="container my-5">
+    <h4>محصولات مرتبط</h4>
+    <hr>
+    <div class="every-boxes">
+        <div class="row justify-content-around">
+            <div class="col-sm-12 col-md-4 every-box rounded">
+                <div class="card-product text-center">
+                    <img src="./public/image/210 (1).png" alt="">
+                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
+                    <p class="card-product-text">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
+                    </p>
+                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
+                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
+                    <p class="offer-product-price">تخفیف <span>10%</span></p>
+                    <a href="" class="btn btn-outline-danger">مشاهده</a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 every-box ">
+                <div class="card-product text-center">
+                    <img src="./public/image/210.png" alt="">
+                    <h6 class="card-product-title">چای کیسه ای معطر بدون لفاف 25 عددی بلوط</h6>
+                    <p class="card-product-text">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
+                    </p>
+                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
+                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
+                    <p class="offer-product-price">تخفیف <span>10%</span></p>
+                    <a href="" class="btn btn-outline-danger">مشاهده</a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 every-box ">
+                <div class="card-product text-center">
+                    <img src="./public/image/210 (1).png" alt="">
+                    <h6 class="card-product-title">چای کله مورچه ساده 450 گرمی بلوط</h6>
+                    <p class="card-product-text">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ...
+                    </p>
+                    <p class="offer-product-price">قیمت مصرف کننده : <span>15000</span></p>
+                    <p class="offer-product-price">قیمت خرید : <span>12000</span></p>
+                    <p class="offer-product-price">تخفیف <span>10%</span></p>
+                    <a href="" class="btn btn-outline-danger">مشاهده</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- same product -->

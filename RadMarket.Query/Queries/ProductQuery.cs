@@ -6,7 +6,9 @@ using DiscountManagement.Infrastructure.EfCore;
 using Framework.Application;
 using Framework.Domain;
 using Microsoft.EntityFrameworkCore;
+using RadMarket.Query.Contracts.CategoryAgg;
 using RadMarket.Query.Contracts.ProductAgg;
+using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Infrastructure.EfCore;
 
 namespace RadMarket.Query.Queries
@@ -48,7 +50,7 @@ namespace RadMarket.Query.Queries
                     PurchasePrice = p.PurchacePrice,
                     OrderCount = p.OrderCount
                 }).AsNoTracking().ToListAsync();
-            
+
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
             switch (filter)
@@ -68,6 +70,54 @@ namespace RadMarket.Query.Queries
 
             return products;
         }
+
+        public async Task<ProductQueryVM> GetBy(string slug)
+        {
+            var product = await _storeContext.Products
+                .Include(c => c.Category)
+                .Include(s => s.Store)
+                .Where(p => p.Store.Status == StoreStatus.Confirmed && p.ProductAcceptanceState == ProductAcceptanceState.Accepted)
+                .Select(p => new ProductQueryVM
+                {
+                    Id = p.Id,
+                    StoreId = p.StoreId,
+                    StoreName = p.Store.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    Code = p.Code,
+                    Name = p.Name,
+                    ConsumerPrice = p.ConsumerPrice,
+                    PurchasePrice = p.PurchacePrice,
+                    Picture = p.Picture,
+                    PictureAlt = p.PictureAlt,
+                    PictureTitle = p.PictureTitle,
+                    Slug = p.Slug,
+                    Description = p.Description,
+                    EachBoxCount = p.EachBoxCount,
+                    MoneyGain = p.MoneyGain,
+                    Keywords = p.Keywords,
+                    MetaDescription = p.MetaDescription,
+                    Category = MapCategory(p.Category)
+                }).FirstOrDefaultAsync(p => p.Slug == slug);
+
+            if(product != null)
+            {
+                var discount = await _discountContext.Discounts
+                    .Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
+                    .FirstOrDefaultAsync(d => d.ProductId == product.Id);
+
+                product.DiscountRate = discount.DiscountRate;
+            }
+
+            return product;
+        }
+
+        private static CategoryQueryVM MapCategory(Category category) => new CategoryQueryVM
+        {
+            Id = category.Id,
+            Name = category.Name,
+            Slug = category.Slug,
+        };
         
     }
 }

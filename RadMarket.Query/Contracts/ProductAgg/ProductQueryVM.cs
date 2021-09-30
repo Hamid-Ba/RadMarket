@@ -1,4 +1,6 @@
-﻿namespace RadMarket.Query.Contracts.ProductAgg
+﻿using RadMarket.Query.Contracts.CategoryAgg;
+
+namespace RadMarket.Query.Contracts.ProductAgg
 {
     public class ProductQueryVM
     {
@@ -24,5 +26,7 @@
         public string Keywords { get;  set; }
         public string MetaDescription { get;  set; }
         public int? DiscountRate { get; set; }
+
+        public CategoryQueryVM Category { get; set; }
     }
 }
