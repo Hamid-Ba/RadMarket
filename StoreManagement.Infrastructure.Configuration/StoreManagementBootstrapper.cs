@@ -5,9 +5,11 @@ using RadMarket.Query.Contracts.ProductAgg;
 using RadMarket.Query.Queries;
 using StoreManagement.Application;
 using StoreManagement.Application.Contract.CategoryAgg;
+using StoreManagement.Application.Contract.PackageAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using StoreManagement.Domain.CategoryAgg;
+using StoreManagement.Domain.PackageAgg;
 using StoreManagement.Domain.ProductAgg;
 using StoreManagement.Domain.StoreAgg;
 using StoreManagement.Infrastructure.EfCore;
@@ -33,6 +35,9 @@ namespace StoreManagement.Infrastructure.Configuration
 
             service.AddTransient<IProductRepository, ProductRepository>();
             service.AddTransient<IProductApplication, ProductApplication>();
+
+            service.AddTransient<IPackageRepository, PackageRepository>();
+            service.AddTransient<IPackageApplication, PackageApplication>();
 
             #region Query
 
