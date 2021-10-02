@@ -130,5 +130,34 @@ namespace StoreManagement.Application
         }
 
         public async Task<EditStoreVM> GetDetailForEditBy(long id) => await _storeRepository.GetDetailForEditBy(id);
+
+        public Task<OperationResult> ProductCreated(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<OperationResult> IsAbleToAddProduct(long id)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetEntityByIdAsync(id);
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (!store.IsAbleToAddProduct()) return result.Failed("شارژ حساب شما برای اضافه کردن محصول به اتمام رسیده است");
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> IsAccountStillCharged(long id)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetEntityByIdAsync(id);
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (!store.IsAccountStillCharged()) return result.Failed("شارژ حساب شما به اتمام رسیده است");
+
+            return result.Succeeded();
+        }
     }
 }

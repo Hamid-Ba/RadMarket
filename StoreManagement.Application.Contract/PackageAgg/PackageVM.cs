@@ -14,6 +14,7 @@ namespace StoreManagement.Application.Contract.PackageAgg
         public long Id { get; set; }
         public string Title { get; set; }
         public string ImageName { get; set; }
+        public int PackagesCount { get;  set; }
         public double Cost { get; set; }
         public string Description { get; set; }
         public long OrderCount { get; set; }
@@ -27,6 +28,11 @@ namespace StoreManagement.Application.Contract.PackageAgg
 
         [Display(Name = "تصویر")]
         public IFormFile ImageFile { get; set; }
+
+        [Display(Name = "تعداد محصول")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(0, int.MaxValue, ErrorMessage = "حداقل مقدار {1} و حداکثر مقدار {2} می باشد")]
+        public int PackagesCount { get; set; }
 
         [Display(Name = "قیمت")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

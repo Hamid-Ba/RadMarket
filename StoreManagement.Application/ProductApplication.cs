@@ -3,6 +3,7 @@ using Framework.Application;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Domain.ProductAgg;
 using System.Threading.Tasks;
+using StoreManagement.Domain.StoreAgg;
 
 namespace StoreManagement.Application
 {

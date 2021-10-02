@@ -23,6 +23,7 @@ namespace StoreManagement.Domain.StoreAgg
         public string StoreGivenStatusReason { get; private set; }
         public int ChargeCount { get; private set; }
         public DateTime ChargeExpiredDate { get; private set; }
+        public int ProductsCount { get; private set; }
 
         public List<Product> Products { get; private set; }
 
@@ -36,6 +37,7 @@ namespace StoreManagement.Domain.StoreAgg
             City = city;
             Address = address;
             ChargeCount = 0;
+            ProductsCount = 0;
         }
 
         public Store(long storeAdminUserId, string name, string accountNumber, string shabaNumber, string cardNumber, string phoneNumber,
@@ -88,9 +90,14 @@ namespace StoreManagement.Domain.StoreAgg
             return false;
         }
 
-        public void Charge(int period)
+        public bool IsAbleToAddProduct() => ProductsCount > 0 ? true : false;
+
+        public int ProductCreated() => --ProductsCount;
+
+        public void Charge(int period, int productCount)
         {
             ChargeCount++;
+            ProductsCount = productCount;
             ChargeExpiredDate = DateTime.Now.AddDays(period);
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : StoreBaseController
     {
         public IActionResult Index()
         {

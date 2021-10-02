@@ -28,6 +28,7 @@
                                     <th>#</th>
                                     <th>تصویر</th>
                                     <th>عنوان</th>
+                                    <th>تعداد محصول</th>
                                     <th>قیمت(تومان)</th>
                                     <th>تعداد سفارش</th>
                                     <th>عملیات</th>
@@ -40,6 +41,7 @@
                                         <td>@entity.Id</td>
                                         <td><img src="~/Pictures/@entity.ImageName" style="width: 85px; height: 85px; border-radius: 10px" /></td>
                                         <td>@entity.Title</td>
+                                        <td>@entity.PackagesCount</td>
                                         <td>@entity.Cost.ToMoney()</td>
                                         <td>@entity.OrderCount</td>
 

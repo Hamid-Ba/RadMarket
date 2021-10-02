@@ -13,11 +13,18 @@
       enctype="multipart/form-data">
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Title" class="control-label">عنوان</label>
                     <input type="text" class="form-control" asp-for="Title">
                     <span asp-validation-for="Title" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PackagesCount" class="control-label">تعداد محصول</label>
+                    <input type="number" class="form-control" asp-for="PackagesCount">
+                    <span asp-validation-for="PackagesCount" class="error"></span>
                 </div>
             </div>
         </div>

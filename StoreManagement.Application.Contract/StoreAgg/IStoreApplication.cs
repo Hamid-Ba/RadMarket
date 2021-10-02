@@ -12,9 +12,12 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<OperationResult> Delete(long id);
         Task<BankStoreVM> GetBankInfoBy(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
+        Task<OperationResult> ProductCreated(long id);
         Task<AddressStoreVM> GetAddressInfoBy(long id);
         Task<OperationResult> Edit(EditStoreVM command);
+        Task<OperationResult> IsAbleToAddProduct(long id);
         Task<OperationResult> IsStoreConfirmedBy(long id);
+        Task<OperationResult> IsAccountStillCharged(long id);
         Task<OperationResult> IsStoreConfirmedBy(string code);
         Task<(OperationResult,long)> Create(CreateStoreVM command);
         Task<OperationResult> SendMessage(SendMessageStoreVM command);

@@ -21,7 +21,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Title = p.Title,
             ImageName = p.ImageName,
             OrderCount = p.OrderCount,
-            Description = p.Description
+            Description = p.Description,
+            PackagesCount = p.PackagesCount
         }).AsNoTracking().ToListAsync();
 
 
@@ -31,7 +32,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Cost = p.Cost,
             Title = p.Title,
             ImageName = p.ImageName,
-            Description = p.Description
+            Description = p.Description,
+            PackagesCount = p.PackagesCount,
         }).FirstOrDefaultAsync(p => p.Id == id);
 
 
@@ -42,7 +44,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Title = p.Title,
             ImageName = p.ImageName,
             OrderCount = p.OrderCount,
-            Description = p.Description
+            Description = p.Description,
+            PackagesCount = p.PackagesCount
         }).FirstOrDefaultAsync(p => p.Id == id);
 
     }

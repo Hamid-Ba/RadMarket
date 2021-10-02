@@ -6,22 +6,32 @@ using Microsoft.AspNetCore.Routing;
 using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Application.Contract.ProductAgg;
+using StoreManagement.Application.Contract.StoreAgg;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
     public class ProductController : StoreBaseController
     {
+        private readonly IStoreApplication _storeApplication;
         private readonly IProductApplication _productApplication;
         private readonly ICategoryApplication _categoryApplication;
 
-        public ProductController(IProductApplication productApplication, ICategoryApplication categoryApplication)
+        public ProductController(IStoreApplication storeApplication, IProductApplication productApplication, ICategoryApplication categoryApplication)
         {
+            _storeApplication = storeApplication;
             _productApplication = productApplication;
             _categoryApplication = categoryApplication;
         }
 
         public async Task<IActionResult> Index(SearchStoreVM search, int pageIndex = 1)
         {
+            var storeHasStillCharged = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
+            if(!storeHasStillCharged.IsSucceeded)
+            {
+                TempData[WarningMessage] = storeHasStillCharged.Message;
+                return RedirectToAction("Index","Dashboard",new { area = "Store" });
+            }
+
             var products = await _productApplication.GetAll(User.GetStoreId(), search);
 
             var model = PagingList.Create(products, 10, pageIndex);
@@ -39,6 +49,20 @@ namespace ServiceHost.Areas.Store.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var storeHasStillCharged = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
+            if (!storeHasStillCharged.IsSucceeded)
+            {
+                TempData[WarningMessage] = storeHasStillCharged.Message;
+                return RedirectToAction("Index", "Dashboard", new { area = "Store" });
+            }
+
+            var storeIsAbleToAddProduct = await _storeApplication.IsAbleToAddProduct(User.GetStoreId());
+            if (!storeIsAbleToAddProduct.IsSucceeded)
+            {
+                TempData[WarningMessage] = storeIsAbleToAddProduct.Message;
+                return RedirectToAction("Index", "Dashboard", new { area = "Store" });
+            }
+
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
             return View();
         }
@@ -52,6 +76,8 @@ namespace ServiceHost.Areas.Store.Controllers
             {
                 command.StoreId = User.GetStoreId();
                 var result = await _productApplication.Create(command);
+
+                await _storeApplication.ProductCreated(command.StoreId);
 
                 if (result.IsSucceeded)
                 {
@@ -68,6 +94,13 @@ namespace ServiceHost.Areas.Store.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(long id)
         {
+            var storeHasStillCharged = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
+            if (!storeHasStillCharged.IsSucceeded)
+            {
+                TempData[WarningMessage] = storeHasStillCharged.Message;
+                return RedirectToAction("Index", "Dashboard", new { area = "Store" });
+            }
+
             if (!await _productApplication.IsProductBelongToStore(id, User.GetStoreId()))
                 return RedirectToAction("NotFound", "Home", new { area = "" });
 
