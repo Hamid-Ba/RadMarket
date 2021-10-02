@@ -21,6 +21,8 @@ namespace StoreManagement.Domain.StoreAgg
         public string Province { get; private set; }
         public string Address { get; private set; }
         public string StoreGivenStatusReason { get; private set; }
+        public int ChargeCount { get; private set; }
+        public DateTime ChargeExpiredDate { get; private set; }
 
         public List<Product> Products { get; private set; }
 
@@ -33,6 +35,7 @@ namespace StoreManagement.Domain.StoreAgg
             Province = province;
             City = city;
             Address = address;
+            ChargeCount = 0;
         }
 
         public Store(long storeAdminUserId, string name, string accountNumber, string shabaNumber, string cardNumber, string phoneNumber,
@@ -51,6 +54,7 @@ namespace StoreManagement.Domain.StoreAgg
             Province = province;
             Address = address;
             StoreGivenStatusReason = "شرکت تازه ثبت شده";
+            ChargeCount = 0;
         }
 
         public void Edit(string name, string phoneNumber, string mobileNumber, string accountNumber, string shabaNumber, string cardNumber
@@ -76,6 +80,18 @@ namespace StoreManagement.Domain.StoreAgg
             if (!string.IsNullOrWhiteSpace(reason)) StoreGivenStatusReason = reason;
 
             LastUpdateDate = DateTime.Now;
+        }
+
+        public bool IsAccountStillCharged()
+        {
+            if (ChargeExpiredDate >= DateTime.Now) return true;
+            return false;
+        }
+
+        public void Charge(int period)
+        {
+            ChargeCount++;
+            ChargeExpiredDate = DateTime.Now.AddDays(period);
         }
     }
 }
