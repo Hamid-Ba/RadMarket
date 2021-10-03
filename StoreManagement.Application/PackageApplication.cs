@@ -20,9 +20,7 @@ namespace StoreManagement.Application
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
             var imageName = Uploader.ImageUploader(command.ImageFile, "Packages", null!);
-
             var plan = new Package(command.Title, imageName,command.PackagesCount, command.Cost, command.Description);
-
 
             await _packageRepository.AddEntityAsync(plan);
             await _packageRepository.SaveChangesAsync();
