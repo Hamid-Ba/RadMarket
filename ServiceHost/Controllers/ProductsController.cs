@@ -36,6 +36,17 @@ namespace ServiceHost.Controllers
             return View(model);
         }
 
+        [HttpGet("Adt-Offers")]
+        public async Task<IActionResult> AdtOffers(int pageIndex = 1)
+        {
+            var products = await _productQuery.GetAll("Adt");
+
+            var model = PagingList.Create(products, 6, pageIndex);
+            model.Action = "AdtOffers";
+
+            return View(model);
+        }
+
 
         [HttpGet("Products")]
         public async Task<IActionResult> Products(int pageIndex = 1)

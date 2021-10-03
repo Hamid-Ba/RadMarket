@@ -34,6 +34,8 @@ namespace ServiceHost.ViewComponents
                     return View(await _productQuery.GetAll(filter, 5));
                 case "BestSells":
                     return View(await _productQuery.GetAll(filter, 7));
+                case "Adt":
+                    return View(await _productQuery.GetAll(filter, 7));
                 default:
                     return View(await _productQuery.GetAll(filter, 3));
             }

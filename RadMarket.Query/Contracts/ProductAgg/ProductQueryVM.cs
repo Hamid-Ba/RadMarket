@@ -26,6 +26,7 @@ namespace RadMarket.Query.Contracts.ProductAgg
         public string Keywords { get;  set; }
         public string MetaDescription { get;  set; }
         public int? DiscountRate { get; set; }
+        public bool HasAdtCharge { get; set; }
 
         public CategoryQueryVM Category { get; set; }
     }

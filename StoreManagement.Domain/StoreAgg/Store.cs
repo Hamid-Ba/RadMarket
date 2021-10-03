@@ -21,9 +21,13 @@ namespace StoreManagement.Domain.StoreAgg
         public string Province { get; private set; }
         public string Address { get; private set; }
         public string StoreGivenStatusReason { get; private set; }
+        //Package Properties
         public int ChargeCount { get; private set; }
         public DateTime ChargeExpiredDate { get; private set; }
         public int ProductsCount { get; private set; }
+        //Adt Package Properties
+        public int AdtChargeCount { get; private set; }
+        public DateTime AdtChargeExpiredDate { get; private set; }
 
         public List<Product> Products { get; private set; }
 
@@ -38,6 +42,7 @@ namespace StoreManagement.Domain.StoreAgg
             Address = address;
             ChargeCount = 0;
             ProductsCount = 0;
+            AdtChargeCount = 0;
         }
 
         public Store(long storeAdminUserId, string name, string accountNumber, string shabaNumber, string cardNumber, string phoneNumber,
@@ -57,6 +62,8 @@ namespace StoreManagement.Domain.StoreAgg
             Address = address;
             StoreGivenStatusReason = "شرکت تازه ثبت شده";
             ChargeCount = 0;
+            ProductsCount = 0;
+            AdtChargeCount = 0;
         }
 
         public void Edit(string name, string phoneNumber, string mobileNumber, string accountNumber, string shabaNumber, string cardNumber
@@ -90,6 +97,12 @@ namespace StoreManagement.Domain.StoreAgg
             return false;
         }
 
+        public bool IsAccountStillAdtCharged()
+        {
+            if (AdtChargeExpiredDate >= DateTime.Now) return true;
+            return false;
+        }
+
         public bool IsAbleToAddProduct() => ProductsCount > 0 ? true : false;
 
         public int ProductCreated() => --ProductsCount;
@@ -99,6 +112,12 @@ namespace StoreManagement.Domain.StoreAgg
             ChargeCount++;
             ProductsCount = productCount;
             ChargeExpiredDate = DateTime.Now.AddDays(period);
+        }
+
+        public void ChargeAdt(int period)
+        {
+            AdtChargeCount++;
+            AdtChargeExpiredDate = DateTime.Now.AddDays(period);
         }
     }
 }

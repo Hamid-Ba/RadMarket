@@ -51,7 +51,8 @@ namespace RadMarket.Query.Queries
                     ConsumerPrice = p.ConsumerPrice,
                     PurchasePrice = p.PurchacePrice,
                     OrderCount = p.OrderCount,
-                    EachBoxCount = p.EachBoxCount
+                    EachBoxCount = p.EachBoxCount,
+                    HasAdtCharge = p.Store.IsAccountStillAdtCharged()
                 }).AsNoTracking().ToListAsync();
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
@@ -63,6 +64,9 @@ namespace RadMarket.Query.Queries
                     break;
                 case "BestSells":
                     products = products.OrderByDescending(p => p.OrderCount).ToList();
+                    break;
+                case "Adt":
+                    products = products.Where(p => p.HasAdtCharge).OrderBy(p => p.OrderCount).ToList();
                     break;
                 default:
                     products = products.OrderByDescending(p => p.Id).ToList();
