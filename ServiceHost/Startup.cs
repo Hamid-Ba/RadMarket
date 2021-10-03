@@ -17,6 +17,7 @@ using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using TicketManagement.Infrastructure.Configuration;
 
 namespace ServiceHost
 {
@@ -39,6 +40,7 @@ namespace ServiceHost
             BlogManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             StoreManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AdminManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
+            TicketManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));

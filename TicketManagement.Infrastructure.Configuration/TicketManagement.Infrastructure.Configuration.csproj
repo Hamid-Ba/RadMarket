@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj" />
+    <ProjectReference Include="..\TicketManagement.Application\TicketManagement.Application.csproj" />
+    <ProjectReference Include="..\TicketManagement.Infrastructure.EfCore\TicketManagement.Infrastructure.EfCore.csproj" />
+  </ItemGroup>
+
+</Project>

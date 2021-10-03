@@ -40,6 +40,7 @@
     <ProjectReference Include="..\DiscountManagement.Infrastructure.Configuration\DiscountManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
     <ProjectReference Include="..\StoreManagement.Infrastructure.Configuration\StoreManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\TicketManagement.Infrastructure.Configuration\TicketManagement.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
