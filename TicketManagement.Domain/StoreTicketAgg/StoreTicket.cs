@@ -16,6 +16,9 @@ namespace TicketManagement.Domain.StoreTicketAgg
             Title = title;
             FirstStoreId = firstStoreId;
             SecondStoreId = secondStoreId;
+            Messages = new List<StoreTicketMessage>();
         }
+
+        public void AddMessage(StoreTicketMessage message) => Messages.Add(message);
     }
 }

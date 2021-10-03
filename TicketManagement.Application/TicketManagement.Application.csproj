@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj" />
+    <ProjectReference Include="..\TicketManagement.Domain\TicketManagement.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
