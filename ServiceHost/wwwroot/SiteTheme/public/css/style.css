@@ -179,6 +179,7 @@ nav .menu-large ul li a {
 /* offers */
 
 /* boxes */
+
 .box {
     width: 33.33%;
     max-height: 300px;
@@ -520,6 +521,17 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+}
+
+.packages .package .image-package {
+    width: 100%;
+    height: 8rem;
+}
+
+.packages .package .image-package img {
+    object-fit: cover;
+    width: 6rem !important;
+    height: 6rem !important;
 }
 
 /* packages */
