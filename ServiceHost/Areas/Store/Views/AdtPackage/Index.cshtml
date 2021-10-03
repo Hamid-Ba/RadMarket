@@ -1,12 +1,12 @@
-﻿@using Framework.Application 
-@model IEnumerable<StoreManagement.Application.Contract.PackageAgg.PackageVM> 
+﻿@using Framework.Application
+@model IEnumerable<StoreManagement.Application.Contract.AdtPackageAgg.AdtPackageVM>
 @{
-    ViewData["Title"] = "خرید اشتراک";
+    ViewData["Title"] = "تبلیغات";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="best-seller-title my-5">
-    <h4>پکیج ها فروشگاه</h4>
+    <h4>پکیج های تبلیغاتی</h4>
 </div>
 
 
@@ -16,22 +16,22 @@
         <div class="row justify-content-around">
             @if (Model.Any())
             {
-                @foreach (var package in Model)
+                @foreach (var adt in Model)
                 {
                     <div class="col-sm-12 col-md-3 package rounded">
                         <div class="package-card text-center">
                             <div class="image-package">
-                                <img src="~/Pictures/@package.ImageName" alt="@package.Title">
+                                <img src="~/Pictures/@adt.ImageName" alt="@adt.Title">
                             </div>
                             <div class="detail-package my-3">
                                 <div class="title-package">
-                                    <p class="h4">@package.Title</p>
-                                    <p class="h6">ماهیانه @package.Cost.ToMoney() تومان</p>
+                                    <p class="h4">@adt.Title</p>
+                                    <p class="h6">ماهیانه @adt.Cost.ToMoney() تومان</p>
                                 </div>
                                 <hr>
                                 <div class="detail-package">
                                     <p>
-                                        @package.Description
+                                        @adt.Description
                                     </p>
                                 </div>
                                 <div class="btn-package">
