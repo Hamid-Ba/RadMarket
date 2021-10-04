@@ -1,4 +1,5 @@
 ﻿using DiscountManagement.Domain.DiscountAgg;
+using DiscountManagement.Domain.DiscountCodeAgg;
 using DiscountManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace DiscountManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Discount>().HasQueryFilter(q => !q.IsDelete);
+            modelBuilder.Entity<DiscountCode>().HasQueryFilter(q => !q.IsDelete);
         }
 
         public DbSet<Discount> Discounts { get; set; }
+        public DbSet<DiscountCode> DiscountCodes { get; set; }
     }
 }

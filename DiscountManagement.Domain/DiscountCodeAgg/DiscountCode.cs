@@ -6,23 +6,26 @@ namespace DiscountManagement.Domain.DiscountCodeAgg
     public class DiscountCode : EntityBase
     {
         public string Code { get; private set; }
+        public int Rate { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public int Count { get; private set; }
         public string Reason { get; private set; }
 
-        public DiscountCode(string code, DateTime startDate, DateTime endDate, int count, string reason)
+        public DiscountCode(string code,int rate, DateTime startDate, DateTime endDate, int count, string reason)
         {
             Code = code;
+            Rate = rate;
             StartDate = startDate;
             EndDate = endDate;
             Count = count;
             Reason = reason;
         }
 
-        public void Edit(string code, DateTime startDate, DateTime endDate, int count, string reason)
+        public void Edit(string code,int rate, DateTime startDate, DateTime endDate, int count, string reason)
         {
             Code = code;
+            Rate = rate;
             StartDate = startDate;
             EndDate = endDate;
             Count = count;
