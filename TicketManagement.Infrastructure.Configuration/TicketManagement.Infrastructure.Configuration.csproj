@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RadMarket.Query\RadMarket.Query.csproj" />
     <ProjectReference Include="..\TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj" />
     <ProjectReference Include="..\TicketManagement.Application\TicketManagement.Application.csproj" />
     <ProjectReference Include="..\TicketManagement.Infrastructure.EfCore\TicketManagement.Infrastructure.EfCore.csproj" />

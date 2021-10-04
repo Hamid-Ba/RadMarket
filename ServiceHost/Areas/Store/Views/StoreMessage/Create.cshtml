@@ -1,0 +1,51 @@
+﻿@model TicketManagement.Application.Contract.StoreTicketAgg.CreateStoreTicketVM
+@{
+    ViewData["Title"] = "ارسال پیام";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="https://cdn.tiny.cloud/1/bofsilxqs8ay4n0o4a3vj02ny82abzm5uryl93ih0pkmq2tm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#TinyArea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم @ViewData["Title"]</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="StoreMessage" asp-action="Create" method="post" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">شرکت</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="SecondStoreId" asp-items="@ViewBag.Stores">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="SecondStoreId" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">موضوع</label>
+                    <input type="" asp-for="Title" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">دلیل</label>
+                <textarea asp-for="Message" id="TinyArea" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-danger w-50">ارسال</button>
+            </div>
+        </form>
+    </div>
+</div>

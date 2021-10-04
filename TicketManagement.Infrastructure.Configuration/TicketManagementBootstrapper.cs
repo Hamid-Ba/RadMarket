@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RadMarket.Query.Contracts.StoreTicketAgg;
+using RadMarket.Query.Queries;
 using TicketManagement.Application;
 using TicketManagement.Application.Contract.StoreTicketAgg;
 using TicketManagement.Domain.StoreTicketAgg;
@@ -20,6 +22,12 @@ namespace TicketManagement.Infrastructure.Configuration
 
             service.AddTransient<IStoreTicketRepository, StoreTicketRepository>();
             service.AddTransient<IStoreTicketApplication, StoreTicketApplication>();
+
+            #region Query
+
+            service.AddTransient<IStoreTicketQuery, StoreTicketQuery>();
+
+            #endregion
         }
     }
 }

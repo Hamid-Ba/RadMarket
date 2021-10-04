@@ -15,6 +15,9 @@ namespace TicketManagement.Application
         {
             OperationResult result = new();
 
+            if (command.FirstStoreId == command.SecondStoreId) return result.Failed("برای شرکت خودتون پیام میفرستید !!");
+            if (string.IsNullOrWhiteSpace(command.Message)) return result.Failed("پیام نمی تواند خالی باشد");
+
             var ticket = new StoreTicket(command.Title, command.FirstStoreId, command.SecondStoreId);
 
             await _storeTicketRepository.AddEntityAsync(ticket);
