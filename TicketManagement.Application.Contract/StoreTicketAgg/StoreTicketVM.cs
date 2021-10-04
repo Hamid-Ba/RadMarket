@@ -36,8 +36,6 @@ namespace TicketManagement.Application.Contract.StoreTicketAgg
         public long StoreTicketId { get;  set; }
         public long SenderId { get;  set; }
 
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public long ReciverId { get;  set; }
 
         [Display(Name = "پیام")]

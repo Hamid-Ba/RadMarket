@@ -35,13 +35,41 @@ namespace RadMarket.Query.Queries
                 SecondStoreId = t.SecondStoreId,
                 CreationDate = t.CreationDate.ToFarsi(),
                 GeorgianCreationDate = t.CreationDate,
-                Messages = MapMessages(t.Messages)
-            }).AsNoTracking().OrderByDescending(t => t.GeorgianCreationDate).ToListAsync();
+            }).OrderByDescending(t => t.GeorgianCreationDate).ToListAsync();
 
             result.ForEach(t => t.FirstStoreName = stores.FirstOrDefault(s => s.Id == t.FirstStoreId)?.Name);
             result.ForEach(t => t.SecondStoreName = stores.FirstOrDefault(s => s.Id == t.SecondStoreId)?.Name);
 
             return result;
+        }
+
+        public async Task<StoreTicketQueryVM> GetBy(long id,long storeId)
+        {
+            var stores = await _storeContext.Stores.Select(s => new { Id = s.Id, Name = s.Name }).ToListAsync();
+
+            var result = await _ticketContext.StoreTickets
+            .Select(t => new StoreTicketQueryVM
+            {
+                Id = t.Id,
+                Title = t.Title,
+                FirstStoreId = t.FirstStoreId,
+                SecondStoreId = t.SecondStoreId,
+                CreationDate = t.CreationDate.ToFarsi(),
+                GeorgianCreationDate = t.CreationDate,
+                Messages = MapMessages(t.Messages)
+            }).AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+
+            if (result is null) return null;
+
+            if (result.FirstStoreId == storeId || result.SecondStoreId == storeId)
+            {
+                result.FirstStoreName = stores.FirstOrDefault(s => s.Id == result.FirstStoreId)?.Name;
+                result.SecondStoreName = stores.FirstOrDefault(s => s.Id == result.SecondStoreId)?.Name;
+
+                return result;
+            }
+
+            return null;
         }
 
         private static List<StoreTicketMessageQueryVM> MapMessages(List<StoreTicketMessage> messages) => messages.Select(m => new StoreTicketMessageQueryVM
@@ -54,6 +82,5 @@ namespace RadMarket.Query.Queries
             GeorgianSentDate = m.SentDate,
             Message = m.Message
         }).ToList();
-
     }
 }

@@ -34,7 +34,7 @@ namespace ServiceHost.Areas.Store.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult>  Create()
+        public async Task<IActionResult> Create()
         {
             ViewBag.Stores = new SelectList(await _storeApplication.GetAll(), "Id", "Name");
             return View();
@@ -59,6 +59,39 @@ namespace ServiceHost.Areas.Store.Controllers
             }
             ViewBag.Stores = new SelectList(await _storeApplication.GetAll(), "Id", "Name");
             return View(command);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(long id)
+        {
+            var ticket = await _storeTicketQuery.GetBy(id, User.GetStoreId());
+
+            if (ticket is null)
+            {
+                TempData[ErrorMessage] = "شما دسترسی به تیکت بقیه ندارید";
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.StoreId = User.GetStoreId();
+
+            return View(ticket);
+        }
+
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendMessage(AddStoreTicketMessageVM command)
+        {
+            command.SenderId = User.GetStoreId();
+
+            if (ModelState.IsValid)
+            {
+                var result = await _storeTicketApplication.SendMessage(command);
+
+                if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+                else TempData[ErrorMessage] = result.Message;
+            }
+
+            return RedirectToAction("Detail", new { id = command.StoreTicketId, area = "Store" });
         }
     }
 }

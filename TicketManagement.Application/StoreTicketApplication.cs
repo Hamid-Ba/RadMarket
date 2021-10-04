@@ -36,7 +36,11 @@ namespace TicketManagement.Application
             OperationResult result = new();
 
             var ticket = await _storeTicketRepository.GetEntityByIdAsync(command.StoreTicketId);
+
             if (ticket is null) return result.Failed(ApplicationMessage.NotExist);
+            if (string.IsNullOrWhiteSpace(command.Message)) return result.Failed("پیام نمی تواند خالی باشد");
+
+            command.ReciverId = command.SenderId == ticket.FirstStoreId ? ticket.SecondStoreId : ticket.FirstStoreId;
 
             var message = new StoreTicketMessage(command.StoreTicketId, command.SenderId, command.ReciverId, command.Message);
             ticket.AddMessage(message);

@@ -1,0 +1,16 @@
+﻿@model TicketManagement.Application.Contract.StoreTicketAgg.AddStoreTicketMessageVM
+
+<form method="post" asp-area="Store" asp-controller="StoreMessage" asp-action="SendMessage">
+    <input type="hidden" asp-for="StoreTicketId" />
+
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">پیام</label>
+        <textarea asp-for="Message" id="TinyArea" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-outline-danger w-50">ارسال</button>
+    </div>
+
+</form>
