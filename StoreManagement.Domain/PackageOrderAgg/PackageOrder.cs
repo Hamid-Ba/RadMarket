@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using Framework.Infrastructure;
 using StoreManagement.Domain.StoreAgg;
 
 namespace StoreManagement.Domain.PackageOrderAgg
@@ -7,7 +8,7 @@ namespace StoreManagement.Domain.PackageOrderAgg
     {
         public long StoreId { get; private set; }
         public long PackageId { get; private set; }
-        public int PackageType { get; private set; }
+        public PackageType Type { get; private set; }
         public double TotalPrice { get; private set; }
         public double DiscountPrice { get; private set; }
         public double PayAmount { get; private set; }
@@ -17,11 +18,11 @@ namespace StoreManagement.Domain.PackageOrderAgg
 
         public Store Store { get; private set; }
 
-        public PackageOrder(long storeId,long packageId, int packageType,double totalPrice,double discountPrice, double payAmount, string mobileNumber)
+        public PackageOrder(long storeId,long packageId, PackageType type,double totalPrice,double discountPrice, double payAmount, string mobileNumber)
         {
             StoreId = storeId;
             PackageId = packageId;
-            PackageType = packageType;
+            Type = type;
             TotalPrice = totalPrice;
             DiscountPrice = discountPrice;
             PayAmount = payAmount;
