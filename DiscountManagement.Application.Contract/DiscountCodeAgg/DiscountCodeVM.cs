@@ -30,10 +30,14 @@ namespace DiscountManagement.Application.Contract.DiscountCodeAgg
         public int Rate { get; set; }
 
         [Display(Name = "تاریخ شروع")]
+        [MinLength(10, ErrorMessage = "حداقل کاراکتر مجاز {1} می باشد")]
+        [MaxLength(10, ErrorMessage = "حداقل کاراکتر مجاز {1} می باشد")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string StartDate { get; set; }
 
         [Display(Name = "تاریخ پایان")]
+        [MinLength(10, ErrorMessage = "حداقل کاراکتر مجاز {1} می باشد")]
+        [MaxLength(10, ErrorMessage = "حداقل کاراکتر مجاز {1} می باشد")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string EndDate { get; set; }
 
@@ -41,6 +45,7 @@ namespace DiscountManagement.Application.Contract.DiscountCodeAgg
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(1, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public int Count { get; set; }
+
         public string Reason { get; set; }
     }
 

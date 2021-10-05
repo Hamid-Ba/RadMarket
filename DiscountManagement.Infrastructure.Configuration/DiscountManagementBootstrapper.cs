@@ -1,6 +1,8 @@
 ﻿using DiscountManagement.Application;
 using DiscountManagement.Application.Contract.DiscountAgg;
+using DiscountManagement.Application.Contract.DiscountCodeAgg;
 using DiscountManagement.Domain.DiscountAgg;
+using DiscountManagement.Domain.DiscountCodeAgg;
 using DiscountManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure.EfCore.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,9 @@ namespace DiscountManagement.Infrastructure.Configuration
 
             service.AddTransient<IDiscountRepository, DiscountRepository>();
             service.AddTransient<IDiscountApplication, DiscountApplication>();
+
+            service.AddTransient<IDiscountCodeRepository, DiscountCodeRepository>();
+            service.AddTransient<IDiscountCodeApplication, DiscountCodeApplication>();
         }
     }
 }
