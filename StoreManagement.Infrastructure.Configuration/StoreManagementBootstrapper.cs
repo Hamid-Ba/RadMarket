@@ -1,17 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RadMarket.Query.Contracts.CategoryAgg;
+using RadMarket.Query.Contracts.PackageOrderAgg;
 using RadMarket.Query.Contracts.ProductAgg;
 using RadMarket.Query.Queries;
 using StoreManagement.Application;
 using StoreManagement.Application.Contract.AdtPackageAgg;
 using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Application.Contract.PackageAgg;
+using StoreManagement.Application.Contract.PackageOrderAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using StoreManagement.Domain.AdtPackageAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.PackageAgg;
+using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using StoreManagement.Domain.StoreAgg;
 using StoreManagement.Infrastructure.EfCore;
@@ -44,10 +47,14 @@ namespace StoreManagement.Infrastructure.Configuration
             service.AddTransient<IAdtPackageRepository, AdtPackageRepository>();
             service.AddTransient<IAdtPackageApplication, AdtPackageApplication>();
 
+            service.AddTransient<IPackageOrderRepository, PackageOrderRepository>();
+            service.AddTransient<IPackageOrderApplication, PackageOrderApplication>();
+
             #region Query
 
             service.AddTransient<IProductQuery, ProductQuery>();
             service.AddTransient<ICategoryQuery, CategoryQuery>();
+            service.AddTransient<ICalculatePackageOrderCart, CalculatePackageOrderCart>();
 
             #endregion
         }

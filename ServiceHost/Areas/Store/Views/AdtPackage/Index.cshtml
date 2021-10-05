@@ -1,4 +1,5 @@
 ﻿@using Framework.Application
+@using Framework.Infrastructure
 @model IEnumerable<StoreManagement.Application.Contract.AdtPackageAgg.AdtPackageVM>
 @{
     ViewData["Title"] = "تبلیغات";
@@ -35,7 +36,7 @@
                                     </p>
                                 </div>
                                 <div class="btn-package">
-                                    <a href="" class="btn btn-outline-danger">پرداخت</a>
+                                    <a asp-controller="PackageOrder" asp-action="Index" asp-route-packageId="@adt.Id" asp-route-type="@PackageType.Adt" class="btn btn-outline-danger">پرداخت</a>
                                 </div>
                             </div>
                         </div>

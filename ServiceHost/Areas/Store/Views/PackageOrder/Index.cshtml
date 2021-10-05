@@ -1,0 +1,74 @@
+﻿@using Framework.Application
+@model RadMarket.Query.Contracts.PackageOrderAgg.PackageOrderCartVM
+@{
+    ViewData["Title"] = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- title -->
+<div class="container my-5">
+    <div class="title col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>سبد خرید</h4>
+    </div>
+</div>
+<!-- title -->
+<!-- tabels -->
+<div class="table-me container">
+    <table class="table table-striped table-hover" style="overflow-y: scroll ;">
+        <thead>
+            <tr>
+                <th scope="col">نوع</th>
+                <th scope="col">عنوان</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Type.GetEnumName()</td>
+                <td>@Model.PackageName</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- tabels -->
+<!-- prices -->
+<div class="container">
+    <div class="border p-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <p class="h4">مجموع : <span>@Model.TotalPrice.ToMoney()</span></p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <p class="h4">تخفیف : <span>@Model.DiscountPrice.ToMoney()</span></p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <p class="h4">مبلغ قابل پرداخت : <span>@Model.PayAmount.ToMoney()</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- prices -->
+@if (Model.DiscountPrice == 0)
+{
+    <form>
+        <div class="container desc-basket my-5">
+            <div class="mb-3 textarea-basket">
+                <label for="exampleFormControlTextarea1" class="form-label">کد تخفیف :</label>
+                <input name="code" />
+                <input type="hidden" name="packageId" value="@Model.PackageId" />
+                <input type="hidden" name="type" value="@Model.Type" />
+                <input type="hidden" name="discountPrice" value="@Model.DiscountPrice" />
+                <button type="submit" class="btn btn-outline-danger w-25">اعمال</button>
+            </div>
+        </div>
+    </form>
+}
+<!-- description-basket -->
+
+
+<form action="" class="my-5">
+    <!-- description-basket -->
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-outline-danger w-25">پرداخت</button>
+    </div>
+</form>
+
