@@ -5,7 +5,7 @@
         string Prefix { get; set; }
 
         PaymentResponse CreatePaymentRequest(string amount, string mobile, string description,
-            long orderId);
+            long orderId, string returnControllerUrl);
 
         VerificationResponse CreateVerificationRequest(string authority, string price);
     }

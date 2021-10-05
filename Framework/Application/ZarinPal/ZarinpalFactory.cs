@@ -19,7 +19,7 @@ namespace Framework.Application.ZarinPal
         }
 
         public PaymentResponse CreatePaymentRequest(string amount, string mobile, string description,
-             long orderId)
+             long orderId,string returnControllerUrl)
         {
             amount = amount.Replace(",", "");
             var finalAmount = int.Parse(amount);
@@ -31,7 +31,7 @@ namespace Framework.Application.ZarinPal
             var body = new PaymentRequest
             {
                 Mobile = mobile,
-                CallbackURL = $"{siteUrl}/Checkout?handler=CallBack&oId={orderId}",
+                CallbackURL = $"{siteUrl}/{returnControllerUrl}/{orderId}",
                 Description = description,
                 Amount = finalAmount,
                 MerchantID = MerchantId

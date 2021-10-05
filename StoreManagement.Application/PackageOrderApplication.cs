@@ -84,5 +84,11 @@ namespace StoreManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<double> GetPriceBy(long id)
+        {
+            var order = await _packageOrderRepository.GetEntityByIdAsync(id);
+            return order.PayAmount;            
+        }
     }
 }

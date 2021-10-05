@@ -5,6 +5,7 @@ using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using Framework.Application.ZarinPal;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace ServiceHost
             services.AddHttpContextAccessor();
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 
             BlogManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             StoreManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
@@ -100,10 +102,10 @@ namespace ServiceHost
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapFallback(context => {
-                    context.Response.Redirect("/NotFound");
-                    return Task.CompletedTask;
-                });
+                //endpoints.MapFallback(context => {
+                //    context.Response.Redirect("/NotFound");
+                //    return Task.CompletedTask;
+                //});
             });
         }
     }
