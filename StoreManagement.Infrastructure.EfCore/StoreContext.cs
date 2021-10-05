@@ -2,6 +2,7 @@
 using StoreManagement.Domain.AdtPackageAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.PackageAgg;
+using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using StoreManagement.Domain.StoreAgg;
 using StoreManagement.Infrastructure.EfCore.Mapping;
@@ -33,6 +34,7 @@ namespace StoreManagement.Infrastructure.EfCore
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<AdtPackage> AdtPackages { get; set; }
+        public DbSet<PackageOrder> PackageOrders { get; set; }
 
     }
 }

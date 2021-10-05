@@ -125,15 +125,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TM.Application", "TM.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TM.Infrastructure", "TM.Infrastructure", "{68915DBA-00B1-4DED-BA71-F9C4797C0A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagement.Domain", "TicketManagement.Domain\TicketManagement.Domain.csproj", "{3D4D97AB-B651-4F3F-AD21-FD299FBBE456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagement.Domain", "TicketManagement.Domain\TicketManagement.Domain.csproj", "{3D4D97AB-B651-4F3F-AD21-FD299FBBE456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagement.Application.Contract", "TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj", "{E47F7493-8AE3-4C85-B6B9-05F08B06156E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagement.Application.Contract", "TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj", "{E47F7493-8AE3-4C85-B6B9-05F08B06156E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagement.Application", "TicketManagement.Application\TicketManagement.Application.csproj", "{4D567757-8339-4874-9B03-971F967BA6E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagement.Application", "TicketManagement.Application\TicketManagement.Application.csproj", "{4D567757-8339-4874-9B03-971F967BA6E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagement.Infrastructure.EfCore", "TicketManagement.Infrastructure.EfCore\TicketManagement.Infrastructure.EfCore.csproj", "{0567C69E-693F-4448-9543-7803A47CD510}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagement.Infrastructure.EfCore", "TicketManagement.Infrastructure.EfCore\TicketManagement.Infrastructure.EfCore.csproj", "{0567C69E-693F-4448-9543-7803A47CD510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagement.Infrastructure.Configuration", "TicketManagement.Infrastructure.Configuration\TicketManagement.Infrastructure.Configuration.csproj", "{4002C16C-4CB4-485D-AF2C-408DBDF48BAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagement.Infrastructure.Configuration", "TicketManagement.Infrastructure.Configuration\TicketManagement.Infrastructure.Configuration.csproj", "{4002C16C-4CB4-485D-AF2C-408DBDF48BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

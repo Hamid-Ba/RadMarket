@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace StoreManagement.Domain.StoreAgg
         public DateTime AdtChargeExpiredDate { get; private set; }
 
         public List<Product> Products { get; private set; }
+        public List<PackageOrder> PackageOrders { get; private set; }
 
         public Store(long storeAdminUserId, string name, string mobile, string province, string city, string address)
         {
