@@ -10,6 +10,7 @@ namespace RadMarket.Query.Contracts.PackageOrderAgg
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public double PayAmount { get; set; }
+        public string DiscountCode { get; set; }
 
         public PackageOrderCartVM(long packageId, string packageName, PackageType type, double totalPrice, double payAmount)
         {
@@ -20,8 +21,9 @@ namespace RadMarket.Query.Contracts.PackageOrderAgg
             PayAmount = payAmount;
         }
 
-        public void CalculatePriceViaDiscount(int discountRate)
+        public void CalculatePriceViaDiscount(string discountCode,int discountRate)
         {
+            DiscountCode = discountCode;
             DiscountPrice = TotalPrice * ((double)discountRate / 100);
             PayAmount = TotalPrice - DiscountPrice;
         }

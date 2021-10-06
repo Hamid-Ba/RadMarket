@@ -32,23 +32,23 @@ namespace RadMarket.Query.Queries
             {
                 case PackageType.Products:
                     var package = packages.FirstOrDefault(p => p.Id == packageId);
+                    if (package is null) return null;
                     result = new PackageOrderCartVM(packageId, package.Name, PackageType.Products, package.Cost, package.Cost);
                     break;
 
                 default:
                     var adtPackage = adtPackages.FirstOrDefault(p => p.Id == packageId);
+                    if (adtPackage is null) return null;
                     result = new PackageOrderCartVM(packageId, adtPackage.Name, PackageType.Adt, adtPackage.Cost, adtPackage.Cost);
                     break;
             }
 
             if (code != null && code.IsCodeStillWork() && discountPrice == "0")
             {
-                result.CalculatePriceViaDiscount(code.Rate);
+                result.CalculatePriceViaDiscount(discountCode,code.Rate);
                 code.CodeUsed();
                 await _discountContext.SaveChangesAsync();
             }
-            
-            
             return result;
         }
     }

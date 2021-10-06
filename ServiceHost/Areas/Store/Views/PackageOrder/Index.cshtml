@@ -69,11 +69,12 @@
     <!-- description-basket -->
     <div class="d-flex justify-content-center">
         <input type="hidden" value="@Model.PackageId" name="packageId"/>
-        <input type="hidden" value="@Model.PackageName"  name="packageName"/>
+        @*<input type="hidden" value="@Model.PackageName"  name="packageName"/>*@
         <input type="hidden" value="@Model.Type" name="type"/>
-        <input type="hidden" value="@Model.PayAmount" name="payAmount"/>
+        @*<input type="hidden" value="@Model.PayAmount" name="payAmount"/>
         <input type="hidden" value="@Model.DiscountPrice" name="discountPrice"/>
-        <input type="hidden" value="@Model.TotalPrice" name="totalPrice"/>
+        <input type="hidden" value="@Model.TotalPrice" name="totalPrice"/>*@
+        <input type="hidden" value="@Model.DiscountCode" name="discountCode"/>
         <button type="submit" class="btn btn-outline-danger w-25">پرداخت</button>
     </div>
 </form>

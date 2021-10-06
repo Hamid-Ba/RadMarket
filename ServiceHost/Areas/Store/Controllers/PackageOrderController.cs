@@ -16,35 +16,52 @@ namespace ServiceHost.Areas.Store.Controllers
         private readonly IZarinPalFactory _zarinPalFactory;
         private readonly IPackageOrderApplication _packageOrderApplication;
 
-        public PackageOrderController(ICalculatePackageOrderCart cart, IZarinPalFactory zarinPalFactory ,IPackageOrderApplication packageOrderApplication)
+        public PackageOrderController(ICalculatePackageOrderCart cart, IZarinPalFactory zarinPalFactory, IPackageOrderApplication packageOrderApplication)
         {
             _cart = cart;
             _zarinPalFactory = zarinPalFactory;
             _packageOrderApplication = packageOrderApplication;
         }
 
-        public async Task<IActionResult> Index(long packageId, PackageType type, string code, string discountPrice) => View(await _cart.CreateCart(type, packageId, code, discountPrice));
+        public async Task<IActionResult> Index(long packageId, PackageType type, string code, string discountPrice)
+        {
+            var cart = await _cart.CreateCart(type, packageId, code, discountPrice);
 
+            if (cart is null)
+            {
+                TempData[ErrorMessage] = "به مشکل بر خوردید";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View(cart);
+        }
 
         [HttpGet]
-        public async Task<IActionResult> CheckOut(long packageId,string packageName,PackageType type,double payAmount,double discountPrice,double totalPrice)
+        public async Task<IActionResult> CheckOut(long packageId, PackageType type, string discountCode)
         {
             if (User.Identity.IsAuthenticated)
             {
+                var cart = await _cart.CreateCart(type, packageId, discountCode, "0");
+
+                if (cart is null)
+                {
+                    TempData[ErrorMessage] = "به مشکل بر خوردید";
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
                 var createPackageOrder = new CreatePackageOrderVM()
                 {
                     StoreId = User.GetStoreId(),
-                    Type = type,
-                    PackageId = packageId,
-                    PayAmount = payAmount,
-                    DiscountPrice = discountPrice,
-                    TotalPrice = totalPrice,
+                    Type = cart.Type,
+                    PackageId = cart.PackageId,
+                    PayAmount = cart.PayAmount,
+                    DiscountPrice = cart.DiscountPrice,
+                    TotalPrice = cart.TotalPrice,
                     MobileNumber = User.GetMobilePhone()
                 };
 
                 var packageOrderId = await _packageOrderApplication.PlaceOrder(createPackageOrder);
 
-                var paymentResponse = _zarinPalFactory.CreatePaymentRequest(payAmount.ToString(), createPackageOrder.MobileNumber, packageName, packageOrderId, "StoreCallBack");
+                var paymentResponse = _zarinPalFactory.CreatePaymentRequest(cart.PayAmount.ToString(), createPackageOrder.MobileNumber, cart.PackageName, packageOrderId, "StoreCallBack");
                 return Redirect(
                     $"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentResponse.Authority}");
             }
@@ -53,7 +70,7 @@ namespace ServiceHost.Areas.Store.Controllers
         }
 
         [HttpGet("StoreCallBack/{oId}")]
-        public async Task<IActionResult> CallBack(long oId,[FromQuery] string authority, [FromQuery] string status)
+        public async Task<IActionResult> CallBack(long oId, [FromQuery] string authority, [FromQuery] string status)
         {
             var verificationResponse = _zarinPalFactory.CreateVerificationRequest(authority, (await _packageOrderApplication.GetPriceBy(oId)).ToString());
             OperationResult result = new OperationResult();
