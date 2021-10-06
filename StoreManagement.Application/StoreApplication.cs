@@ -157,7 +157,19 @@ namespace StoreManagement.Application
 
             if (!store.IsAccountStillCharged()) return result.Failed("شارژ حساب شما به اتمام رسیده است");
 
-            return result.Succeeded();
+            return result.Succeeded("حساب شما هنوز دارای اعتبار هست");
+        }
+
+        public async Task<OperationResult> IsAccountStillAdtCharged(long id)
+        {
+            OperationResult result = new();
+
+            var store = await _storeRepository.GetEntityByIdAsync(id);
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (!store.IsAccountStillAdtCharged()) return result.Failed("شارژ حساب شما برای تبلیغات به اتمام رسیده است");
+
+            return result.Succeeded("شرکت و محصولات شما در حال تبلیغات هست");
         }
     }
 }

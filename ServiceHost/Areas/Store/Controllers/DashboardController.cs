@@ -4,9 +4,6 @@ namespace ServiceHost.Areas.Store.Controllers
 {
     public class DashboardController : StoreBaseController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
     }
 }

@@ -18,6 +18,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<OperationResult> IsAbleToAddProduct(long id);
         Task<OperationResult> IsStoreConfirmedBy(long id);
         Task<OperationResult> IsAccountStillCharged(long id);
+        Task<OperationResult> IsAccountStillAdtCharged(long id);
         Task<OperationResult> IsStoreConfirmedBy(string code);
         Task<(OperationResult,long)> Create(CreateStoreVM command);
         Task<OperationResult> SendMessage(SendMessageStoreVM command);

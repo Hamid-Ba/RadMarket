@@ -1,15 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Framework.Application.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Contract.AdtPackageAgg;
+using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
     public class AdtPackageController : StoreBaseController
     {
+        private readonly IStoreApplication _storeApplication;
         private readonly IAdtPackageApplication _adtPackageApplication;
 
-        public AdtPackageController(IAdtPackageApplication adtPackageApplication) => _adtPackageApplication = adtPackageApplication;
+        public AdtPackageController(IStoreApplication storeApplication, IAdtPackageApplication adtPackageApplication)
+        {
+            _storeApplication = storeApplication;
+            _adtPackageApplication = adtPackageApplication;
+        }
 
-        public async Task<IActionResult> Index() => View(await _adtPackageApplication.GetAll());
+        public async Task<IActionResult> Index()
+        {
+            var hasAdtCharge = await _storeApplication.IsAccountStillAdtCharged(User.GetStoreId());
+
+            if (hasAdtCharge.IsSucceeded)
+            {
+                TempData[WarningMessage] = hasAdtCharge.Message;
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            return View(await _adtPackageApplication.GetAll());
+        }
     }
 }

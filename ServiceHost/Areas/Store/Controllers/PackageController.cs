@@ -1,19 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Framework.Application.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Contract.PackageAgg;
+using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
     public class PackageController : StoreBaseController
     {
+        private readonly IStoreApplication _storeApplication;
         private readonly IPackageApplication _packageApplication;
 
-        public PackageController(IPackageApplication packageApplication)
+        public PackageController(IStoreApplication storeApplication, IPackageApplication packageApplication)
         {
+            _storeApplication = storeApplication;
             _packageApplication = packageApplication;
         }
 
-        public async Task<IActionResult> Index() => View(await _packageApplication.GetAll());
-        
+        public async Task<IActionResult> Index()
+        {
+            var hasCharge = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
+
+            if (hasCharge.IsSucceeded)
+            {
+                TempData[WarningMessage] = hasCharge.Message;
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            return View(await _packageApplication.GetAll());
+        }
     }
 }
