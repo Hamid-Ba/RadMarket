@@ -1,0 +1,78 @@
+﻿@using Framework.Application
+@model IEnumerable<StoreManagement.Application.Contract.PackageOrderAgg.PackageOrderVM>
+
+@{
+    ViewData["Title"] = "سفارشات پکیج ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewData["Title"]</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>شرکت</th>
+                                    <th>کد شرکت</th>
+                                    <th>کد سفارش</th>
+                                    <th>نوع پکیج</th>
+                                    <th>پکیج</th>
+                                    <th>مبلغ کل(تومان)</th>
+                                    <th>مبلغ تخفیف(تومان)</th>
+                                    <th>مبلغ پرداخت(تومان)</th>
+                                    <th>پرداخت کامل شد؟</th>
+                                    <th>تاریخ پردازش</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach (var entity in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td>@entity.Id</td>
+                                        <td>@entity.StoreName</td>
+                                        <td>@entity.StoreCode</td>
+                                        <td>@entity.RefId</td>
+                                        <td>@entity.Type.GetEnumName()</td>
+                                        <td>@entity.PackageName</td>
+                                        <td>@entity.TotalPrice.ToMoney()</td>
+                                        <td>@entity.DiscountPrice.ToMoney()</td>
+                                        <td>@entity.PayAmount.ToMoney()</td>
+                                        <td>
+                                            @if (entity.IsPayed)
+                                            {
+                                                <span class="text-success"><i class="fa fa-check"></i></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger"><i class="fa fa-close"></i></span>
+                                            }
+                                        </td>
+                                        <td>@entity.CreationDate</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+}

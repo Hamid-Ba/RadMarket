@@ -6,6 +6,7 @@ namespace StoreManagement.Application.Contract.PackageOrderAgg
     {
         public long Id { get; set; }
         public long StoreId { get;  set; }
+        public string StoreCode { get; set; }
         public string StoreName { get; set; }
         public long PackageId { get;  set; }
         public string PackageName { get;  set; }
