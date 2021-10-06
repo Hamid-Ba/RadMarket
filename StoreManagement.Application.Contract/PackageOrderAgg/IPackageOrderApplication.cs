@@ -10,6 +10,7 @@ namespace StoreManagement.Application.Contract.PackageOrderAgg
         Task<OperationResult> Delete(long id);
         Task<IEnumerable<PackageOrderVM>> GetAll();
         Task<long> PlaceOrder(CreatePackageOrderVM command);
+        Task<IEnumerable<PackageOrderVM>> GetAllBy(long storeId);
         Task<OperationResult> PaymentSucceeded(long id, long refId);
     }
 }

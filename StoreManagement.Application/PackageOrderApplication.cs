@@ -90,5 +90,8 @@ namespace StoreManagement.Application
             var order = await _packageOrderRepository.GetEntityByIdAsync(id);
             return order.PayAmount;            
         }
+
+        public async Task<IEnumerable<PackageOrderVM>> GetAllBy(long storeId) => await _packageOrderRepository.GetAllBy(storeId);
+        
     }
 }

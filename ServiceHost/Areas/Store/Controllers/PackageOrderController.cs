@@ -4,6 +4,7 @@ using Framework.Application.ZarinPal;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RadMarket.Query.Contracts.PackageOrderAgg;
+using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.PackageOrderAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
@@ -23,6 +24,16 @@ namespace ServiceHost.Areas.Store.Controllers
             _packageOrderApplication = packageOrderApplication;
         }
 
+        public async Task<IActionResult> OrderdPackages(int pageIndex = 1)
+        {
+            var packages = await _packageOrderApplication.GetAllBy(User.GetStoreId());
+
+            var model = PagingList.Create(packages, 10, pageIndex);
+            ViewBag.Rows = (10 * pageIndex) - 9;
+            model.Action = "OrderdPackages";
+
+            return View(model);
+        }
         public async Task<IActionResult> Index(long packageId, PackageType type, string code, string discountPrice)
         {
             var cart = await _cart.CreateCart(type, packageId, code, discountPrice);

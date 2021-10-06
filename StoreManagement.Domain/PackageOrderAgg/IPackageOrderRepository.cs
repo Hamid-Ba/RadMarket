@@ -8,5 +8,6 @@ namespace StoreManagement.Domain.PackageOrderAgg
     public interface IPackageOrderRepository : IRepository<PackageOrder>
     {
         Task<IEnumerable<PackageOrderVM>> GetAll();
+        Task<IEnumerable<PackageOrderVM>> GetAllBy(long storeId);
     }
 }

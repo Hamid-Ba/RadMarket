@@ -16,6 +16,7 @@ namespace StoreManagement.Application.Contract.PackageOrderAgg
         public string MobileNumber { get; set; }
         public long RefId { get;  set; }
         public bool IsPayed { get;  set; }
+        public string CreationDate { get; set; }
     }
 
     public class CreatePackageOrderVM
