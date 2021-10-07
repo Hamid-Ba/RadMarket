@@ -17,7 +17,6 @@ using StoreManagement.Infrastructure.Configuration;
 using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using System.Threading.Tasks;
 using TicketManagement.Infrastructure.Configuration;
 
 namespace ServiceHost

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.AdtPackageAgg;
 using StoreManagement.Domain.CategoryAgg;
+using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.PackageAgg;
 using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
@@ -30,9 +31,11 @@ namespace StoreManagement.Infrastructure.EfCore
         }
 
         public DbSet<Store> Stores { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<AdtPackage> AdtPackages { get; set; }
         public DbSet<PackageOrder> PackageOrders { get; set; }
 
