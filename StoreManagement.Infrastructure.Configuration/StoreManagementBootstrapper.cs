@@ -7,12 +7,14 @@ using RadMarket.Query.Queries;
 using StoreManagement.Application;
 using StoreManagement.Application.Contract.AdtPackageAgg;
 using StoreManagement.Application.Contract.CategoryAgg;
+using StoreManagement.Application.Contract.OrderAgg;
 using StoreManagement.Application.Contract.PackageAgg;
 using StoreManagement.Application.Contract.PackageOrderAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using StoreManagement.Domain.AdtPackageAgg;
 using StoreManagement.Domain.CategoryAgg;
+using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.PackageAgg;
 using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
@@ -49,6 +51,9 @@ namespace StoreManagement.Infrastructure.Configuration
 
             service.AddTransient<IPackageOrderRepository, PackageOrderRepository>();
             service.AddTransient<IPackageOrderApplication, PackageOrderApplication>();
+
+            service.AddTransient<IOrderRepository, OrderRepository>();
+            service.AddTransient<IOrderApplication, OrderApplication>();
 
             #region Query
 

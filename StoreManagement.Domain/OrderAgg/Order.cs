@@ -13,12 +13,14 @@ namespace StoreManagement.Domain.OrderAgg
         public string MobileNumber { get; set; }
         public long RefId { get; private set; }
         public bool IsPayed { get; private set; }
-        public int Status { get; private set; }
-        public int PaymentMethod { get; private set; }
+        public OrderStatus Status { get; private set; }
+        public PaymentMethodType PaymentMethod { get; private set; }
 
         public List<OrderItem> OrderItems { get; private set; }
 
-        public Order(long userId, double totalPrice, double discountPrice, double payAmount, string address, string mobileNumber, int status, int paymentMethod)
+        public Order(long userId) => UserId = userId;
+
+        public Order(long userId, double totalPrice, double discountPrice, double payAmount, string address, string mobileNumber, PaymentMethodType paymentMethod)
         {
             UserId = userId;
             TotalPrice = totalPrice;
@@ -27,7 +29,7 @@ namespace StoreManagement.Domain.OrderAgg
             Address = address;
             MobileNumber = mobileNumber;
             IsPayed = false;
-            Status = status;
+            Status = OrderStatus.OrderCreated;
             PaymentMethod = paymentMethod;
             OrderItems = new List<OrderItem>();
         }
@@ -38,7 +40,11 @@ namespace StoreManagement.Domain.OrderAgg
             IsPayed = true;
         }
 
-        public void SetOrderStatus(int status) => Status = status;
+        public void SetOrderStatus(OrderStatus status)
+        {
+            Status = status;
+            LastUpdateDate = System.DateTime.Now;
+        }
 
         public void AddItem(OrderItem item) => OrderItems.Add(item);
     }
