@@ -21,5 +21,7 @@ namespace StoreManagement.Domain.OrderAgg
             DiscountRate = discountRate;
             Count = count;
         }
+
+        public void AddCount(int count) => Count += count;
     }
 }
