@@ -14,7 +14,6 @@ namespace StoreManagement.Infrastructure.EfCore.Mapping
             {
                 modelBuilder.HasKey(i => i.Id);
                 modelBuilder.WithOwner(i => i.Order).HasForeignKey(f => f.OrderId);
-                modelBuilder.HasOne(p => p.Product).WithMany(o => o.OrderItems).HasForeignKey(f => f.ProductId);
             });
         }
     }

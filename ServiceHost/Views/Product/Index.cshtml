@@ -31,12 +31,18 @@
                 <p class="h6">کد محصول : <span>@Model.Code</span></p>
                 <p class="h6">دسته بندی : <span>@Model.CategoryName</span></p>
                 <p class="h6">تعداد در هر جعبه : <span>@Model.EachBoxCount</span></p>
-                <a href="" class="btn btn-outline-danger">خرید محصول</a>
-                <br>
-                <div class="my-3">
-                    <label for="">تعداد :</label>
-                    <input type="number">
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+                    {
+                        <a href="" class="btn btn-outline-danger">خرید محصول</a>
+                        <br>
+                        <div class="my-3">
+                            <label for="">تعداد :</label>
+                            <input type="number">
+                        </div>
+                    }
+                }
             </div>
         </div>
         <div class="col-sm-12 col-md-8 border p-3 ">
@@ -46,11 +52,11 @@
                          src="~/Pictures/@Model.Picture" alt="@Model.PictureAlt" title="@Model.PictureTitle">
                 </div>
                 @*<div class="border p-3 my-3">
-                    <p class="h6">توضیحات محصول</p>
-                    <p>
-                        @(Model.MetaDescription.Substring(0,50) + " ...")
-                    </p>
-                </div>*@
+                        <p class="h6">توضیحات محصول</p>
+                        <p>
+                            @(Model.MetaDescription.Substring(0,50) + " ...")
+                        </p>
+                    </div>*@
                 <div class="text-single-card border p-3 my-3">
                     <p class="h6">توضیحات محصول</p>
                     <p class="h6">
@@ -69,7 +75,7 @@
     <hr>
     <div class="every-boxes">
         <div class="row justify-content-around">
-            @await Component.InvokeAsync("SameProduct", new { categoryId = Model.CategoryId , productBeRemovedById = Model.Id})
+            @await Component.InvokeAsync("SameProduct", new { categoryId = Model.CategoryId, productBeRemovedById = Model.Id })
         </div>
     </div>
 </div>
