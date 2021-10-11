@@ -62,8 +62,8 @@ namespace StoreManagement.Application
             var item = order.OrderItems.FirstOrDefault(o => o.Id == itemId);
             if (item is null) return result.Failed(ApplicationMessage.NotExist);
 
-            order.OrderItems.Remove(item);
-            await _orderRepository.SaveChangesAsync();
+            item.Delete();
+            await _orderItemRepository.SaveChangesAsync();
 
             return result.Succeeded();
         }
