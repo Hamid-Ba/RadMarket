@@ -53,7 +53,6 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             return await result.ToListAsync();
         }
 
-
         public async Task<ProductVM> GetDetailBy(long id) => await _context.Products
             .Include(s => s.Store)
             .Include(c => c.Category)
@@ -133,6 +132,10 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
             return await result.ToListAsync();
         }
+
+        public async Task<string> GetProductSlugBy(long id) => (await _context.Products.FirstOrDefaultAsync(p => p.Id == id)).Slug;
+
+        public async Task<long> GetProductStoreIdBy(long id) => (await _context.Products.FirstOrDefaultAsync(p => p.Id == id)).StoreId;
 
     }
 }

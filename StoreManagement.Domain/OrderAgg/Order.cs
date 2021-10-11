@@ -18,7 +18,11 @@ namespace StoreManagement.Domain.OrderAgg
 
         public List<OrderItem> OrderItems { get; private set; }
 
-        public Order(long userId) => UserId = userId;
+        public Order(long userId)
+        {
+            UserId = userId;
+            OrderItems = new List<OrderItem>();
+        }
 
         public Order(long userId, double totalPrice, double discountPrice, double payAmount, string address, string mobileNumber, PaymentMethodType paymentMethod)
         {

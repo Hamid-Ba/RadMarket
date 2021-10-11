@@ -8,6 +8,8 @@ namespace StoreManagement.Application.Contract.ProductAgg
     {
         Task<ProductVM> GetDetailBy(long id);
         Task<OperationResult> Delete(long id);
+        Task<string> GetProductSlugBy(long id);
+        Task<long> GetProductStoreIdBy(long id);
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditProductVM command);
         Task<OperationResult> Create(CreateProductVM command);

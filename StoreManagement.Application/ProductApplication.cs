@@ -105,5 +105,11 @@ namespace StoreManagement.Application
         }
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
+
+        public async Task<string> GetProductSlugBy(long id) => await _productRepository.GetProductSlugBy(id);
+
+        public async Task<long> GetProductStoreIdBy(long id) => await _productRepository.GetProductStoreIdBy(id);
+
+
     }
 }

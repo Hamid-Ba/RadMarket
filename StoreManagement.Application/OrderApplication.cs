@@ -1,6 +1,7 @@
 ﻿using Framework.Application;
 using StoreManagement.Application.Contract.OrderAgg;
 using StoreManagement.Domain.OrderAgg;
+using StoreManagement.Domain.ProductAgg;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,12 +10,19 @@ namespace StoreManagement.Application
     public class OrderApplication : IOrderApplication
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IProductRepository _productRepository;
 
-        public OrderApplication(IOrderRepository orderRepository) => _orderRepository = orderRepository;
+        public OrderApplication(IOrderRepository orderRepository, IProductRepository productRepository)
+        {
+            _orderRepository = orderRepository;
+            _productRepository = productRepository;
+        }
 
         public async Task<OperationResult> AddProductToOpenOrder(AddOrderItemsVM command)
         {
             OperationResult result = new();
+
+            if (!_productRepository.Exists(p => p.Id == command.ProductId)) return result.Failed(ApplicationMessage.NotExist);
 
             var openOrderVM = await GetLastOpenedOrder(command.UserId);
             var openOrder = await _orderRepository.GetEntityByIdAsync(openOrderVM.Id);
@@ -23,7 +31,7 @@ namespace StoreManagement.Application
 
             if (similarProduct is null)
             {
-                var newItem = new OrderItem(command.ProductId, command.UnitPrice, command.DiscountRate, command.Count);
+                var newItem = new OrderItem(command.ProductId, command.Count);
                 openOrder.AddItem(newItem);
             }
             else similarProduct.AddCount(command.Count);

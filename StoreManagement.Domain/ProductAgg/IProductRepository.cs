@@ -12,5 +12,7 @@ namespace StoreManagement.Domain.ProductAgg
         Task<bool> IsProductBelongToStore(long id, long storeId);
         Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search);
         Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search);
+        Task<string> GetProductSlugBy(long id);
+        Task<long> GetProductStoreIdBy(long id);
     }
 }

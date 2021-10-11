@@ -19,7 +19,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Id = o.Id,
             UserId = o.UserId,
             Items = MapItems(o.OrderItems)
-        }).FirstOrDefaultAsync();
+        }).AsNoTracking().FirstOrDefaultAsync();
 
         private static List<OrderItemsVM> MapItems(List<OrderItem> orderItems) => orderItems.Select(o => new OrderItemsVM
         {
