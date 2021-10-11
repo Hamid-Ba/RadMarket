@@ -50,7 +50,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("Index", "Dashboard", new { area = "Store" });
             }
 
-            ViewBag.Products = new SelectList(await _productApplication.GetAll(null), "Id", "Name");
+            ViewBag.Products = new SelectList(await _productApplication.GetAll(User.GetStoreId(),null), "Id", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace ServiceHost.Areas.Store.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateDiscountVM command)
         {
-            ViewBag.Products = new SelectList(await _productApplication.GetAll(null), "Id", "Name");
+            ViewBag.Products = new SelectList(await _productApplication.GetAll(User.GetStoreId(), null), "Id", "Name");
             if (ModelState.IsValid)
             {
                 command.StoreId = User.GetStoreId();
@@ -86,7 +86,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("Index", "Dashboard", new { area = "Store" });
             }
 
-            ViewBag.Products = new SelectList(await _productApplication.GetAll(null), "Id", "Name");
+            ViewBag.Products = new SelectList(await _productApplication.GetAll(User.GetStoreId(), null), "Id", "Name");
             return View(await _discountApplication.GetDetailForEditBy(id, User.GetStoreId()));
         }
 
@@ -94,7 +94,7 @@ namespace ServiceHost.Areas.Store.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditDiscountVM command)
         {
-            ViewBag.Products = new SelectList(await _productApplication.GetAll(null), "Id", "Name");
+            ViewBag.Products = new SelectList(await _productApplication.GetAll(User.GetStoreId(), null), "Id", "Name");
             if (ModelState.IsValid)
             {
                 command.StoreId = User.GetStoreId();
