@@ -26,6 +26,7 @@ namespace StoreManagement.Infrastructure.EfCore
             modelBuilder.Entity<Store>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Package>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<OrderItem>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<AdtPackage>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Product>().HasQueryFilter(u => !u.IsDelete || u.Category == null);
         }

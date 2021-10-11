@@ -1,5 +1,4 @@
 ﻿using Framework.Domain;
-using System;
 using System.Collections.Generic;
 
 namespace StoreManagement.Domain.OrderAgg
@@ -36,7 +35,6 @@ namespace StoreManagement.Domain.OrderAgg
             IsPayed = false;
             Status = OrderStatus.OrderCreated;
             PaymentMethod = paymentMethod;
-            OrderItems = new List<OrderItem>();
         }
 
         public void PaymentSuccedded(long refId)
@@ -51,6 +49,5 @@ namespace StoreManagement.Domain.OrderAgg
             LastUpdateDate = System.DateTime.Now;
         }
 
-        public void AddItem(OrderItem item) => OrderItems.Add(item);
     }
 }

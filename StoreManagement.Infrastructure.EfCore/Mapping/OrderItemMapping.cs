@@ -4,13 +4,13 @@ using StoreManagement.Domain.OrderAgg;
 
 namespace StoreManagement.Infrastructure.EfCore.Mapping
 {
-    public class OrderMapping : IEntityTypeConfiguration<Order>
+    public class OrderItemMapping : IEntityTypeConfiguration<OrderItem>
     {
-        public void Configure(EntityTypeBuilder<Order> builder)
+        public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder.HasKey(k => k.Id);
 
-            builder.HasMany(o => o.OrderItems).WithOne(o => o.Order).HasForeignKey(f => f.OrderId);
+            builder.HasOne(o => o.Order).WithMany(i => i.OrderItems).HasForeignKey(f => f.OrderId);
         }
     }
 }

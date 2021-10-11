@@ -14,7 +14,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public OrderRepository(StoreContext context) : base(context) => _context = context;
 
-        public async Task<OrderVM> GetLastOpenOrderBy(long userId) => await _context.Orders.Where(o => o.UserId == userId && !o.IsPayed).Select(o => new OrderVM
+        public async Task<OrderVM> GetLastOpenOrderVMBy(long userId) => await _context.Orders.Include(i => i.OrderItems).Where(o => o.UserId == userId && !o.IsPayed).Select(o => new OrderVM
         {
             Id = o.Id,
             UserId = o.UserId,
@@ -30,6 +30,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             DiscountRate = o.DiscountRate,
             UnitPrice = o.UnitPrice
         }).ToList();
-        
+
+        public async Task<Order> GetLastOpenOrderBy(long userId) => await _context.Orders.Include(i => i.OrderItems).Where(o => o.UserId == userId && !o.IsPayed).FirstOrDefaultAsync();
     }
 }

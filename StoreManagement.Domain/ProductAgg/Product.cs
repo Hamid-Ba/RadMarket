@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Framework.Application;
 using Framework.Domain;
 using StoreManagement.Domain.CategoryAgg;
+using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.StoreAgg;
 
 namespace StoreManagement.Domain.ProductAgg
@@ -31,6 +33,7 @@ namespace StoreManagement.Domain.ProductAgg
 
         public Store Store { get; private set; }
         public Category Category { get; private set; }
+        public List<OrderItem> OrderItems { get; private set; }
 
         public Product(long storeId, long categoryId,string code, string name, string picture, string pictureAlt, string pictureTitle, int eachBoxCount,
             double consumerPrice, double purchacePrice, int stock, int prize, string description, string slug,

@@ -6,6 +6,7 @@ namespace StoreManagement.Domain.OrderAgg
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<OrderVM> GetLastOpenOrderBy(long userId);
+        Task<Order> GetLastOpenOrderBy(long userId);
+        Task<OrderVM> GetLastOpenOrderVMBy(long userId);
     }
 }

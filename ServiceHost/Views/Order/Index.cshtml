@@ -46,7 +46,7 @@
                             <td>@item.DiscountPrice.ToMoney()</td>
                             <td>@item.PayAmount.ToMoney()</td>
                             <td>
-                                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-danger" asp-area="" asp-controller="Order" asp-action="DeleteItem" asp-route-itemId="@item.Id"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     }

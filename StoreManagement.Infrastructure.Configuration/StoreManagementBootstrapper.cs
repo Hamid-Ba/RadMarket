@@ -56,6 +56,8 @@ namespace StoreManagement.Infrastructure.Configuration
             service.AddTransient<IOrderRepository, OrderRepository>();
             service.AddTransient<IOrderApplication, OrderApplication>();
 
+
+            service.AddTransient<IOrderItemRepository, OrderItemRepository>();
             #region Query
 
             service.AddTransient<IOrderQuery, OrderQuery>();

@@ -22,10 +22,19 @@ namespace ServiceHost.Controllers
             _productApplication = productApplication;
         }
 
-        public async Task<IActionResult>  Index() => View(await _orderQuery.GetBy(User.GetUserId()));
+        public async Task<IActionResult> Index()
+        {
+            var result = await _orderQuery.GetBy(User.GetUserId());
 
+            if (result.Items.Count == 0)
+            {
+                TempData[ErrorMessage] = "سبد خرید شما خالیست";
+                return Redirect("/");
+            }
+            return View(result);
+        }
         [HttpPost]
-        public async Task<IActionResult> AddProductToOpenOrder(long productId,int count)
+        public async Task<IActionResult> AddProductToOpenOrder(long productId, int count)
         {
             var command = new AddOrderItemsVM
             {
@@ -33,7 +42,7 @@ namespace ServiceHost.Controllers
                 ProductId = productId,
                 Count = count
             };
-            
+
             var result = await _orderApplication.AddProductToOpenOrder(command);
 
             if (result.IsSucceeded)
@@ -46,6 +55,16 @@ namespace ServiceHost.Controllers
 
             TempData[ErrorMessage] = result.Message;
             return Redirect("/");
+        }
+
+        public async Task<IActionResult> DeleteItem(long itemId)
+        {
+            var result = await _orderApplication.DeleteItemBy(User.GetUserId(), itemId);
+
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("Index");
         }
     }
 }
