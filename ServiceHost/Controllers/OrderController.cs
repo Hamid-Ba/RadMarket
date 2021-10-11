@@ -26,9 +26,9 @@ namespace ServiceHost.Controllers
         {
             var result = await _orderQuery.GetBy(User.GetUserId());
 
-            if (result.Items.Count == 0)
+            if (result is null || result.Items.Count == 0)
             {
-                TempData[ErrorMessage] = "سبد خرید شما خالیست";
+                TempData[WarningMessage] = "سبد خرید شما خالیست";
                 return Redirect("/");
             }
             return View(result);

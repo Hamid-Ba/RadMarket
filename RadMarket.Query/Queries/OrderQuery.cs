@@ -27,6 +27,8 @@ namespace RadMarket.Query.Queries
             List<ItemQueryVM> Items = new List<ItemQueryVM>();
             var order = await _storeContext.Orders.Include(o => o.OrderItems).ThenInclude(p => p.Product).FirstOrDefaultAsync(o => o.UserId == userId && !o.IsPayed);
 
+            if (order is null) return null;
+
             foreach (var orderitem in order.OrderItems)
             {
                 discountRate = 0;
