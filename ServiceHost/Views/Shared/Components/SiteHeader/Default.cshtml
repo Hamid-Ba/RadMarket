@@ -9,9 +9,15 @@
                 <i class="fa fa-search text-dark"></i>
                 <input type="search" name="" id="" placeholder="جست و جو بین کالاهای متفاوت">
             </div>
-            <a href="">
-                <i class="text-white fas fa-shopping-cart"></i>
-            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+                {
+                    <a asp-controller="Order" asp-action="Index">
+                        <i class="text-white fas fa-shopping-cart"></i>
+                    </a>
+                }
+            }
         </div>
     </div>
     <div class="menu-large">

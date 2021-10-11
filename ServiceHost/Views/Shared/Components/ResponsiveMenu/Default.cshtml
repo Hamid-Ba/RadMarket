@@ -1,4 +1,6 @@
-﻿<div class="menu-small">
+﻿@using System.Security.Claims
+
+<div class="menu-small">
     <div class="icon" id="menu-small">
         <i class="fas fa-bars"></i>
     </div>
@@ -11,9 +13,33 @@
         <li><a href="">گردش حساب</a></li>
         <li><a href="">سفارشات قبلی</a></li>
         <li><a href="">پیام ها</a></li>
-        <li><a href="">حساب کاربری</a></li>
         <li><a href="">تماس با ما</a></li>
-        <li><a href="">خروج</a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+            {
+                <li><a asp-area="User" asp-controller="Dashboard">حساب کاربری</a></li>
+            }
+
+            else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value))
+            {
+                <li><a asp-area="Store" asp-controller="Dashboard" asp-action="Index">پنل شرکت</a></li>
+            }
+
+            else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "IsAdminUser")?.Value))
+            {
+                <li><a asp-area="Admin" asp-controller="Dashboard">پنل مدیریت</a></li>
+            }
+
+            <li><a asp-area="" asp-controller="Account" asp-action="Logout">خروج</a></li>
+        }
+        else
+        {
+            <li><a asp-controller="Account" asp-action="UserRegister">ثبت نام کاربر</a></li>
+            <li><a asp-controller="Account" asp-action="UserLogin">ورود کاربر</a></li>
+            <li><a asp-controller="Account" asp-action="StoreRegister">ثبت شرکت</a></li>
+            <li><a asp-controller="Account" asp-action="StoreLogin">ورود شرکت</a></li>
+        }
     </ul>
     <div class="close-menu" id="close-menu-small">
         <i class="fa fa-times"></i>

@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RadMarket.Query.Contracts.OrderAgg;
 using StoreManagement.Application.Contract.OrderAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using System.Threading.Tasks;
@@ -10,19 +11,18 @@ namespace ServiceHost.Controllers
     [Authorize]
     public class OrderController : BaseController
     {
+        private readonly IOrderQuery _orderQuery;
         private readonly IOrderApplication _orderApplication;
         private readonly IProductApplication _productApplication;
 
-        public OrderController(IOrderApplication orderApplication, IProductApplication productApplication)
+        public OrderController(IOrderQuery orderQuery, IOrderApplication orderApplication, IProductApplication productApplication)
         {
+            _orderQuery = orderQuery;
             _orderApplication = orderApplication;
             _productApplication = productApplication;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public async Task<IActionResult>  Index() => View(await _orderQuery.GetBy(User.GetUserId()));
 
         [HttpPost]
         public async Task<IActionResult> AddProductToOpenOrder(long productId,int count)

@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using System;
 using System.Collections.Generic;
 
 namespace StoreManagement.Domain.OrderAgg
