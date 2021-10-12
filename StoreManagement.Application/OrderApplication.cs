@@ -4,6 +4,7 @@ using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Domain;
 
 namespace StoreManagement.Application
 {
@@ -33,7 +34,7 @@ namespace StoreManagement.Application
 
             if (similarProduct is null)
             {
-                var newItem = new OrderItem(openOrder.Id,command.ProductId, command.Count);
+                var newItem = new OrderItem(openOrder.Id, command.ProductId, command.Count);
                 await _orderItemRepository.AddEntityAsync(newItem);
             }
             else similarProduct.AddCount(command.Count);
@@ -52,7 +53,7 @@ namespace StoreManagement.Application
             return order.Id;
         }
 
-        public async Task<OperationResult> DeleteItemBy(long userId,long itemId)
+        public async Task<OperationResult> DeleteItemBy(long userId, long itemId)
         {
             OperationResult result = new();
 
@@ -68,6 +69,12 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<string> GetIssueTrackingBy(long id)
+        {
+            var order = await _orderRepository.GetEntityByIdAsync(id);
+            return order.IssueTracking;
+        }
+
         public async Task<OrderVM> GetLastOpenedOrder(long userId)
         {
             if (!_orderRepository.Exists(o => o.UserId == userId && !o.IsPayed))
@@ -77,14 +84,20 @@ namespace StoreManagement.Application
             return openOrder;
         }
 
-        public async Task<long> PlaceOrder(CreateOrderVM command)
+        public async Task<OperationResult> PlaceOrder(CreateOrderVM command)
         {
-            var order = new Order(command.UserId, command.TotalPrice, command.DiscountPrice, command.PayAmount, command.Address, command.MobileNumber, command.PaymentMethod);
+            OperationResult result = new();
 
-            await _orderRepository.AddEntityAsync(order);
+            var order = await _orderRepository.GetLastOpenOrderBy(command.UserId);
+            if (order is null) return result.Failed(ApplicationMessage.NotExist);
+            if (order.IsPayed) return result.Failed("این سفارش قبلا ثبت شده");
+
+            var issue = order.PaymentSuccedded(command.PaymentMethod);
+            order.SetOrderStatus(OrderStatus.OrderCreated);
+
             await _orderRepository.SaveChangesAsync();
 
-            return order.Id;
+            return result.Succeeded();
         }
     }
 }

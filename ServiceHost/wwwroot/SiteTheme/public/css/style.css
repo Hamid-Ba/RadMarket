@@ -465,6 +465,9 @@ nav .menu-large ul li a {
 .single-card-box input {
     margin-top: 1rem;
     width: 3rem;
+    background-color: #F3F4ED !important;
+    border: none;
+    border-bottom: 1px solid #35353f;
 }
 
 /* single-card */
@@ -535,3 +538,11 @@ footer {
 }
 
 /* packages */
+
+/* prices */
+
+.prices input {
+    background-color: #F3F4ED !important;
+}
+
+/* prices */

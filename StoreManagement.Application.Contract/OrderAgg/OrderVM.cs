@@ -27,7 +27,6 @@ namespace StoreManagement.Application.Contract.OrderAgg
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public double PayAmount { get; set; }
-        public string Address { get; set; }
         public string MobileNumber { get; set; }
         public PaymentMethodType PaymentMethod { get; set; }
     }

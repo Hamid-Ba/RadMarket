@@ -22,6 +22,7 @@ namespace ServiceHost.Controllers
             _productApplication = productApplication;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var result = await _orderQuery.GetBy(User.GetUserId());
@@ -33,6 +34,36 @@ namespace ServiceHost.Controllers
             }
             return View(result);
         }
+
+        [HttpPost]
+        [ActionName("Index")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PostIndex()
+        {
+            var basket = await _orderQuery.GetBy(User.GetUserId());
+
+            var command = new CreateOrderVM
+            {
+                UserId = User.GetUserId(),
+                TotalPrice = basket.TotalPrice,
+                DiscountPrice = basket.DiscountPrice,
+                PayAmount = basket.PayAmount,
+                MobileNumber = User.GetMobilePhone(),
+                PaymentMethod = Framework.Domain.PaymentMethodType.PayOffline
+            };
+
+            var result = await _orderApplication.PlaceOrder(command);
+
+            if (result.IsSucceeded)
+            {
+                TempData[SuccessMessage] = result.Message;
+                return Redirect("/");
+            }
+
+            TempData[ErrorMessage] = result.Message;
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddProductToOpenOrder(long productId, int count)
         {

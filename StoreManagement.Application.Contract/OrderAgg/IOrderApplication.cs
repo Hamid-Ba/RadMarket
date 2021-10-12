@@ -6,8 +6,9 @@ namespace StoreManagement.Application.Contract.OrderAgg
     public interface IOrderApplication
     {
         Task<long> CreateOrder(long userId);
-        Task<long> PlaceOrder(CreateOrderVM command);
+        Task<string> GetIssueTrackingBy(long id);
         Task<OrderVM> GetLastOpenedOrder(long userId);
+        Task<OperationResult> PlaceOrder(CreateOrderVM command);
         Task<OperationResult> DeleteItemBy(long userId,long itemId);
         Task<OperationResult> AddProductToOpenOrder(AddOrderItemsVM command);
     }
