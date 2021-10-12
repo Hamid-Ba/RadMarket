@@ -1,0 +1,44 @@
+﻿@using Framework.Application
+
+@model IEnumerable<RadMarket.Query.Contracts.OrderAgg.ItemQueryVM>
+@{
+    ViewData["Title"] = "جزییات سفارش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- every -->
+<div class="container my-5">
+    <div class="every col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>کد سفارش : <span>@ViewBag.Code</span></h4>
+    </div>
+</div>
+<!-- every -->
+<!-- tabels -->
+<div class="table-me container">
+    <table class="table table-striped table-hover" style="overflow-y: scroll ;">
+        <thead>
+            <tr>
+                <th scope="col">کد محصول</th>
+                <th scope="col">نام محصول</th>
+                <th scope="col">تعداد</th>
+                <th scope="col">مبلغ تخفیف</th>
+                <th scope="col">مبلغ پراختی</th>
+                <th scope="col">وضعیت</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.ProductCode</th>
+                    <td>@item.ProductTitle</td>
+                    <td>@item.Count</td>
+                    <td>@item.DiscountPrice.ToMoney()</td>
+                    <td>@item.PayAmount.ToMoney()</td>
+                    <td>@item.Status.GetEnumName()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- tabels -->

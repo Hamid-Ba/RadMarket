@@ -122,5 +122,21 @@ namespace RadMarket.Query.Queries
 
             return  result;
         }
+
+        public async Task<List<ItemQueryVM>> GetUserItems(long orderId, long userId)
+        {
+            var result = await _storeContext.OrderItems.Include(p => p.Product).Where(o => o.OrderId == orderId && o.Order.UserId == userId).Select(o => new ItemQueryVM
+            {
+                Id = o.Id,
+                ProductTitle = o.Product.Name,
+                ProductCode = o.Product.Code,
+                Count = o.Count,
+                PayAmount = o.PayAmount,
+                DiscountPrice = o.DiscountPrice,
+                Status = o.Status
+            }).AsNoTracking().ToListAsync();
+
+            return result;
+        }
     }
 }

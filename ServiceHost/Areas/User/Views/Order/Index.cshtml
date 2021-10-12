@@ -45,7 +45,7 @@
                     <td>@order.PayAmount.ToMoney()</td>
                     <td>@order.PaymentMethod.GetEnumName()</td>
                     <td>@order.PlaceOrderDate</td>
-                    <td><a href="" class="btn-sm btn-outline-danger">مشاهده</a></td>
+                    <td><a asp-controller="Order" asp-action="Detail" asp-route-orderId="@order.Id" class="btn-sm btn-outline-danger">مشاهده</a></td>
                 </tr>
             }
         </tbody>
