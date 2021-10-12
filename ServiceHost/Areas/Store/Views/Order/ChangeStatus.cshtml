@@ -27,7 +27,7 @@
 
             <div class="row mb-3">
                 <div class="col-12">
-                    <label for="exampleInputPassword1" class="form-label">تصویر</label>
+                    <label for="exampleInputPassword1" class="form-label">وضعیت</label>
                     <select class="form-control" asp-for="Status">
                         <option value="0">@OrderStatus.OrderCreated.GetEnumName()</option>
                         <option value="1">@OrderStatus.AgentRecived.GetEnumName()</option>
