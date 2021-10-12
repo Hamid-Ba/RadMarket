@@ -1,4 +1,5 @@
 ﻿using Framework.Application;
+using Framework.Domain;
 using System.Threading.Tasks;
 
 namespace StoreManagement.Application.Contract.OrderAgg
@@ -11,6 +12,8 @@ namespace StoreManagement.Application.Contract.OrderAgg
         Task<OperationResult> PlaceItem(PlaceItemVM command);
         Task<OperationResult> PlaceOrder(PlaceOrderVM command);
         Task<OperationResult> DeleteItemBy(long userId,long itemId);
+        Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId);
         Task<OperationResult> AddProductToOpenOrder(AddOrderItemsVM command);
+        Task<OperationResult> ChangeOrderStatus(ChangeOrderStatusVM command);
     }
 }

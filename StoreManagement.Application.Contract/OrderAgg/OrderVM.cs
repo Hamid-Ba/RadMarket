@@ -58,4 +58,13 @@ namespace StoreManagement.Application.Contract.OrderAgg
         public long ProductId { get; set; }
         public int Count { get; set; }
     }
+
+    public class ChangeOrderStatusVM
+    {
+        public long ItemId { get; set; }
+        public long OrderId { get; set; }
+        public long UserId { get; set; }
+        public string IssueTracking { get; set; }
+        public OrderStatus Status { get; set; }
+    }
 }

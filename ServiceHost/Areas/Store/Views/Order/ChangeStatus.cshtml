@@ -1,0 +1,44 @@
+﻿@using Framework.Domain
+@using Framework.Application
+
+@model StoreManagement.Application.Contract.OrderAgg.ChangeOrderStatusVM
+
+@{
+    ViewData["Title"] = "جزییات سفارش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- every -->
+<div class="container my-5">
+    <div class="every col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>کد سفارش : <span>@ViewBag.Code</span></h4>
+        <div class="every-all">
+            <h4 class="text-white">نام مشتری : <span>@ViewBag.Name</span></h4>
+        </div>
+    </div>
+</div>
+<!-- every -->
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم تغییر وضعیت</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="Order" asp-action="ChangeStatus" method="post" enctype="multipart/form-data" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="exampleInputPassword1" class="form-label">تصویر</label>
+                    <select class="form-control" asp-for="Status">
+                        <option value="0">@OrderStatus.OrderCreated.GetEnumName()</option>
+                        <option value="1">@OrderStatus.AgentRecived.GetEnumName()</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="hidden" asp-for="ItemId" />
+                <button type="submit" class="btn btn-outline-danger w-50">تغییر وضعیت</button>
+            </div>
+        </form>
+    </div>
+</div>

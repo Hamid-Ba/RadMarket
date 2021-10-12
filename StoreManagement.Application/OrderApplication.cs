@@ -43,6 +43,19 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> ChangeOrderStatus(ChangeOrderStatusVM command)
+        {
+            OperationResult result = new();
+
+            var item = await _orderItemRepository.GetEntityByIdAsync(command.ItemId);
+            if (item is null) return result.Failed(ApplicationMessage.NotExist);
+
+            item.SetOrderStatus(command.Status);
+            await _orderItemRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<long> CreateOrder(long userId)
         {
             var order = new Order(userId);
@@ -68,6 +81,8 @@ namespace StoreManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId) => await _orderItemRepository.GetDetailForChangeStatus(itemId);
 
         public async Task<string> GetIssueTrackingBy(long id)
         {

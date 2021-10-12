@@ -57,8 +57,40 @@ namespace ServiceHost.Areas.Store.Controllers
 
             ViewBag.Code = await _orderApplication.GetIssueTrackingBy(result.OrderId);
             ViewBag.Name = await _userApplication.GetUserFullNameBy(result.UserId);
-            
+
             return View(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStatus(long itemId)
+        {
+            var result = await _orderApplication.GetDetailForChangeStatus(itemId);
+
+            if (result == null)
+            {
+                TempData[ErrorMessage] = "مشکلی به وجود آمده";
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Code = await _orderApplication.GetIssueTrackingBy(result.OrderId);
+            ViewBag.Name = await _userApplication.GetUserFullNameBy(result.UserId);
+            return View(await _orderApplication.GetDetailForChangeStatus(itemId));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeStatus(ChangeOrderStatusVM command)
+        {
+            var result = await _orderApplication.ChangeOrderStatus(command);
+
+            if (result.IsSucceeded)
+            {
+                TempData[SuccessMessage] = result.Message;
+                return RedirectToAction("Index");
+            }
+
+            TempData[ErrorMessage] = result.Message;
+            return View(command);
         }
     }
 }

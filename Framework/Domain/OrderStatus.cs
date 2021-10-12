@@ -5,6 +5,9 @@ namespace Framework.Domain
     public enum OrderStatus
     {
         [Display(Name = "سفارش ایجاد گشت")]
-        OrderCreated
+        OrderCreated,
+
+        [Display(Name = "تحویل مامور پست داده شد")]
+        AgentRecived,
     }
 }
