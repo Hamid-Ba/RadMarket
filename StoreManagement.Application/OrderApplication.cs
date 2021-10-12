@@ -94,6 +94,7 @@ namespace StoreManagement.Application
 
             var issue = order.PaymentSuccedded(command.PaymentMethod);
             order.SetOrderStatus(OrderStatus.OrderCreated);
+            order.FillInfo(command.TotalPrice, command.DiscountPrice, command.PayAmount, command.MobileNumber);
 
             await _orderRepository.SaveChangesAsync();
 

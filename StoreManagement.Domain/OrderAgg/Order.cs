@@ -47,9 +47,20 @@ namespace StoreManagement.Domain.OrderAgg
 
             IsPayed = true;
             PlaceOrderDate = DateTime.Now;
+            PaymentMethod = type;
 
             return IssueTracking;
         }
+
+        public void FillInfo(double totalPrice ,double discountPrice,double payAmount,string mobile)
+        {
+            TotalPrice = totalPrice;
+            DiscountPrice = discountPrice;
+            PayAmount = payAmount;
+            MobileNumber = mobile;
+        }
+
+        public void ChoosePaymentType(PaymentMethodType type) => PaymentMethod = type;
 
         public void PaymentSuccedded(long refId)
         {
