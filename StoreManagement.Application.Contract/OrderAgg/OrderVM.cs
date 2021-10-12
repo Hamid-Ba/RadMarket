@@ -21,7 +21,7 @@ namespace StoreManagement.Application.Contract.OrderAgg
         public List<OrderItemsVM> Items { get; set; }
     }
 
-    public class CreateOrderVM
+    public class PlaceOrderVM
     {
         public long UserId { get; set; }
         public double TotalPrice { get; set; }
@@ -31,14 +31,25 @@ namespace StoreManagement.Application.Contract.OrderAgg
         public PaymentMethodType PaymentMethod { get; set; }
     }
 
+    public class PlaceItemVM
+    {
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public long OrderId { get; set; }
+        public long ProductId { get; set; }
+        public double PayAmount { get; set; }
+        public double DiscountPrice { get; set; }
+        public int Count { get; set; }
+    }
+
     public class OrderItemsVM
     {
         public long Id { get; set; }
-        public long OrderId { get;  set; }
-        public long ProductId { get;  set; }
-        public double UnitPrice { get;  set; }
-        public int DiscountRate { get;  set; }
-        public int Count { get;  set; }
+        public long OrderId { get; set; }
+        public long ProductId { get; set; }
+        public double PayAmount { get; set; }
+        public double DiscountPrice { get; set; }
+        public int Count { get; set; }
     }
 
     public class AddOrderItemsVM

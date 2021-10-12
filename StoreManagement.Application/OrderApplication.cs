@@ -84,7 +84,26 @@ namespace StoreManagement.Application
             return openOrder;
         }
 
-        public async Task<OperationResult> PlaceOrder(CreateOrderVM command)
+        public async Task<OperationResult> PlaceItem(PlaceItemVM command)
+        {
+            OperationResult result = new();
+
+            var order = await _orderRepository.GetLastOpenOrderBy(command.UserId);
+            if (order is null) return result.Failed(ApplicationMessage.NotExist);
+            if (order.IsPayed) return result.Failed("این سفارش قبلا ثبت شده");
+
+            var item = await _orderItemRepository.GetEntityByIdAsync(command.Id);
+            if (item is null) return result.Failed(ApplicationMessage.NotExist);
+
+            item.FillInfo(command.DiscountPrice, command.PayAmount);
+            item.SetOrderStatus(OrderStatus.OrderCreated);
+
+            await _orderItemRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> PlaceOrder(PlaceOrderVM command)
         {
             OperationResult result = new();
 
@@ -93,7 +112,6 @@ namespace StoreManagement.Application
             if (order.IsPayed) return result.Failed("این سفارش قبلا ثبت شده");
 
             var issue = order.PaymentSuccedded(command.PaymentMethod);
-            order.SetOrderStatus(OrderStatus.OrderCreated);
             order.FillInfo(command.TotalPrice, command.DiscountPrice, command.PayAmount, command.MobileNumber);
 
             await _orderRepository.SaveChangesAsync();

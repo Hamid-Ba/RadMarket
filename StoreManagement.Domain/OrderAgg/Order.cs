@@ -15,7 +15,7 @@ namespace StoreManagement.Domain.OrderAgg
         public bool IsPayed { get; private set; }
         public string IssueTracking { get; private set; }
         public DateTime? PlaceOrderDate { get; private set; }
-        public OrderStatus Status { get; private set; }
+        
         public PaymentMethodType PaymentMethod { get; private set; }
 
         public List<OrderItem> OrderItems { get; private set; }
@@ -34,7 +34,6 @@ namespace StoreManagement.Domain.OrderAgg
             PayAmount = payAmount;
             MobileNumber = mobileNumber;
             IsPayed = false;
-            Status = OrderStatus.OrderCreated;
             PaymentMethod = paymentMethod;
         }
 
@@ -69,11 +68,11 @@ namespace StoreManagement.Domain.OrderAgg
             PlaceOrderDate = DateTime.Now;
         }
 
-        public void SetOrderStatus(OrderStatus status)
-        {
-            Status = status;
-            LastUpdateDate = System.DateTime.Now;
-        }
+        //public void SetOrderStatus(OrderStatus status)
+        //{
+        //    Status = status;
+        //    LastUpdateDate = System.DateTime.Now;
+        //}
 
     }
 }

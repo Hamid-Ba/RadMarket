@@ -27,8 +27,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             OrderId = o.OrderId,
             ProductId = o.ProductId,
             Count = o.Count,
-            DiscountRate = o.DiscountRate,
-            UnitPrice = o.UnitPrice
+            PayAmount = o.PayAmount,
+            DiscountPrice = o.DiscountPrice
         }).ToList();
 
         public async Task<Order> GetLastOpenOrderBy(long userId) => await _context.Orders.Include(i => i.OrderItems).Where(o => o.UserId == userId && !o.IsPayed).FirstOrDefaultAsync();

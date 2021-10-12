@@ -8,7 +8,8 @@ namespace StoreManagement.Application.Contract.OrderAgg
         Task<long> CreateOrder(long userId);
         Task<string> GetIssueTrackingBy(long id);
         Task<OrderVM> GetLastOpenedOrder(long userId);
-        Task<OperationResult> PlaceOrder(CreateOrderVM command);
+        Task<OperationResult> PlaceItem(PlaceItemVM command);
+        Task<OperationResult> PlaceOrder(PlaceOrderVM command);
         Task<OperationResult> DeleteItemBy(long userId,long itemId);
         Task<OperationResult> AddProductToOpenOrder(AddOrderItemsVM command);
     }

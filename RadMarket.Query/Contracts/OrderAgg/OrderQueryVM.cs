@@ -11,7 +11,6 @@ namespace RadMarket.Query.Contracts.OrderAgg
         public double PayAmount { get; set; }
         public string IssueTracking { get; set; }
         public string PlaceOrderDate { get; set; }
-        public OrderStatus Status { get; set; }
         public PaymentMethodType PaymentMethod{ get; set; }
         public List<ItemQueryVM> Items { get; set; }
     }
@@ -22,9 +21,12 @@ namespace RadMarket.Query.Contracts.OrderAgg
         public long UserId { get; set; }
         public string IssueTracking { get; set; }
         public string UserName { get; set; }
+        public string UserMobile { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public double PayAmount { get; set; }
         public string PlaceOrderDate { get; set; }
+        public OrderStatus Status { get; set; }
+        public PaymentMethodType PaymentMethod { get; set; }
     }
 }

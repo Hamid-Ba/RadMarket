@@ -42,7 +42,29 @@ namespace ServiceHost.Controllers
         {
             var basket = await _orderQuery.GetBy(User.GetUserId());
 
-            var command = new CreateOrderVM
+            foreach (var item in basket.Items)
+            {
+                var commandItem = new PlaceItemVM
+                {
+                    Id = item.Id,
+                    UserId = User.GetUserId(),
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                    DiscountPrice = item.DiscountPrice,
+                    PayAmount = item.PayAmount,
+                    Count = item.Count,
+                };
+
+                var resultItem = await _orderApplication.PlaceItem(commandItem);
+
+                if (!resultItem.IsSucceeded)
+                {
+                    TempData[ErrorMessage] = resultItem.Message;
+                    return RedirectToAction("Index");
+                }
+            }
+
+            var command = new PlaceOrderVM
             {
                 UserId = User.GetUserId(),
                 TotalPrice = basket.TotalPrice,

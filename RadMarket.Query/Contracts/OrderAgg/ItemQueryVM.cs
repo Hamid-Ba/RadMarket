@@ -1,4 +1,6 @@
-﻿namespace RadMarket.Query.Contracts.OrderAgg
+﻿using Framework.Domain;
+
+namespace RadMarket.Query.Contracts.OrderAgg
 {
     public class ItemQueryVM
     {
@@ -12,6 +14,7 @@
         public double DiscountPrice { get; set; }
         public double PayAmount { get; set; }
         public int DiscountRate { get; set; }
+        public OrderStatus Status { get; set; }
         public int Count { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@using Framework.Application
 
-@model ReflectionIT.Mvc.Paging.PagingList<RadMarket.Query.Contracts.OrderAgg.OrderQueryVM>
+@model ReflectionIT.Mvc.Paging.PagingList<RadMarket.Query.Contracts.OrderAgg.StoreOrderQueryVM>
 @addTagHelper *, ReflectionIT.Mvc.Paging
 
 @{
@@ -26,10 +26,13 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">کد سفارش</th>
+                <th scope="col">نام کاربر</th>
+                <th scope="col">شماره موبایل</th>
                 <th scope="col">مبلغ کل (تومان)</th>
                 <th scope="col">مبلغ تخفیف (تومان)</th>
                 <th scope="col">مبلغ پرداختی (تومان)</th>
                 <th scope="col">نحوۀ سفارش</th>
+                <th scope="col">وضعیت</th>
                 <th scope="col">تاریخ ثبت</th>
                 <th scope="col">عملیات</th>
             </tr>
@@ -40,10 +43,13 @@
                 <tr>
                     <th scope="row">@ViewBag.Rows</th>
                     <th>@order.IssueTracking</th>
+                    <th>@order.UserName</th>
+                    <th>@order.UserMobile</th>
                     <td>@order.TotalPrice.ToMoney()</td>
                     <td>@order.DiscountPrice.ToMoney()</td>
                     <td>@order.PayAmount.ToMoney()</td>
                     <td>@order.PaymentMethod.GetEnumName()</td>
+                    <td>@order.Status.GetEnumName()</td>
                     <td>@order.PlaceOrderDate</td>
                     <td><a href="" class="btn-sm btn-outline-danger">مشاهده</a></td>
                 </tr>

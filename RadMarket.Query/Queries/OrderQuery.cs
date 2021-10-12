@@ -47,8 +47,6 @@ namespace RadMarket.Query.Queries
                     Count = orderitem.Count
                 };
 
-
-
                 if (discounts.Any(c => c.ProductId == orderitem.ProductId && c.StartDate <= DateTime.Now && DateTime.Now <= c.EndDate))
                     discountRate = discounts.FirstOrDefault(c => c.ProductId == orderitem.ProductId && c.StartDate <= DateTime.Now && DateTime.Now <= c.EndDate).DiscountRate;
 
@@ -76,28 +74,6 @@ namespace RadMarket.Query.Queries
             return result;
         }
 
-        public async Task<List<StoreOrderQueryVM>> GetStoreOrders(long storeId, string code)
-        {
-            var users = await _accountContext.User.Select(u => new { Id = u.Id, UserName = $"{u.FirstName} {u.LastName}" }).ToListAsync();
-
-            var result =await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
-            {
-                Id = s.Id,
-                UserId = s.Order.UserId,
-                TotalPrice = s.Order.TotalPrice,
-                DiscountPrice = s.Order.DiscountPrice,
-                PayAmount = s.Order.PayAmount,
-                IssueTracking = s.Order.IssueTracking,
-                PlaceOrderDate = s.Order.PlaceOrderDate.ToFarsi()
-            }).AsNoTracking().ToListAsync();
-
-            result.ForEach(r => r.UserName = users.FirstOrDefault(u => u.Id == r.UserId)?.UserName);
-                
-            if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code)).ToList();
-
-            return  result;
-        }
-
         public async Task<List<OrderQueryVM>> GetUserOrders(long userId, string code)
         {
             var result = _storeContext.Orders.Where(o => o.UserId == userId && o.IsPayed).Include(i => i.OrderItems).Select(o => new OrderQueryVM
@@ -107,7 +83,6 @@ namespace RadMarket.Query.Queries
                 DiscountPrice = o.DiscountPrice,
                 PayAmount = o.PayAmount,
                 PaymentMethod = o.PaymentMethod,
-                Status = o.Status,
                 IssueTracking = o.IssueTracking,
                 PlaceOrderDate = o.PlaceOrderDate.ToFarsi()
             }).AsNoTracking().AsQueryable();
@@ -115,6 +90,30 @@ namespace RadMarket.Query.Queries
             if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code));
 
             return await result.ToListAsync();
+        }
+
+        public async Task<List<StoreOrderQueryVM>> GetStoreOrders(long storeId, string code)
+        {
+            var users = await _accountContext.User.Select(u => new { Id = u.Id, UserName = $"{u.FirstName} {u.LastName}" ,Mobile = u.Mobile}).ToListAsync();
+
+            var result =await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
+            {
+                Id = s.Id,
+                UserId = s.Order.UserId,
+                IssueTracking = s.Order.IssueTracking,
+                PlaceOrderDate = s.Order.PlaceOrderDate.ToFarsi(),
+                PaymentMethod = s.Order.PaymentMethod,
+                Status = s.Status,
+                PayAmount = s.PayAmount,
+                DiscountPrice = s.DiscountPrice
+            }).AsNoTracking().ToListAsync();
+            
+            result.ForEach(r => r.UserName = users.FirstOrDefault(u => u.Id == r.UserId)?.UserName);
+            result.ForEach(r => r.UserMobile = users.FirstOrDefault(u => u.Id == r.UserId)?.Mobile);
+                
+            if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code)).ToList();
+
+            return  result;
         }
     }
 }
