@@ -84,8 +84,9 @@ namespace RadMarket.Query.Queries
                 PayAmount = o.PayAmount,
                 PaymentMethod = o.PaymentMethod,
                 IssueTracking = o.IssueTracking,
-                PlaceOrderDate = o.PlaceOrderDate.ToFarsi()
-            }).AsNoTracking().AsQueryable();
+                PlaceOrderDate = o.PlaceOrderDate.ToFarsi(),
+                GeorgianPlaceOrderDate = o.PlaceOrderDate
+            }).AsNoTracking().OrderByDescending(o => o.GeorgianPlaceOrderDate).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code));
 
@@ -95,19 +96,25 @@ namespace RadMarket.Query.Queries
         public async Task<List<StoreOrderQueryVM>> GetStoreOrders(long storeId, string code)
         {
             var users = await _accountContext.User.Select(u => new { Id = u.Id, UserName = $"{u.FirstName} {u.LastName}" ,Mobile = u.Mobile}).ToListAsync();
+            var items = await _storeContext.OrderItems.Where(o => o.Product.StoreId == storeId && o.Order.IsPayed)
+                .Select(i => new {Id = i.Id , Payamount = i.PayAmount, DiscountPrice = i.DiscountPrice }).ToListAsync();
 
-            var result =await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
+            var result = await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
             {
                 Id = s.Id,
                 UserId = s.Order.UserId,
                 IssueTracking = s.Order.IssueTracking,
+                Count = s.Count,
                 PlaceOrderDate = s.Order.PlaceOrderDate.ToFarsi(),
                 PaymentMethod = s.Order.PaymentMethod,
                 Status = s.Status,
-                PayAmount = s.PayAmount,
-                DiscountPrice = s.DiscountPrice
-            }).AsNoTracking().ToListAsync();
-            
+                GeorgianPlaceOrderDate = s.Order.PlaceOrderDate
+            }).AsNoTracking().OrderByDescending(o => o.GeorgianPlaceOrderDate).ToListAsync();
+
+            result.ForEach(r => r.PayAmount = items.Where(i => i.Id == r.Id).Sum(p => p.Payamount));
+            result.ForEach(r => r.DiscountPrice = items.Where(i => i.Id == r.Id).Sum(p => p.DiscountPrice));
+            result.ForEach(r => r.TotalPrice = items.Where(i => i.Id == r.Id).Sum(p => p.Payamount * r.Count));
+
             result.ForEach(r => r.UserName = users.FirstOrDefault(u => u.Id == r.UserId)?.UserName);
             result.ForEach(r => r.UserMobile = users.FirstOrDefault(u => u.Id == r.UserId)?.Mobile);
                 

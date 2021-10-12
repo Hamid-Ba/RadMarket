@@ -28,6 +28,7 @@
                 <th scope="col">کد سفارش</th>
                 <th scope="col">نام کاربر</th>
                 <th scope="col">شماره موبایل</th>
+                <th scope="col">تعداد</th>
                 <th scope="col">مبلغ کل (تومان)</th>
                 <th scope="col">مبلغ تخفیف (تومان)</th>
                 <th scope="col">مبلغ پرداختی (تومان)</th>
@@ -45,6 +46,7 @@
                     <th>@order.IssueTracking</th>
                     <th>@order.UserName</th>
                     <th>@order.UserMobile</th>
+                    <th>@order.Count</th>
                     <td>@order.TotalPrice.ToMoney()</td>
                     <td>@order.DiscountPrice.ToMoney()</td>
                     <td>@order.PayAmount.ToMoney()</td>
