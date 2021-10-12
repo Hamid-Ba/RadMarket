@@ -9,7 +9,7 @@
     </div>
     <div class="auth">
         <div class="p-3">
-            <form class="p-3"  asp-controller="Account" asp-action="UserRegister" method="post">
+            <form class="p-3" asp-controller="Account" asp-action="UserRegister" method="post">
                 <div class="row">
                     <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">نام</label>
@@ -22,7 +22,7 @@
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-6">
                         <label for="exampleInputEmail1" class="form-label">موبایل</label>
@@ -55,7 +55,13 @@
                     <textarea asp-for="Address" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
-                
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">کد بازاریاب</label>
+                    <input type="" asp-for="MarketerCode" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <span asp-validation-for="MarketerCode" class="text-danger"></span>
+                </div>
+
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-danger w-50">ثبت نام</button>
                 </div>

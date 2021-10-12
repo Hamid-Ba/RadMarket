@@ -10,11 +10,11 @@ namespace StoreManagement.Domain.OrderAgg
         public double TotalPrice { get; private set; }
         public double DiscountPrice { get; private set; }
         public double PayAmount { get; private set; }
-        public string Address { get; set; }
         public string MobileNumber { get; set; }
         public long RefId { get; private set; }
         public bool IsPayed { get; private set; }
         public string IssueTracking { get; private set; }
+        public DateTime? PlaceOrderDate { get; private set; }
         public OrderStatus Status { get; private set; }
         public PaymentMethodType PaymentMethod { get; private set; }
 
@@ -26,13 +26,12 @@ namespace StoreManagement.Domain.OrderAgg
             OrderItems = new List<OrderItem>();
         }
 
-        public Order(long userId, double totalPrice, double discountPrice, double payAmount, string address, string mobileNumber, PaymentMethodType paymentMethod)
+        public Order(long userId, double totalPrice, double discountPrice, double payAmount, string mobileNumber, PaymentMethodType paymentMethod)
         {
             UserId = userId;
             TotalPrice = totalPrice;
             DiscountPrice = discountPrice;
             PayAmount = payAmount;
-            Address = address;
             MobileNumber = mobileNumber;
             IsPayed = false;
             Status = OrderStatus.OrderCreated;
@@ -47,6 +46,7 @@ namespace StoreManagement.Domain.OrderAgg
                 IssueTracking = "On" + Guid.NewGuid().ToString().Substring(0, 7);
 
             IsPayed = true;
+            PlaceOrderDate = DateTime.Now;
 
             return IssueTracking;
         }
@@ -55,6 +55,7 @@ namespace StoreManagement.Domain.OrderAgg
         {
             if (refId > 0) RefId = refId;
             IsPayed = true;
+            PlaceOrderDate = DateTime.Now;
         }
 
         public void SetOrderStatus(OrderStatus status)

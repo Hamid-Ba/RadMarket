@@ -1,4 +1,5 @@
 ﻿using DiscountManagement.Infrastructure.EfCore;
+using Framework.Application;
 using Microsoft.EntityFrameworkCore;
 using RadMarket.Query.Contracts.OrderAgg;
 using StoreManagement.Infrastructure.EfCore;
@@ -43,7 +44,7 @@ namespace RadMarket.Query.Queries
                     Count = orderitem.Count
                 };
 
-                
+
 
                 if (discounts.Any(c => c.ProductId == orderitem.ProductId && c.StartDate <= DateTime.Now && DateTime.Now <= c.EndDate))
                     discountRate = discounts.FirstOrDefault(c => c.ProductId == orderitem.ProductId && c.StartDate <= DateTime.Now && DateTime.Now <= c.EndDate).DiscountRate;
@@ -70,6 +71,25 @@ namespace RadMarket.Query.Queries
             result.PayAmount = result.TotalPrice - result.DiscountPrice;
 
             return result;
+        }
+
+        public async Task<List<OrderQueryVM>> GetUserOrders(long userId, string code)
+        {
+            var result = _storeContext.Orders.Where(o => o.UserId == userId && o.IsPayed).Include(i => i.OrderItems).Select(o => new OrderQueryVM
+            {
+                Id = o.Id,
+                TotalPrice = o.TotalPrice,
+                DiscountPrice = o.DiscountPrice,
+                PayAmount = o.PayAmount,
+                PaymentMethod = o.PaymentMethod,
+                Status = o.Status,
+                IssueTracking = o.IssueTracking,
+                PlaceOrderDate = o.PlaceOrderDate.ToFarsi()
+            }).AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code));
+
+            return await result.ToListAsync();
         }
     }
 }
