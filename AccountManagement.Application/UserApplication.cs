@@ -60,7 +60,7 @@ namespace AccountManagement.Application
             if (!string.IsNullOrWhiteSpace(command.Password))
                 if (command.Password == command.ConfirmPassword) newPassword = _passwordHasher.Hash(command.Password);
 
-            user.Edit(command.FirstName,command.LastName,newPassword,command.City,command.Province,command.Address);
+            user.Edit(command.FirstName, command.LastName, newPassword, command.City, command.Province, command.Address);
             await _userRepository.SaveChangesAsync();
 
             return result.Succeeded();
@@ -116,6 +116,15 @@ namespace AccountManagement.Application
         public async Task<IEnumerable<UserVM>> GetAll() => await _userRepository.GetAll();
 
         public async Task<AddressUserVM> GetAddressInfoBy(long id) => await _userRepository.GetAddressInfoBy(id);
-        
+
+        public async Task<string> GetUserFullNameBy(long id)
+        {
+            var user = await _userRepository.GetEntityByIdAsync(id);
+
+            if (user is null) return "";
+
+            return $"{user.FirstName} {user.LastName}";
+        }
+
     }
 }

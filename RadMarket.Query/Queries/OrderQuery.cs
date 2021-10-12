@@ -145,6 +145,7 @@ namespace RadMarket.Query.Queries
             var result = await _storeContext.OrderItems.Include(p => p.Product).Where(o => o.Id == itemId && o.Product.StoreId == storeId).Select(o => new ItemQueryVM
             {
                 Id = o.Id,
+                UserId = o.Order.UserId,
                 OrderId = o.OrderId,
                 ProductTitle = o.Product.Name,
                 ProductCode = o.Product.Code,

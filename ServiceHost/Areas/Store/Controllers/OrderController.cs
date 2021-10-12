@@ -1,12 +1,10 @@
-﻿using Framework.Application.Authentication;
+﻿using AccountManagement.Application.Contract.UserAgg;
+using Framework.Application.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using RadMarket.Query.Contracts.OrderAgg;
 using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.OrderAgg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
@@ -14,11 +12,13 @@ namespace ServiceHost.Areas.Store.Controllers
     public class OrderController : StoreBaseController
     {
         private readonly IOrderQuery _orderQuery;
+        private readonly IUserApplication _userApplication;
         private readonly IOrderApplication _orderApplication;
 
-        public OrderController(IOrderQuery orderQuery, IOrderApplication orderApplication)
+        public OrderController(IOrderQuery orderQuery, IUserApplication userApplication, IOrderApplication orderApplication)
         {
             _orderQuery = orderQuery;
+            _userApplication = userApplication;
             _orderApplication = orderApplication;
         }
 
@@ -56,7 +56,7 @@ namespace ServiceHost.Areas.Store.Controllers
 
 
             ViewBag.Code = await _orderApplication.GetIssueTrackingBy(result.OrderId);
-            ViewBag.Name = User.GetFullName();
+            ViewBag.Name = await _userApplication.GetUserFullNameBy(result.UserId);
             
             return View(result);
         }

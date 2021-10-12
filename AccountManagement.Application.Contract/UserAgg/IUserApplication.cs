@@ -9,6 +9,7 @@ namespace AccountManagement.Application.Contract.UserAgg
         OperationResult Logout();
         Task<IEnumerable<UserVM>> GetAll();
         Task<OperationResult> Delete(long id);
+        Task<string> GetUserFullNameBy(long id);
         Task<EditUserVM> GetDetailForEditBy(long id);
         Task<AddressUserVM> GetAddressInfoBy(long id);
         Task<OperationResult> Edit(EditUserVM command);
