@@ -1,4 +1,5 @@
-﻿using DiscountManagement.Infrastructure.EfCore;
+﻿using AccountManagement.Infrastructure.EfCore;
+using DiscountManagement.Infrastructure.EfCore;
 using Framework.Application;
 using Microsoft.EntityFrameworkCore;
 using RadMarket.Query.Contracts.OrderAgg;
@@ -13,11 +14,13 @@ namespace RadMarket.Query.Queries
     public class OrderQuery : IOrderQuery
     {
         private readonly StoreContext _storeContext;
+        private readonly AccountContext _accountContext;
         private readonly DiscountContext _discountContext;
 
-        public OrderQuery(StoreContext storeContext, DiscountContext discountContext)
+        public OrderQuery(StoreContext storeContext, AccountContext accountContext, DiscountContext discountContext)
         {
             _storeContext = storeContext;
+            _accountContext = accountContext;
             _discountContext = discountContext;
         }
 
@@ -71,6 +74,28 @@ namespace RadMarket.Query.Queries
             result.PayAmount = result.TotalPrice - result.DiscountPrice;
 
             return result;
+        }
+
+        public async Task<List<StoreOrderQueryVM>> GetStoreOrders(long storeId, string code)
+        {
+            var users = await _accountContext.User.Select(u => new { Id = u.Id, UserName = $"{u.FirstName} {u.LastName}" }).ToListAsync();
+
+            var result =await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
+            {
+                Id = s.Id,
+                UserId = s.Order.UserId,
+                TotalPrice = s.Order.TotalPrice,
+                DiscountPrice = s.Order.DiscountPrice,
+                PayAmount = s.Order.PayAmount,
+                IssueTracking = s.Order.IssueTracking,
+                PlaceOrderDate = s.Order.PlaceOrderDate.ToFarsi()
+            }).AsNoTracking().ToListAsync();
+
+            result.ForEach(r => r.UserName = users.FirstOrDefault(u => u.Id == r.UserId)?.UserName);
+                
+            if (!string.IsNullOrWhiteSpace(code)) result = result.Where(r => r.IssueTracking.Contains(code)).ToList();
+
+            return  result;
         }
 
         public async Task<List<OrderQueryVM>> GetUserOrders(long userId, string code)

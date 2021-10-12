@@ -15,4 +15,16 @@ namespace RadMarket.Query.Contracts.OrderAgg
         public PaymentMethodType PaymentMethod{ get; set; }
         public List<ItemQueryVM> Items { get; set; }
     }
+
+    public class StoreOrderQueryVM
+    {
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string IssueTracking { get; set; }
+        public string UserName { get; set; }
+        public double TotalPrice { get; set; }
+        public double DiscountPrice { get; set; }
+        public double PayAmount { get; set; }
+        public string PlaceOrderDate { get; set; }
+    }
 }
