@@ -9,5 +9,6 @@ namespace RadMarket.Query.Contracts.OrderAgg
         Task<List<ItemQueryVM>> GetUserItems(long orderId,long userId);
         Task<List<OrderQueryVM>> GetUserOrders(long userId,string code);
         Task<List<StoreOrderQueryVM>> GetStoreOrders(long storeId,string code);
+        Task<ItemQueryVM> GetUserItemsForStore(long itemId, long storeId);
     }
 }

@@ -20,6 +20,7 @@ namespace RadMarket.Query.Contracts.OrderAgg
     public class StoreOrderQueryVM
     {
         public long Id { get; set; }
+        public long OrderId { get; set; }
         public long UserId { get; set; }
         public string IssueTracking { get; set; }
         public string UserName { get; set; }

@@ -102,6 +102,7 @@ namespace RadMarket.Query.Queries
             var result = await _storeContext.OrderItems.Include(o => o.Order).Include(p => p.Product).Where(p => p.Product.StoreId == storeId).Where(o => o.Order.IsPayed).Select(s => new StoreOrderQueryVM
             {
                 Id = s.Id,
+                OrderId = s.OrderId,
                 UserId = s.Order.UserId,
                 IssueTracking = s.Order.IssueTracking,
                 Count = s.Count,
@@ -135,6 +136,23 @@ namespace RadMarket.Query.Queries
                 DiscountPrice = o.DiscountPrice,
                 Status = o.Status
             }).AsNoTracking().ToListAsync();
+
+            return result;
+        }
+
+        public async Task<ItemQueryVM> GetUserItemsForStore(long itemId, long storeId)
+        {
+            var result = await _storeContext.OrderItems.Include(p => p.Product).Where(o => o.Id == itemId && o.Product.StoreId == storeId).Select(o => new ItemQueryVM
+            {
+                Id = o.Id,
+                OrderId = o.OrderId,
+                ProductTitle = o.Product.Name,
+                ProductCode = o.Product.Code,
+                Count = o.Count,
+                PayAmount = o.PayAmount,
+                DiscountPrice = o.DiscountPrice,
+                Status = o.Status
+            }).AsNoTracking().FirstOrDefaultAsync();
 
             return result;
         }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using RadMarket.Query.Contracts.OrderAgg;
 using ReflectionIT.Mvc.Paging;
+using StoreManagement.Application.Contract.OrderAgg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace ServiceHost.Areas.Store.Controllers
     public class OrderController : StoreBaseController
     {
         private readonly IOrderQuery _orderQuery;
+        private readonly IOrderApplication _orderApplication;
 
-        public OrderController(IOrderQuery orderQuery)
+        public OrderController(IOrderQuery orderQuery, IOrderApplication orderApplication)
         {
             _orderQuery = orderQuery;
+            _orderApplication = orderApplication;
         }
 
         public async Task<IActionResult> Index(string code, int pageIndex = 1)
@@ -39,6 +42,23 @@ namespace ServiceHost.Areas.Store.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Detail(long itemId)
+        {
+            var result = await _orderQuery.GetUserItemsForStore(itemId, User.GetStoreId());
+
+            if (result == null)
+            {
+                TempData[ErrorMessage] = "مشکلی به وجود آمده";
+                return RedirectToAction("Index");
+            }
+
+
+            ViewBag.Code = await _orderApplication.GetIssueTrackingBy(result.OrderId);
+            ViewBag.Name = User.GetFullName();
+            
+            return View(result);
         }
     }
 }

@@ -23,5 +23,11 @@ namespace Framework.Application.Authentication
             var data = user?.Claims.SingleOrDefault(s => s.Type == ClaimTypes.MobilePhone);
             return data is null ? default(string) : data.Value.ToString();
         }
+
+        public static string GetFullName(this ClaimsPrincipal user)
+        {
+            var data = user?.Claims.SingleOrDefault(s => s.Type == ClaimTypes.Name);
+            return data is null ? default(string) : data.Value.ToString();
+        }
     }
 }
