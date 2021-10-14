@@ -13,6 +13,7 @@ using StoreManagement.Application.Contract.PackageAgg;
 using StoreManagement.Application.Contract.PackageOrderAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
+using StoreManagement.Application.Contract.VisitorAgg;
 using StoreManagement.Domain.AdtPackageAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.OrderAgg;
@@ -20,6 +21,7 @@ using StoreManagement.Domain.PackageAgg;
 using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using StoreManagement.Domain.StoreAgg;
+using StoreManagement.Domain.VisitorAgg;
 using StoreManagement.Infrastructure.EfCore;
 using StoreManagement.Infrastructure.EfCore.Repository;
 
@@ -55,9 +57,10 @@ namespace StoreManagement.Infrastructure.Configuration
 
             service.AddTransient<IOrderRepository, OrderRepository>();
             service.AddTransient<IOrderApplication, OrderApplication>();
-
-
             service.AddTransient<IOrderItemRepository, OrderItemRepository>();
+
+            service.AddTransient<IVisitorRepository, VisitorRepository>();
+            service.AddTransient<IVisitorApplication, VisitorApplication>();
             #region Query
 
             service.AddTransient<IOrderQuery, OrderQuery>();
