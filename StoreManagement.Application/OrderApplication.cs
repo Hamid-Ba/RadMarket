@@ -5,6 +5,7 @@ using StoreManagement.Domain.ProductAgg;
 using System.Linq;
 using System.Threading.Tasks;
 using Framework.Domain;
+using StoreManagement.Application.Contract.ProductAgg;
 
 namespace StoreManagement.Application
 {
@@ -12,12 +13,14 @@ namespace StoreManagement.Application
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IProductApplication _productApplication;
         private readonly IOrderItemRepository _orderItemRepository;
 
-        public OrderApplication(IOrderRepository orderRepository, IProductRepository productRepository, IOrderItemRepository orderItemRepository)
+        public OrderApplication(IOrderRepository orderRepository, IProductRepository productRepository, IProductApplication productApplication, IOrderItemRepository orderItemRepository)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
+            _productApplication = productApplication;
             _orderItemRepository = orderItemRepository;
         }
 
@@ -32,12 +35,26 @@ namespace StoreManagement.Application
 
             var similarProduct = openOrder.OrderItems.FirstOrDefault(p => p.ProductId == command.ProductId);
 
-            if (similarProduct is null)
+            var checkCount = await _productApplication.CheckCountOfProduct(command.ProductId, command.Count);
+
+            if (checkCount.IsSucceeded)
             {
-                var newItem = new OrderItem(openOrder.Id, command.ProductId, command.Count);
-                await _orderItemRepository.AddEntityAsync(newItem);
+                if (similarProduct is null)
+                {
+                    var newItem = new OrderItem(openOrder.Id, command.ProductId, command.Count);
+                    await _orderItemRepository.AddEntityAsync(newItem);
+                }
+                else
+                {
+                    var newCount = similarProduct.Count + command.Count;
+                    checkCount = await _productApplication.CheckCountOfProduct(similarProduct.ProductId, newCount);
+
+                    if (checkCount.IsSucceeded)
+                        similarProduct.AddCount(command.Count);
+                    else return result.Failed(checkCount.Message);
+                }
             }
-            else similarProduct.AddCount(command.Count);
+            else return result.Failed(checkCount.Message);
 
             await _orderItemRepository.SaveChangesAsync();
             return result.Succeeded();
@@ -110,6 +127,10 @@ namespace StoreManagement.Application
             var item = await _orderItemRepository.GetEntityByIdAsync(command.Id);
             if (item is null) return result.Failed(ApplicationMessage.NotExist);
 
+            var product = await _productRepository.GetEntityByIdAsync(command.ProductId);
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            product.AddOrder(command.Count);
             item.FillInfo(command.DiscountPrice, command.PayAmount);
             item.SetOrderStatus(OrderStatus.OrderCreated);
 

@@ -31,7 +31,7 @@ namespace StoreManagement.Domain.OrderAgg
             Count = count;
         }
 
-        public void AddCount(int count) => Count += count;
+        public int AddCount(int count) => Count += count;
 
         public void FillInfo(double discountPrice, double payAmount)
         {

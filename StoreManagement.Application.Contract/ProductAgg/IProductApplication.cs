@@ -15,6 +15,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
         Task<OperationResult> Create(CreateProductVM command);
         Task<bool> IsProductBelongToStore(long id, long storeId);
         Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search);
+        Task<OperationResult> CheckCountOfProduct(long id, int count);
         Task<OperationResult> ChangeStatus(ChangeStatusProductVM command);
         Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search);
     }

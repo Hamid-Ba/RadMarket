@@ -97,6 +97,10 @@ namespace StoreManagement.Domain.ProductAgg
             LastUpdateDate = DateTime.Now;
         }
 
-        public void AddOrder() => ++OrderCount;
+        public void AddOrder(int reduceStock)
+        {
+            ++OrderCount;
+            Stock -= reduceStock;
+        }
     }
 }

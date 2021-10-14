@@ -1,5 +1,4 @@
 ﻿using Framework.Application;
-using Framework.Domain;
 using System.Threading.Tasks;
 
 namespace StoreManagement.Application.Contract.OrderAgg

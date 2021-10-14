@@ -42,6 +42,18 @@ namespace ServiceHost.Controllers
         {
             var basket = await _orderQuery.GetBy(User.GetUserId());
 
+            //CheckCount
+            foreach(var item in basket.Items)
+            {
+                var checkCount = await _productApplication.CheckCountOfProduct(item.ProductId, item.Count);
+                if (!checkCount.IsSucceeded)
+                {
+                    TempData[ErrorMessage] = checkCount.Message;
+                    return RedirectToAction("Index");
+                }
+            }
+
+            //Place Item
             foreach (var item in basket.Items)
             {
                 var commandItem = new PlaceItemVM
@@ -64,6 +76,7 @@ namespace ServiceHost.Controllers
                 }
             }
 
+            //Place Order
             var command = new PlaceOrderVM
             {
                 UserId = User.GetUserId(),

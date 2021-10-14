@@ -104,6 +104,18 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> CheckCountOfProduct(long id, int count)
+        {
+            OperationResult result = new();
+
+            var product = await _productRepository.GetEntityByIdAsync(id);
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (product.Stock < count) return result.Failed($"تعداد انتخاب شده از محصول {product.Name} بیش از موجودی در انبار هست");
+
+            return result.Succeeded();
+        }
+
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
 
         public async Task<string> GetProductSlugBy(long id) => await _productRepository.GetProductSlugBy(id);
