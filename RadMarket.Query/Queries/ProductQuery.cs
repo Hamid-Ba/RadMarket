@@ -24,7 +24,7 @@ namespace RadMarket.Query.Queries
             _discountContext = discountContext;
         }
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAll(string filter, int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAll(string filter,  string searchTitle = "", int take = 0)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
                 Select(d => new
@@ -57,20 +57,24 @@ namespace RadMarket.Query.Queries
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
-            switch (filter)
+            if (!string.IsNullOrWhiteSpace(searchTitle)) products = products.Where(p => p.Name.Contains(searchTitle)).ToList();
+            else
             {
-                case "Discount":
-                    products = products.Where(p => p.DiscountRate != null || p.DiscountRate > 0).ToList();
-                    break;
-                case "BestSells":
-                    products = products.OrderByDescending(p => p.OrderCount).ToList();
-                    break;
-                case "Adt":
-                    products = products.Where(p => p.HasAdtCharge).OrderBy(p => p.OrderCount).ToList();
-                    break;
-                default:
-                    products = products.OrderByDescending(p => p.Id).ToList();
-                    break;
+                switch (filter)
+                {
+                    case "Discount":
+                        products = products.Where(p => p.DiscountRate != null || p.DiscountRate > 0).ToList();
+                        break;
+                    case "BestSells":
+                        products = products.OrderByDescending(p => p.OrderCount).ToList();
+                        break;
+                    case "Adt":
+                        products = products.Where(p => p.HasAdtCharge).OrderBy(p => p.OrderCount).ToList();
+                        break;
+                    default:
+                        products = products.OrderByDescending(p => p.Id).ToList();
+                        break;
+                }
             }
 
             if (take != 0) products = products.Take(take).ToList();
@@ -127,7 +131,7 @@ namespace RadMarket.Query.Queries
             Slug = category.Slug,
         };
 
-        public async Task<IEnumerable<ProductQueryVM>> GetBy(long categoryId,long? productBeRemovedById)
+        public async Task<IEnumerable<ProductQueryVM>> GetBy(long categoryId, long? productBeRemovedById)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
                 Select(d => new

@@ -12,7 +12,7 @@ namespace ServiceHost.ViewComponents
 
     public class SiteFooterViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke() =>  View();
+        public IViewComponentResult Invoke() => View();
     }
 
     public class ResponsiveMenuViewComponent : ViewComponent
@@ -31,15 +31,15 @@ namespace ServiceHost.ViewComponents
             switch (filter)
             {
                 case "Discount":
-                    return View(await _productQuery.GetAll(filter, 5));
+                    return View(await _productQuery.GetAll(filter, null, 5));
                 case "BestSells":
-                    return View(await _productQuery.GetAll(filter, 7));
+                    return View(await _productQuery.GetAll(filter, null, 7));
                 case "Adt":
-                    return View(await _productQuery.GetAll(filter, 7));
+                    return View(await _productQuery.GetAll(filter, null, 7));
                 default:
-                    return View(await _productQuery.GetAll(filter, 3));
+                    return View(await _productQuery.GetAll(filter, null, 3));
             }
-        } 
+        }
     }
 
     public class RoutineProductsViewComponent : ViewComponent
@@ -53,9 +53,9 @@ namespace ServiceHost.ViewComponents
             switch (filter)
             {
                 case "BestSells":
-                    return View(await _productQuery.GetAll(filter, 3));
+                    return View(await _productQuery.GetAll(filter, null, 3));
                 default:
-                    return View(await _productQuery.GetAll(filter, 3));
+                    return View(await _productQuery.GetAll(filter, null, 3));
             }
         }
     }

@@ -7,7 +7,12 @@
             </a>
             <div class="search-box w-50">
                 <i class="fa fa-search text-dark"></i>
-                <input type="search" name="" id="" placeholder="جست و جو بین کالاهای متفاوت">
+                <form  asp-controller="Products" asp-action="SearchedProducts" method="get">
+                    <input type="search" name="title" id="" placeholder="جست و جو بین کالاهای متفاوت">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
             </div>
             @if (User.Identity.IsAuthenticated)
             {
