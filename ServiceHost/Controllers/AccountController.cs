@@ -7,6 +7,7 @@ using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Application.Contract.UserAgg;
 using Framework.Application.Authentication;
 using StoreManagement.Application.Contract.StoreAgg;
+using StoreManagement.Application.Contract.VisitorAgg;
 
 namespace ServiceHost.Controllers
 {
@@ -16,19 +17,23 @@ namespace ServiceHost.Controllers
         private readonly IProvinceQuery _provinceQuery;
         private readonly IUserApplication _userApplication;
         private readonly IStoreApplication _storeApplication;
+        private readonly IVisitorApplication _visitorApplication;
         private readonly IStoreUserApplication _storeUserApplication;
         private readonly IAdminUserApplication _adminUserApplication;
 
-        public AccountController(IProvinceQuery provinceQuery, IUserApplication userApplication, IAuthHelper authHelper,
-            IStoreUserApplication storeUserApplication, IStoreApplication storeApplication, IAdminUserApplication adminUserApplication)
+        public AccountController(IAuthHelper authHelper, IProvinceQuery provinceQuery, IUserApplication userApplication,
+            IStoreApplication storeApplication, IVisitorApplication visitorApplication,
+            IStoreUserApplication storeUserApplication, IAdminUserApplication adminUserApplication)
         {
+            _authHelper = authHelper;
             _provinceQuery = provinceQuery;
             _userApplication = userApplication;
-            _authHelper = authHelper;
-            _storeUserApplication = storeUserApplication;
             _storeApplication = storeApplication;
+            _visitorApplication = visitorApplication;
+            _storeUserApplication = storeUserApplication;
             _adminUserApplication = adminUserApplication;
         }
+
 
         #region Client User
 
@@ -46,6 +51,16 @@ namespace ServiceHost.Controllers
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrWhiteSpace(command.MarketerCode))
+                {
+                    var visitorResult = await _visitorApplication.UserRegistered(command.MarketerCode);
+                    if (!visitorResult.IsSucceeded)
+                    {
+                        TempData[ErrorMessage] = visitorResult.Message;
+                        return View(command);
+                    }
+                }
+
                 var result = await _userApplication.Register(command);
 
                 if (result.IsSucceeded)
