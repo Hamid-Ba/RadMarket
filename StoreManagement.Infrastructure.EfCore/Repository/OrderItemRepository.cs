@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StoreManagement.Application.Contract.OrderAgg;
 using StoreManagement.Domain.OrderAgg;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,5 +24,23 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
         }
         ).FirstOrDefaultAsync(o => o.ItemId == itemId);
 
+        public async Task<IEnumerable<OrderItemsVM>> GetItems(long id) => await _context.OrderItems.Where(o => o.OrderId == id)
+            .Include(p => p.Product)
+            .ThenInclude(s => s.Store)
+            .Select(p => new OrderItemsVM
+            {
+                Id = p.Id,
+                OrderId = p.OrderId,
+                ProductId = p.ProductId,
+                ProductName = p.Product.Name,
+                DiscountPrice = p.DiscountPrice,
+                PayAmount = p.PayAmount,
+                Count = p.Count,
+                Status = p.Status,
+                TotalPayAmount = (p.PayAmount * p.Count),
+                StoreId = p.Product.StoreId,
+                StoreName = p.Product.Store.Name,
+                StoreCode = p.Product.Store.UniqueCode
+            }).AsNoTracking().ToListAsync();
     }
 }

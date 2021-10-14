@@ -1,0 +1,79 @@
+﻿@using Framework.Application
+@model IEnumerable<StoreManagement.Application.Contract.OrderAgg.OrderVM>
+
+@{
+    ViewData["Title"] = "سفارشات";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewData["Title"]</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>کاربر</th>
+                                    <th>کد سفارش</th>
+                                    <th>شماره موبایل</th>
+                                    <th>مبلغ کل(تومان)</th>
+                                    <th>مبلغ تخفیف(تومان)</th>
+                                    <th>مبلغ پرداخت(تومان)</th>
+                                    <th>نوع پرداخت</th>
+                                    <th>تاریخ پردازش</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach (var entity in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td>@entity.Id</td>
+                                        <td>@entity.UserFullName</td>
+                                        <td>@entity.IssueTrackingCode</td>
+                                        <td>@entity.MobileNumber</td>
+                                        <td>@entity.TotalPrice.ToMoney()</td>
+                                        <td>@entity.DiscountPrice.ToMoney()</td>
+                                        <td>@entity.PayAmount.ToMoney()</td>
+                                        <td>@entity.PaymentMethod.GetEnumName()</td>
+                                        <td>@entity.PalceOrderDate</td>
+                                        <td class="text-center">
+
+                                            <a class="btn btn-dark"
+                                               href="#showmodal=@Url.Action("Items", "Order",new {id = entity.Id , area= "Admin"})">
+                                                <i class="md md-shopping-basket"></i>
+                                            </a>
+
+                                            <a class="btn btn-info"
+                                               href="#showmodal=@Url.Action("AddressInfo", "Order",new {userId = entity.UserId , area= "Admin"})">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+        });
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@using Framework.Application
+
+@model IEnumerable<StoreManagement.Application.Contract.OrderAgg.OrderItemsVM>
+
+@{
+    ViewData["Title"] = "آیتم ها";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">آیتم های سفارش</h4>
+</div>
+
+<div class="modal-body myOverflow">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>فروشگاه</th>
+                <th>کد فروشگاه</th>
+                <th>محصول</th>
+                <th>تعداد</th>
+                <th>مبلغ تخفیف</th>
+                <th>مبلغ پرداختی</th>
+                <th>مبلغ کل پرداختی</th>
+                <th>وضعیت</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>@item.StoreName</td>
+                    <td>@item.StoreCode</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Count</td>
+                    <td>@item.DiscountPrice.ToMoney()</td>
+                    <td>@item.PayAmount.ToMoney()</td>
+                    <td>@item.TotalPayAmount.ToMoney()</td>
+                    <td>@item.Status.GetEnumName()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

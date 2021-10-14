@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Framework.Domain;
 using StoreManagement.Application.Contract.ProductAgg;
+using System.Collections.Generic;
 
 namespace StoreManagement.Application
 {
@@ -99,6 +100,8 @@ namespace StoreManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<IEnumerable<OrderVM>> GetAll() =>await _orderRepository.GetAll();
+
         public async Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId) => await _orderItemRepository.GetDetailForChangeStatus(itemId);
 
         public async Task<string> GetIssueTrackingBy(long id)
@@ -106,6 +109,8 @@ namespace StoreManagement.Application
             var order = await _orderRepository.GetEntityByIdAsync(id);
             return order.IssueTracking;
         }
+
+        public async Task<IEnumerable<OrderItemsVM>> GetItems(long id) => await _orderItemRepository.GetItems(id);
 
         public async Task<OrderVM> GetLastOpenedOrder(long userId)
         {
