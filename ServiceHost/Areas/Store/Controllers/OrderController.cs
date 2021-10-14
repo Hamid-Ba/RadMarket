@@ -54,7 +54,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("Index");
             }
 
-
+            ViewBag.Address = await _userApplication.GetAddressInfoBy(result.UserId);
             ViewBag.Code = await _orderApplication.GetIssueTrackingBy(result.OrderId);
             ViewBag.Name = await _userApplication.GetUserFullNameBy(result.UserId);
 

@@ -116,6 +116,8 @@ namespace StoreManagement.Application
             return openOrder;
         }
 
+        public async Task<long> GetUserIdBy(long orderId) => await _orderRepository.GetUserIdBy(orderId);
+
         public async Task<OperationResult> PlaceItem(PlaceItemVM command)
         {
             OperationResult result = new();

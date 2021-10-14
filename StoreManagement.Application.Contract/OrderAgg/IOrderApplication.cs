@@ -6,6 +6,7 @@ namespace StoreManagement.Application.Contract.OrderAgg
     public interface IOrderApplication
     {
         Task<long> CreateOrder(long userId);
+        Task<long> GetUserIdBy(long orderId);
         Task<string> GetIssueTrackingBy(long id);
         Task<OrderVM> GetLastOpenedOrder(long userId);
         Task<OperationResult> PlaceItem(PlaceItemVM command);

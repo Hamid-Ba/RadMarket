@@ -32,5 +32,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
         }).ToList();
 
         public async Task<Order> GetLastOpenOrderBy(long userId) => await _context.Orders.Include(i => i.OrderItems).Where(o => o.UserId == userId && !o.IsPayed).FirstOrDefaultAsync();
+
+        public async Task<long> GetUserIdBy(long orderId) => (await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId)).UserId;
+        
     }
 }

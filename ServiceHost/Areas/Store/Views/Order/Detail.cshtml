@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "جزییات سفارش";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var address = ViewBag.Address as AccountManagement.Application.Contract.UserAgg.AddressUserVM;
 }
 
 <!-- every -->
@@ -42,3 +43,13 @@
     </table>
 </div>
 <!-- tabels -->
+
+<div class="container">
+    <div class="border rounded p-3">
+        <div style="display:flex; justify-content:space-around">
+            <h4>استان : <span>@address.Province</span></h4>
+            <h4>شهر : <span>@address.City</span></h4>
+            <h4>آدرس : <span>@address.Address</span></h4>
+        </div>
+    </div>
+</div>

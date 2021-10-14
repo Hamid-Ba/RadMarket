@@ -8,5 +8,6 @@ namespace StoreManagement.Domain.OrderAgg
     {
         Task<Order> GetLastOpenOrderBy(long userId);
         Task<OrderVM> GetLastOpenOrderVMBy(long userId);
+        Task<long> GetUserIdBy(long orderId);
     }
 }
