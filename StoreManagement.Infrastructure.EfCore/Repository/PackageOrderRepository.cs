@@ -34,8 +34,9 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
                 PayAmount = p.PayAmount,
                 RefId = p.RefId,
                 TotalPrice = p.TotalPrice,
-                CreationDate = p.CreationDate.ToFarsi()
-            }).AsNoTracking().OrderByDescending(c => c.CreationDate).ToListAsync();
+                CreationDate = p.CreationDate.ToFarsi(),
+                GeorgianCreationDate = p.CreationDate
+            }).AsNoTracking().OrderByDescending(c => c.Id).ToListAsync();
 
             result.ForEach(o => o.StoreName = stores.FirstOrDefault(s => s.Id == o.StoreId)?.Name);
             result.ForEach(o => o.StoreCode = stores.FirstOrDefault(s => s.Id == o.StoreId)?.Code);
@@ -65,8 +66,9 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
                 PayAmount = p.PayAmount,
                 RefId = p.RefId,
                 TotalPrice = p.TotalPrice,
-                CreationDate = p.CreationDate.ToFarsi()
-            }).AsNoTracking().OrderByDescending(c => c.CreationDate).ToListAsync();
+                CreationDate = p.CreationDate.ToFarsi(),
+                GeorgianCreationDate = p.CreationDate
+            }).AsNoTracking().OrderByDescending(c => c.GeorgianCreationDate).ToListAsync();
 
             result.ForEach(o => o.StoreName = stores.FirstOrDefault(s => s.Id == o.StoreId)?.Name);
 

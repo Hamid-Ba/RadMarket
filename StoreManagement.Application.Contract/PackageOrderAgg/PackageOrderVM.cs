@@ -1,4 +1,5 @@
 ﻿using Framework.Infrastructure;
+using System;
 
 namespace StoreManagement.Application.Contract.PackageOrderAgg
 {
@@ -18,6 +19,7 @@ namespace StoreManagement.Application.Contract.PackageOrderAgg
         public long RefId { get;  set; }
         public bool IsPayed { get;  set; }
         public string CreationDate { get; set; }
+        public DateTime GeorgianCreationDate { get; set; }
     }
 
     public class CreatePackageOrderVM
