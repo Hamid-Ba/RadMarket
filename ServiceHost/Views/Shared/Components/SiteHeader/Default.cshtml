@@ -5,13 +5,10 @@
             <a href="/">
                 <h3 class="text-white mt-2 font">RAD KALA</h3>
             </a>
-            <div class="search-box w-50">
-                <i class="fa fa-search text-dark"></i>
-                <form  asp-controller="Products" asp-action="SearchedProducts" method="get">
-                    <input type="search" name="title" id="" placeholder="جست و جو بین کالاهای متفاوت">
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
+            <div class="search-box w-50 mt-3">
+                <form asp-controller="Products" asp-action="SearchedProducts" method="get">
+                    <button class="btn" type="submit"><i class="fa fa-search text-dark"></i></button>
+                    <input type="text" name="title" id="" placeholder="جست و جو بین کالاهای متفاوت">
                 </form>
             </div>
             @if (User.Identity.IsAuthenticated)
@@ -23,6 +20,12 @@
                     </a>
                 }
             }
+            @*else
+            {
+                <a asp-area="" asp-controller="Account" asp-action="UserLogin">
+                    <i class="text-white fas fa fa-user"></i>
+                </a>
+            }*@
         </div>
     </div>
     <div class="menu-large">

@@ -2,6 +2,9 @@
     nav .menu .menu-box a h3 {
         font-size: 8px;
     }
+    nav .menu .menu-box{
+        height: 5rem !important;
+    }
     nav .menu .menu-box #large-menu {
         display: none;
     }

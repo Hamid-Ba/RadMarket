@@ -48,14 +48,16 @@ nav .menu .menu-box {
     top: 0;
 }
 
-nav .menu .menu-box .search-box {
+nav .menu .menu-box .search-box form {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--white);
-    padding: .5rem .8rem;
-    border-radius: 15px;
-    margin-right: -3rem;
+    border-radius: 5px;
+}
+
+nav .menu .menu-box .search-box form input {
+    padding: .1rem;
 }
 
 nav .menu .menu-box .search-box svg {
