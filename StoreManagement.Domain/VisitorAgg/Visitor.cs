@@ -13,7 +13,7 @@ namespace StoreManagement.Domain.VisitorAgg
         public Visitor(string fullName, string mobile)
         {
             FullName = fullName;
-            UniqueCode = Guid.NewGuid().ToString().Substring(7);
+            UniqueCode = Guid.NewGuid().ToString().Substring(0,7);
             Mobile = mobile;
             UserCount = 0;
         }
