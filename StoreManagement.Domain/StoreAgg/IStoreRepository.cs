@@ -14,5 +14,6 @@ namespace StoreManagement.Domain.StoreAgg
         Task<BankStoreVM> GetBankInfo(long id);
         Task<AddressStoreVM> GetAddressInfo(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
+        Task<long> GetStoreAdminId(long id);
     }
 }

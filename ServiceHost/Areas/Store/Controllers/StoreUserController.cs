@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using ReflectionIT.Mvc.Paging;
+using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
@@ -11,11 +12,13 @@ namespace ServiceHost.Areas.Store.Controllers
     public class StoreUserController : StoreBaseController
     {
         private readonly IProvinceQuery _provinceQuery;
+        private readonly IStoreApplication _storeApplication;
         private readonly IStoreUserApplication _storeUserApplication;
 
-        public StoreUserController(IProvinceQuery provinceQuery, IStoreUserApplication storeUserApplication)
+        public StoreUserController(IProvinceQuery provinceQuery, IStoreApplication storeApplication, IStoreUserApplication storeUserApplication)
         {
             _provinceQuery = provinceQuery;
+            _storeApplication = storeApplication;
             _storeUserApplication = storeUserApplication;
         }
 
@@ -89,6 +92,14 @@ namespace ServiceHost.Areas.Store.Controllers
         {
             if (ModelState.IsValid)
             {
+                var adminId = await _storeApplication.GetStoreAdminId(User.GetStoreId());
+
+                if(id == adminId)
+                {
+                    TempData[WarningMessage] = "مدیر سایت را نمی توانید حذف کنید";
+                    return RedirectToAction("Index");
+                }
+
                 var result = await _storeUserApplication.Delete(id,User.GetStoreId());
 
                 if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;

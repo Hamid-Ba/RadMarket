@@ -80,5 +80,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Address = s.Address
         }).FirstOrDefaultAsync(s => s.Id == id);
 
+        public async Task<long> GetStoreAdminId(long id) => (await _context.Stores.FirstOrDefaultAsync(s => s.Id == id)).StoreAdminUserId;
+        
     }
 }

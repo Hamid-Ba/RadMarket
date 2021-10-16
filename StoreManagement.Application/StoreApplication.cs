@@ -171,5 +171,9 @@ namespace StoreManagement.Application
 
             return result.Succeeded("شرکت و محصولات شما در حال تبلیغات هست");
         }
+
+        public async Task<long> GetStoreAdminId(long id) => await _storeRepository.GetStoreAdminId(id);
+
+
     }
 }
