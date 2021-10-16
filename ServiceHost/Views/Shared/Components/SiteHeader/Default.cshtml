@@ -44,7 +44,7 @@
                     <li><a asp-area="Store" asp-controller="Dashboard" asp-action="Index">پنل شرکت</a></li>
                 }
 
-                else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "IsAdminUser")?.Value))
+                else if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "AdminUser")
                 {
                     <li><a asp-area="Admin" asp-controller="Dashboard">پنل مدیریت</a></li>
                 }
