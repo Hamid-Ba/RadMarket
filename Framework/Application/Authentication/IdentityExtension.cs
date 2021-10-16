@@ -18,6 +18,12 @@ namespace Framework.Application.Authentication
             return data is null ? default(long) : Convert.ToInt64(data.Value);
         }
 
+        public static string GetStoreCode(this ClaimsPrincipal user)
+        {
+            var data = user?.Claims.SingleOrDefault(s => s.Type == "StoreCode");
+            return data is null ? default(string) : data.Value.ToString();
+        }
+
         public static string GetMobilePhone(this ClaimsPrincipal user)
         {
             var data = user?.Claims.SingleOrDefault(s => s.Type == ClaimTypes.MobilePhone);

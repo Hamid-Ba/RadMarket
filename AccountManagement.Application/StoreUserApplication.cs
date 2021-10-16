@@ -41,12 +41,14 @@ namespace AccountManagement.Application
 
         public async Task<string> GetAdminNameBy(long id) => await _storeUserRepository.GetAdminName(id);
 
-        public async Task<OperationResult> Delete(long id)
+        public async Task<OperationResult> Delete(long id,long storeId)
         {
             OperationResult result = new();
 
             var storeUser = await _storeUserRepository.GetEntityByIdAsync(id);
+
             if (storeUser is null) return result.Failed(ApplicationMessage.NotExist);
+            if (storeId != storeUser.StoreId) return result.Failed(ApplicationMessage.NotExist);
 
             storeUser.Delete();
             await _storeUserRepository.SaveChangesAsync();
@@ -75,10 +77,7 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
-        public Task<EditStoreUserVM> GetDetailForEditBy(long id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<EditStoreUserVM> GetDetailForEditBy(long id, long storeId) => await _storeUserRepository.GetDetailForEditBy(id, storeId);
 
         public async Task<OperationResult> Login(LoginStoreUserVM command)
         {
@@ -122,5 +121,10 @@ namespace AccountManagement.Application
         public async Task<IEnumerable<StoreUserVM>> GetAll() => await _storeUserRepository.GetAll();
 
         public async Task<AddressStoreUserVM> GetAddressInfoBy(long id) => await _storeUserRepository.GetAddressInfoBy(id);
+
+        public async Task<IEnumerable<StoreUserVM>> GetAll(long storeId) => await _storeUserRepository.GetAll(storeId);
+
+        public async Task<long> GetStoreIdBy(long id) => await _storeUserRepository.GetStoreIdBy(id);
+        
     }
 }

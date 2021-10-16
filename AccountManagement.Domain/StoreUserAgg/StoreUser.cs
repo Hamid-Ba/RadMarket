@@ -41,7 +41,7 @@ namespace AccountManagement.Domain.StoreUserAgg
             LastName = lastName;
             Mobile = mobile;
 
-            if (!string.IsNullOrWhiteSpace(mobile))
+            if (!string.IsNullOrWhiteSpace(password))
                 Password = password;
 
             City = city;

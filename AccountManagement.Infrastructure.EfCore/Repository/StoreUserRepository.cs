@@ -21,18 +21,19 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             user.FillStoreId(storeId, code);
         }
 
-        public async Task<EditStoreUserVM> GetDetailForEditBy(long id) => await _context.StoreUser.Select(s => new EditStoreUserVM
-        {
-            Id = s.Id,
-            StoreId = s.StoreId,
-            StoreRoleId = s.StoreRoleId,
-            FirstName = s.FirstName,
-            LastName = s.LastName,
-            Mobile = s.Mobile,
-            Province = s.Province,
-            City = s.City,
-            Address = s.Address
-        }).FirstOrDefaultAsync(s => s.Id == id);
+        public async Task<EditStoreUserVM> GetDetailForEditBy(long id, long storeId) => await _context.StoreUser.Where(s => s.StoreId == storeId)
+            .Select(s => new EditStoreUserVM
+            {
+                Id = s.Id,
+                StoreId = s.StoreId,
+                StoreRoleId = s.StoreRoleId,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Mobile = s.Mobile,
+                Province = s.Province,
+                City = s.City,
+                Address = s.Address
+            }).FirstOrDefaultAsync(s => s.Id == id);
 
         public async Task<string> GetAdminName(long id)
         {
@@ -62,5 +63,19 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             Province = s.Province
         }).FirstOrDefaultAsync(s => s.Id == id);
 
+        public async Task<IEnumerable<StoreUserVM>> GetAll(long storeId) => await _context.StoreUser.Where(s => s.StoreId == storeId).Select(s => new StoreUserVM
+        {
+            Id = s.Id,
+            StoreId = s.StoreId,
+            StoreRoleId = s.StoreRoleId,
+            FirstName = s.FirstName,
+            LastName = s.LastName,
+            Mobile = s.Mobile,
+            IsActive = s.IsActive,
+            CreationDate = s.CreationDate.ToFarsi()
+        }).AsNoTracking().ToListAsync();
+
+        public async Task<long> GetStoreIdBy(long id) => (await _context.StoreUser.FirstOrDefaultAsync(s => s.Id == id)).StoreId;
+        
     }
 }

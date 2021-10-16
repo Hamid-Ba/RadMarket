@@ -20,7 +20,8 @@ namespace ServiceHost.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostDelete(long id)
         {
-            var result = await _storeUserApplication.Delete(id);
+            var storeId = await _storeUserApplication.GetStoreIdBy(id);
+            var result = await _storeUserApplication.Delete(id,storeId);
 
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
 

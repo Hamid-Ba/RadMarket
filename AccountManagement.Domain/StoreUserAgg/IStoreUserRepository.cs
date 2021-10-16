@@ -10,8 +10,10 @@ namespace AccountManagement.Domain.StoreUserAgg
         Task<string> GetAdminName(long id);
         Task<IEnumerable<StoreUserVM>> GetAll();
         Task<StoreUser> GetUserBy(string mobile);
-        Task<EditStoreUserVM> GetDetailForEditBy(long id);
         Task<AddressStoreUserVM> GetAddressInfoBy(long id);
         Task FillStoreId(long id,long storeId, string code);
+        Task<IEnumerable<StoreUserVM>> GetAll(long storeId);
+        Task<EditStoreUserVM> GetDetailForEditBy(long id,long storeId);
+        Task<long> GetStoreIdBy(long id);
     }
 }
