@@ -2,6 +2,7 @@
 using AccountManagement.Domain.AdminRoleAgg;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,13 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
         private readonly AccountContext _context;
 
         public AdminRoleRepository(AccountContext context) : base(context) => _context = context;
+
+        public async Task<IEnumerable<AdminRoleVM>> GetAll() => await _context.AdminRoles.Select(r => new AdminRoleVM
+        {
+            Id = r.Id,
+            Name = r.Name,
+            Description = r.Description
+        }).AsNoTracking().ToListAsync();
 
         public async Task<EditAdminRoleVM> GetDetailForEditBy(long id)
         {

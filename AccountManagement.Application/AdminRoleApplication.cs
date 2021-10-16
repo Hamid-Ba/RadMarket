@@ -3,6 +3,7 @@ using AccountManagement.Application.Contract.AdminRolePermissionAgg;
 using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminRolePermissionAgg;
 using Framework.Application;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -66,6 +67,8 @@ namespace AccountManagement.Application
 
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<AdminRoleVM>> GetAll() => await _adminRoleRepository.GetAll();
 
         public async Task<EditAdminRoleVM> GetDetailForEditBy(long id) => await _adminRoleRepository.GetDetailForEditBy(id);
         
