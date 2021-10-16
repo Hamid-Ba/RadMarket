@@ -21,6 +21,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             Description = r.Description
         }).AsNoTracking().ToListAsync();
 
+        public AdminRole GetBy(long id) => _context.AdminRoles.Include(p => p.Permissions).FirstOrDefault(r => r.Id == id);
+
         public async Task<EditAdminRoleVM> GetDetailForEditBy(long id)
         {
             var result = await _context.AdminRoles.Select(a => new EditAdminRoleVM

@@ -17,6 +17,7 @@ using StoreManagement.Infrastructure.Configuration;
 using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using System.Threading.Tasks;
 using TicketManagement.Infrastructure.Configuration;
 
 namespace ServiceHost
@@ -101,10 +102,11 @@ namespace ServiceHost
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                //endpoints.MapFallback(context => {
-                //    context.Response.Redirect("/NotFound");
-                //    return Task.CompletedTask;
-                //});
+                endpoints.MapFallback(context =>
+                {
+                    context.Response.Redirect("/NotFound");
+                    return Task.CompletedTask;
+                });
             });
         }
     }

@@ -7,7 +7,8 @@ namespace AccountManagement.Domain.AdminRoleAgg
 {
     public interface IAdminRoleRepository : IRepository<AdminRole>
     {
-        Task<EditAdminRoleVM> GetDetailForEditBy(long id);
+        AdminRole GetBy(long id);
         Task<IEnumerable<AdminRoleVM>> GetAll();
+        Task<EditAdminRoleVM> GetDetailForEditBy(long id);
     }
 }

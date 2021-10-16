@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using StoreManagement.Application.Contract.StoreAgg;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(3)]
     public class StoreController : AdminBaseController
     {
         private readonly IProvinceQuery _provinceQuery;

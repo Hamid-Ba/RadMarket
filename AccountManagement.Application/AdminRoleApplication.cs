@@ -4,6 +4,7 @@ using AccountManagement.Domain.AdminRoleAgg;
 using AccountManagement.Domain.AdminRolePermissionAgg;
 using Framework.Application;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -71,6 +72,16 @@ namespace AccountManagement.Application
         public async Task<IEnumerable<AdminRoleVM>> GetAll() => await _adminRoleRepository.GetAll();
 
         public async Task<EditAdminRoleVM> GetDetailForEditBy(long id) => await _adminRoleRepository.GetDetailForEditBy(id);
-        
+
+        public bool IsRoleHasThePermission(long roleId, long permissionId)
+        {
+            var role = _adminRoleRepository.GetBy(roleId);
+
+            var permissions = role.Permissions.Select(p => p.AdminPermissionId).ToList();
+
+            foreach (var perId in permissions) if (perId == permissionId) return true;
+
+            return false;
+        }
     }
 }

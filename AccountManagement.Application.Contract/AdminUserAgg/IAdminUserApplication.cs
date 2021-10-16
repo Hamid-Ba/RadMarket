@@ -13,5 +13,6 @@ namespace AccountManagement.Application.Contract.AdminUserAgg
         Task<OperationResult> Edit(EditAdminUserVM command);
         Task<OperationResult> Login(LoginAdminUserVM command);
         Task<OperationResult> Create(CreateAdminUserVM command);
+        bool IsUserHasPermissions(long permissionId, long userId);
     }
 }

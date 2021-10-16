@@ -1,4 +1,5 @@
-﻿using AccountManagement.Application.Contract.AdminUserAgg;
+﻿using AccountManagement.Application.Contract.AdminRoleAgg;
+using AccountManagement.Application.Contract.AdminUserAgg;
 using AccountManagement.Domain.AdminUserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
@@ -13,12 +14,14 @@ namespace AccountManagement.Application
         private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAdminUserRepository _adminUserRepository;
+        private readonly IAdminRoleApplication _adminRoleApplication;
 
-        public AdminUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IAdminUserRepository adminUserRepository)
+        public AdminUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IAdminUserRepository adminUserRepository, IAdminRoleApplication adminRoleApplication)
         {
             _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _adminUserRepository = adminUserRepository;
+            _adminRoleApplication = adminRoleApplication;
         }
 
         public OperationResult Logout()
@@ -38,7 +41,7 @@ namespace AccountManagement.Application
 
             var password = _passwordHasher.Hash(command.Password);
 
-            var user = new AdminUser(command.AdminRoleId,command.FirstName, command.LastName, command.Mobile, password);
+            var user = new AdminUser(command.AdminRoleId, command.FirstName, command.LastName, command.Mobile, password);
 
             await _adminUserRepository.AddEntityAsync(user);
             await _adminUserRepository.SaveChangesAsync();
@@ -71,7 +74,7 @@ namespace AccountManagement.Application
             string newPassword = null;
             if (!string.IsNullOrWhiteSpace(command.Password)) newPassword = _passwordHasher.Hash(command.Password);
 
-            user.Edit(command.AdminRoleId,command.FirstName, command.LastName, command.Mobile, newPassword);
+            user.Edit(command.AdminRoleId, command.FirstName, command.LastName, command.Mobile, newPassword);
 
             await _adminUserRepository.SaveChangesAsync();
 
@@ -85,8 +88,11 @@ namespace AccountManagement.Application
             var user = await _adminUserRepository.GetUserBy(command.Mobile);
             if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
 
-            var userAuthVm = new AdminUserAuthVM(user.Id,user.AdminRoleId, $"{user.FirstName} {user.LastName}", user.Mobile, true);
-            
+            var verification = _passwordHasher.Check(user.Password, command.Password);
+            if (!verification.Verified) return result.Failed(ApplicationMessage.WrongPassword);
+
+            var userAuthVm = new AdminUserAuthVM(user.Id, user.AdminRoleId, $"{user.FirstName} {user.LastName}", user.Mobile, true);
+
             _authHelper.SignIn(userAuthVm);
 
             return result.Succeeded();
@@ -95,5 +101,14 @@ namespace AccountManagement.Application
         public async Task<EditAdminUserVM> GetDetailForEditBy(long id) => await _adminUserRepository.GetDetailForEditBy(id);
 
         public async Task<IEnumerable<AdminUserVM>> GetAll() => await _adminUserRepository.GetAll();
+
+        public bool IsUserHasPermissions(long permissionId, long userId)
+        {
+            var user =  _adminUserRepository.GetEntityById(userId);
+
+            if (_adminRoleApplication.IsRoleHasThePermission(user.AdminRoleId, permissionId)) return true;
+
+            return false;
+        }
     }
 }

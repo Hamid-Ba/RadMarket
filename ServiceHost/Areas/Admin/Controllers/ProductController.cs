@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using Framework.Application;
 using StoreManagement.Application.Contract.ProductAgg;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(4)]
     public class ProductController : AdminBaseController
     {
         private readonly IProductApplication _productApplication;

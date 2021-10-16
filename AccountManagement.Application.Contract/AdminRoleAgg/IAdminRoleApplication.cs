@@ -11,5 +11,6 @@ namespace AccountManagement.Application.Contract.AdminRoleAgg
         Task<EditAdminRoleVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditAdminRoleVM command);
         Task<OperationResult> Create(CreateAdminRoleVM command);
+        bool IsRoleHasThePermission(long roleId, long permissionId);
     }
 }

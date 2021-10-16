@@ -91,7 +91,7 @@ namespace AccountManagement.Application
             var verification = _passwordHasher.Check(storeUser.Password, command.Password);
             if (!verification.Verified) return result.Failed(ApplicationMessage.WrongPassword);
 
-            var authVM = new StoreUserAuthVM(storeUser.Id, storeUser.StoreId, storeUser.StoreCode, $"{storeUser.FirstName} {storeUser.LastName}", storeUser.Mobile,
+            var authVM = new StoreUserAuthVM(storeUser.Id, storeUser.StoreId, storeUser.StoreCode,storeUser.StoreRoleId, $"{storeUser.FirstName} {storeUser.LastName}", storeUser.Mobile,
                 storeUser.City, storeUser.Province, storeUser.Address, true);
 
             _authHelper.SignIn(authVM);

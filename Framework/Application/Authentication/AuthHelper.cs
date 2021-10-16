@@ -48,7 +48,7 @@ namespace Framework.Application.Authentication
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-                new Claim(ClaimTypes.Role, account.AdminRoleId.ToString()),
+                new Claim(ClaimTypes.Role, "AdminUser"),
                 new Claim(ClaimTypes.Name, account.Fullname),
                 new Claim(ClaimTypes.MobilePhone, account.Mobile),
                 new Claim("IsAdminUser", true.ToString()),
@@ -70,6 +70,7 @@ namespace Framework.Application.Authentication
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Role, account.RoleId.ToString()),
                 new Claim("StoreId", account.StoreId.ToString()),
                 new Claim("StoreCode", account.StoreCode.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
