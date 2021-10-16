@@ -3,6 +3,7 @@ using AccountManagement.Domain.AdminUserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -93,6 +94,6 @@ namespace AccountManagement.Application
 
         public async Task<EditAdminUserVM> GetDetailForEditBy(long id) => await _adminUserRepository.GetDetailForEditBy(id);
 
-        
+        public async Task<IEnumerable<AdminUserVM>> GetAll() => await _adminUserRepository.GetAll();
     }
 }

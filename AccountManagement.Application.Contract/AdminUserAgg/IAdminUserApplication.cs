@@ -1,4 +1,5 @@
 ﻿using Framework.Application;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application.Contract.AdminUserAgg
@@ -7,6 +8,7 @@ namespace AccountManagement.Application.Contract.AdminUserAgg
     {
         OperationResult Logout();
         Task<OperationResult> Delete(long id);
+        Task<IEnumerable<AdminUserVM>> GetAll();
         Task<EditAdminUserVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditAdminUserVM command);
         Task<OperationResult> Login(LoginAdminUserVM command);

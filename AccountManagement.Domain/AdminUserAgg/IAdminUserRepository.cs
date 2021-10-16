@@ -1,5 +1,6 @@
 ﻿using AccountManagement.Application.Contract.AdminUserAgg;
 using Framework.Domain;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Domain.AdminUserAgg
@@ -8,5 +9,6 @@ namespace AccountManagement.Domain.AdminUserAgg
     {
         Task<AdminUser> GetUserBy(string mobile);
         Task<EditAdminUserVM> GetDetailForEditBy(long id);
+        Task<IEnumerable<AdminUserVM>> GetAll();
     }
 }
