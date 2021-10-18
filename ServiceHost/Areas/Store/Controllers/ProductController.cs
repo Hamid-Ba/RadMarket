@@ -7,9 +7,11 @@ using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(2)]
     public class ProductController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;
@@ -47,6 +49,7 @@ namespace ServiceHost.Areas.Store.Controllers
         }
 
         [HttpGet]
+        [StorePermissionChecker(3)]
         public async Task<IActionResult> Create()
         {
             var storeHasStillCharged = await _storeApplication.IsAccountStillCharged(User.GetStoreId());

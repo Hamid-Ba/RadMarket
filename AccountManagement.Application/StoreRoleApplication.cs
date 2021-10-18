@@ -102,6 +102,16 @@ namespace AccountManagement.Application
         public async Task<IEnumerable<StoreRoleVM>> GetAll(long storeId) => await _storeRoleRepository.GetAll(storeId);
 
         public async Task<EditStoreRoleVM> GetDetailForEditBy(long id,long storeId) => await _storeRoleRepository.GetDetailForEditBy(id,storeId);
-        
+
+        public bool IsRoleHasThePermission(long roleId, long permissionId)
+        {
+            var role = _storeRoleRepository.GetBy(roleId);
+
+            var permissions = role.Permissions.Select(p => p.StorePermissionId).ToList();
+
+            foreach (var perId in permissions) if (perId == permissionId) return true;
+
+            return false;
+        }
     }
 }

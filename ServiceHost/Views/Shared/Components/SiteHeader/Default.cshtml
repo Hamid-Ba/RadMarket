@@ -39,7 +39,7 @@
                     <li><a asp-area="User" asp-controller="Dashboard">حساب کاربری</a></li>
                 }
 
-                else if (!string.IsNullOrWhiteSpace(User.Claims.FirstOrDefault(c => c.Type == "StoreId")?.Value))
+                else if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "StoreUser")
                 {
                     <li><a asp-area="Store" asp-controller="Dashboard" asp-action="Index">پنل شرکت</a></li>
                 }

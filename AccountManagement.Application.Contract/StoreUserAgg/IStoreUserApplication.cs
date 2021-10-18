@@ -15,6 +15,7 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
         Task FillStoreId(long id,long storeId, string code);
         Task<OperationResult> Edit(EditStoreUserVM command);
         Task<OperationResult> Login(LoginStoreUserVM command);
+        bool IsUserHasPermissions(long permissionId, long userId);
         Task<EditStoreUserVM> GetDetailForEditBy(long id,long storeId);
         Task<(OperationResult,long)> Register(RegisterStoreUserVM command);
         Task<OperationResult> InitialStore(long id, long storeId,string storeCode);

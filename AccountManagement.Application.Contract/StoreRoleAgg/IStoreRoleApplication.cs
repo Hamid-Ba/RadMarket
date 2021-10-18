@@ -10,6 +10,7 @@ namespace AccountManagement.Application.Contract.StoreRoleAgg
         Task<IEnumerable<StoreRoleVM>> GetAll(long storeId);
         Task<OperationResult> Edit(EditStoreRoleVM command);
         Task<OperationResult> Create(CreateStoreRoleVM command);
+        bool IsRoleHasThePermission(long roleId, long permissionId);
         Task<EditStoreRoleVM> GetDetailForEditBy(long id,long storeId);
         Task<OperationResult> CreateStoreAdminRole(long storeId, long userId);
     }

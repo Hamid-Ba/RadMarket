@@ -1,4 +1,5 @@
-﻿using AccountManagement.Application.Contract.StoreUserAgg;
+﻿using AccountManagement.Application.Contract.StoreRoleAgg;
+using AccountManagement.Application.Contract.StoreUserAgg;
 using AccountManagement.Domain.StoreUserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
@@ -14,12 +15,15 @@ namespace AccountManagement.Application
         private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IStoreUserRepository _storeUserRepository;
+        private readonly IStoreRoleApplication _storeRoleApplication;
 
-        public StoreUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IStoreUserRepository storeUserRepository)
+        public StoreUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, 
+            IStoreUserRepository storeUserRepository, IStoreRoleApplication storeRoleApplication)
         {
             _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _storeUserRepository = storeUserRepository;
+            _storeRoleApplication = storeRoleApplication;
         }
 
         public async Task<OperationResult> InitialStore(long id, long storeId,string storeCode)
@@ -125,6 +129,14 @@ namespace AccountManagement.Application
         public async Task<IEnumerable<StoreUserVM>> GetAll(long storeId) => await _storeUserRepository.GetAll(storeId);
 
         public async Task<long> GetStoreIdBy(long id) => await _storeUserRepository.GetStoreIdBy(id);
-        
+
+        public bool IsUserHasPermissions(long permissionId, long userId)
+        {
+            var user = _storeUserRepository.GetEntityById(userId);
+
+            if (_storeRoleApplication.IsRoleHasThePermission(user.StoreRoleId, permissionId)) return true;
+
+            return false;
+        }
     }
 }

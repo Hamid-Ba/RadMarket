@@ -70,10 +70,9 @@ namespace Framework.Application.Authentication
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-                new Claim(ClaimTypes.Role, account.RoleId.ToString()),
+                new Claim(ClaimTypes.Role, "StoreUser"),
                 new Claim("StoreId", account.StoreId.ToString()),
                 new Claim("StoreCode", account.StoreCode.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim(ClaimTypes.Name, account.Fullname),
                 new Claim(ClaimTypes.MobilePhone, account.Mobile),
                 new Claim("City", account.City),

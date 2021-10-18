@@ -26,6 +26,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             CreationDate = r.CreationDate.ToFarsi()
         }).AsNoTracking().ToListAsync();
 
+        public StoreRole GetBy(long id) => _context.StoreRole.Include(p => p.Permissions).FirstOrDefault(r => r.Id == id);
+
         public async Task<EditStoreRoleVM> GetDetailForEditBy(long id,long storeId)
         {
             var result = await _context.StoreRole.Where(s => s.StoreId == storeId).Select(r => new EditStoreRoleVM

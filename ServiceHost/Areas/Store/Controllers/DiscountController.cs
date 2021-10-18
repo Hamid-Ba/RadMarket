@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(4)]
     public class DiscountController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;
