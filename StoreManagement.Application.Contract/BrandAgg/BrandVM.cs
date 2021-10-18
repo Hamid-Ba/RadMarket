@@ -7,6 +7,7 @@ namespace StoreManagement.Application.Contract.BrandAgg
         public long Id { get; set; }
         public long StoreId { get; set; }
         public string Name { get; set; }
+        public long ProductCount { get; set; }
     }
 
     public class CreateBrandVM
