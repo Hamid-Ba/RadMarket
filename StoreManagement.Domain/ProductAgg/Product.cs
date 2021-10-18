@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Framework.Application;
 using Framework.Domain;
+using StoreManagement.Domain.BrandAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.StoreAgg;
@@ -11,6 +12,7 @@ namespace StoreManagement.Domain.ProductAgg
     public class Product : EntityBase
     {
         public long StoreId { get; private set; }
+        public long BrandId { get; private set; }
         public long CategoryId { get; private set; }
         public string Code { get; private set; }
         public long OrderCount { get; private set; }
@@ -31,16 +33,18 @@ namespace StoreManagement.Domain.ProductAgg
         public string ProductAcceptOrRejectDescription { get; private set; }
         public ProductAcceptanceState ProductAcceptanceState { get; private set; }
 
+        public Brand Brand { get; private set; }
         public Store Store { get; private set; }
         public Category Category { get; private set; }
         public List<OrderItem> OrderItems { get; private set; }
 
-        public Product(long storeId, long categoryId,string code, string name, string picture, string pictureAlt, string pictureTitle, int eachBoxCount,
+        public Product(long storeId,long brandId, long categoryId,string code, string name, string picture, string pictureAlt, string pictureTitle, int eachBoxCount,
             double consumerPrice, double purchacePrice, int stock, int prize, string description, string slug,
             string keywords, string metaDescription, string productAcceptOrRejectDescription,
             ProductAcceptanceState productAcceptanceState)
         {
             StoreId = storeId;
+            BrandId = brandId;
             CategoryId = categoryId;
             Code = code;
             OrderCount = 0;
@@ -62,10 +66,11 @@ namespace StoreManagement.Domain.ProductAgg
             ProductAcceptanceState = productAcceptanceState;
         }
 
-        public void Edit(long categoryId,string code, string name, string picture, string pictureAlt, string pictureTitle, int eachBoxCount,
+        public void Edit(long brandId,long categoryId,string code, string name, string picture, string pictureAlt, string pictureTitle, int eachBoxCount,
             double consumerPrice, double purchacePrice, int stock, int prize, string description, string slug,
             string keywords, string metaDescription)
         {
+            BrandId = brandId;
             CategoryId = categoryId;
             Code = code;
             Name = name;

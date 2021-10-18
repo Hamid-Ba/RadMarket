@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using StoreManagement.Domain.BrandAgg;
 using StoreManagement.Domain.PackageOrderAgg;
 using StoreManagement.Domain.ProductAgg;
 using System;
@@ -30,6 +31,7 @@ namespace StoreManagement.Domain.StoreAgg
         public int AdtChargeCount { get; private set; }
         public DateTime AdtChargeExpiredDate { get; private set; }
 
+        public List<Brand> Brands { get; private set; }
         public List<Product> Products { get; private set; }
         public List<PackageOrder> PackageOrders { get; private set; }
 

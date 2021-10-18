@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.AdtPackageAgg;
+using StoreManagement.Domain.BrandAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.PackageAgg;
@@ -25,6 +26,7 @@ namespace StoreManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Store>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Brand>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Visitor>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Package>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
@@ -34,6 +36,7 @@ namespace StoreManagement.Infrastructure.EfCore
         }
 
         public DbSet<Store> Stores { get; set; }
+        public DbSet<Brand> Brands { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
         public DbSet<Package> Packages { get; set; }

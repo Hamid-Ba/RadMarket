@@ -9,6 +9,8 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public long Id { get; set; }
         public long StoreId { get; set; }
         public string StoreName { get; set; }
+        public long BrandId { get; set; }
+        public string BrandName { get; set; }
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
         public long OrderCount { get; set; }
@@ -35,6 +37,11 @@ namespace StoreManagement.Application.Contract.ProductAgg
     public class CreateProductVM
     {
         public long StoreId { get; set; }
+
+        [Display(Name = "برند")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(0, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long BrandId { get; set; }
 
         [Display(Name = "دسته بندی")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
@@ -112,6 +119,11 @@ namespace StoreManagement.Application.Contract.ProductAgg
         public string PictureName { get; set; }
 
         public long StoreId { get; set; }
+
+        [Display(Name = "برند")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(0, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long BrandId { get; set; }
 
         [Display(Name = "دسته بندی")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

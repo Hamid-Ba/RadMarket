@@ -15,6 +15,7 @@ using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using StoreManagement.Application.Contract.VisitorAgg;
 using StoreManagement.Domain.AdtPackageAgg;
+using StoreManagement.Domain.BrandAgg;
 using StoreManagement.Domain.CategoryAgg;
 using StoreManagement.Domain.OrderAgg;
 using StoreManagement.Domain.PackageAgg;
@@ -61,6 +62,8 @@ namespace StoreManagement.Infrastructure.Configuration
 
             service.AddTransient<IVisitorRepository, VisitorRepository>();
             service.AddTransient<IVisitorApplication, VisitorApplication>();
+
+            service.AddTransient<IBrandRepository, BrandRepository>();
             #region Query
 
             service.AddTransient<IOrderQuery, OrderQuery>();

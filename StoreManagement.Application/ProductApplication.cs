@@ -28,7 +28,7 @@ namespace StoreManagement.Application
 
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", null!);
 
-            var product = new Product(command.StoreId, command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
+            var product = new Product(command.StoreId,command.BrandId, command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
                 command.PictureTitle, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Stock, command.Prize,
                 command.Description, command.Slug.Slugify(), command.Keywords, command.MetaDescription,
                 "محصول ایجاد شده", ProductAcceptanceState.UnderProgress);
@@ -93,7 +93,7 @@ namespace StoreManagement.Application
 
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", product.Picture);
 
-            product.Edit(command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
+            product.Edit(command.BrandId,command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
                 command.PictureTitle, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Stock, command.Prize,
                 command.Description, command.Slug.Slugify(), command.Keywords, command.MetaDescription);
 
