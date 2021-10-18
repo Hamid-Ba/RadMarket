@@ -27,6 +27,7 @@ namespace AccountManagement.Infrastructure.EfCore
 
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<StoreUser>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<StoreRole>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<AdminUser>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<AdminRole>().HasQueryFilter(u => !u.IsDelete);
         }

@@ -4,6 +4,7 @@ using AccountManagement.Domain.StorePermissionAgg;
 using AccountManagement.Domain.StoreRoleAgg;
 using AccountManagement.Domain.StoreUserAgg;
 using Framework.Application;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,6 +68,20 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> Delete(long id, long storeId)
+        {
+            OperationResult result = new();
+
+            var role = await _storeRoleRepository.GetEntityByIdAsync(id);
+            if (role is null) return result.Failed(ApplicationMessage.NotExist);
+            if (role.StoreId != storeId) return result.Failed(ApplicationMessage.NotExist);
+
+            role.Delete();
+            await _storeRoleRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Edit(EditStoreRoleVM command)
         {
             OperationResult result = new();
@@ -84,7 +99,9 @@ namespace AccountManagement.Application
             return result.Succeeded();
         }
 
-        public async Task<EditStoreRoleVM> GetDetailForEditBy(long id) => await _storeRoleRepository.GetDetailForEditBy(id);
+        public async Task<IEnumerable<StoreRoleVM>> GetAll(long storeId) => await _storeRoleRepository.GetAll(storeId);
+
+        public async Task<EditStoreRoleVM> GetDetailForEditBy(long id,long storeId) => await _storeRoleRepository.GetDetailForEditBy(id,storeId);
         
     }
 }

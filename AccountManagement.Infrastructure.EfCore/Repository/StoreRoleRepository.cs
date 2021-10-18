@@ -1,7 +1,9 @@
 ﻿using AccountManagement.Application.Contract.StoreRoleAgg;
 using AccountManagement.Domain.StoreRoleAgg;
+using Framework.Application;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +17,18 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
 
         public async Task<StoreRole> GetAdminStoreRole(long storeId) => await _context.StoreRole.Where(r => r.StoreId == storeId).FirstOrDefaultAsync();
 
-        public async Task<EditStoreRoleVM> GetDetailForEditBy(long id)
+        public async Task<IEnumerable<StoreRoleVM>> GetAll(long storeId) => await _context.StoreRole.Where(s => s.StoreId == storeId).Select(r => new StoreRoleVM
         {
-            var result = await _context.StoreRole.Select(r => new EditStoreRoleVM
+            Id = r.Id,
+            StoreId = r.StoreId,
+            Name = r.Name,
+            Description = r.Description,
+            CreationDate = r.CreationDate.ToFarsi()
+        }).AsNoTracking().ToListAsync();
+
+        public async Task<EditStoreRoleVM> GetDetailForEditBy(long id,long storeId)
+        {
+            var result = await _context.StoreRole.Where(s => s.StoreId == storeId).Select(r => new EditStoreRoleVM
             {
                 Id = r.Id,
                 StoreId = r.StoreId,

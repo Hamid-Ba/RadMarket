@@ -1,0 +1,40 @@
+﻿@model AccountManagement.Application.Contract.StoreRoleAgg.EditStoreRoleVM
+@{
+    ViewData["Title"] = "ویرایش نقش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ویرایش نقش</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="StoreRole" asp-action="Edit" method="post" enctype="multipart/form-data" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">عنوان</label>
+                    <input type="" asp-for="Name" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">دسترسی ها</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="PermissionsId" asp-items="@ViewBag.Permissions">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="PermissionsId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">توضیحات</label>
+                <input type="" asp-for="Description" class="form-control" id="exampleInputPassword1">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-outline-danger w-50">ویرایش نقش</button>
+            </div>
+        </form>
+    </div>
+</div>
