@@ -6,6 +6,7 @@ namespace AccountManagement.Domain.StoreRoleAgg
 {
     public interface IStoreRoleRepository : IRepository<StoreRole>
     {
+        Task<StoreRole> GetAdminStoreRole(long storeId);
         Task<EditStoreRoleVM> GetDetailForEditBy(long id);
     }
 }

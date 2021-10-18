@@ -66,5 +66,7 @@ namespace AccountManagement.Domain.StoreUserAgg
             LastUpdateDate = DateTime.Now;
         }
 
+        public void GiveRole(long id) => StoreRoleId = id;
+
     }
 }

@@ -9,5 +9,6 @@ namespace AccountManagement.Application.Contract.StoreRoleAgg
         Task<EditStoreRoleVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditStoreRoleVM command);
         Task<OperationResult> Create(CreateStoreRoleVM command);
+        Task<OperationResult> CreateStoreAdminRole(long storeId, long userId);
     }
 }

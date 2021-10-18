@@ -13,6 +13,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
 
         public StoreRoleRepository(AccountContext context) : base(context) => _context = context;
 
+        public async Task<StoreRole> GetAdminStoreRole(long storeId) => await _context.StoreRole.Where(r => r.StoreId == storeId).FirstOrDefaultAsync();
+
         public async Task<EditStoreRoleVM> GetDetailForEditBy(long id)
         {
             var result = await _context.StoreRole.Select(r => new EditStoreRoleVM

@@ -8,6 +8,7 @@ using AccountManagement.Application.Contract.UserAgg;
 using Framework.Application.Authentication;
 using StoreManagement.Application.Contract.StoreAgg;
 using StoreManagement.Application.Contract.VisitorAgg;
+using AccountManagement.Application.Contract.StoreRoleAgg;
 
 namespace ServiceHost.Controllers
 {
@@ -18,22 +19,24 @@ namespace ServiceHost.Controllers
         private readonly IUserApplication _userApplication;
         private readonly IStoreApplication _storeApplication;
         private readonly IVisitorApplication _visitorApplication;
+        private readonly IStoreRoleApplication _storeRoleApplication;
         private readonly IStoreUserApplication _storeUserApplication;
         private readonly IAdminUserApplication _adminUserApplication;
 
-        public AccountController(IAuthHelper authHelper, IProvinceQuery provinceQuery, IUserApplication userApplication,
+        public AccountController(IAuthHelper authHelper, IProvinceQuery provinceQuery, IUserApplication userApplication, 
             IStoreApplication storeApplication, IVisitorApplication visitorApplication,
-            IStoreUserApplication storeUserApplication, IAdminUserApplication adminUserApplication)
+            IStoreRoleApplication storeRoleApplication, IStoreUserApplication storeUserApplication, 
+            IAdminUserApplication adminUserApplication)
         {
             _authHelper = authHelper;
             _provinceQuery = provinceQuery;
             _userApplication = userApplication;
             _storeApplication = storeApplication;
             _visitorApplication = visitorApplication;
+            _storeRoleApplication = storeRoleApplication;
             _storeUserApplication = storeUserApplication;
             _adminUserApplication = adminUserApplication;
         }
-
 
         #region Client User
 
@@ -170,6 +173,9 @@ namespace ServiceHost.Controllers
                         //Initial Store For Store Admin User
                         var storeCode = await _storeApplication.GetStoreCode(resultStore.Item2);
                         await _storeUserApplication.InitialStore(result.Item2, resultStore.Item2, storeCode);
+
+                        //Give Store Admin Role To This User
+                        await _storeRoleApplication.CreateStoreAdminRole(resultStore.Item2, result.Item2);
                     }
                     else TempData[ErrorMessage] = resultStore.Item1.Message;
 

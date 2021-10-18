@@ -1,7 +1,10 @@
 ﻿using AccountManagement.Application.Contract.StoreRoleAgg;
 using AccountManagement.Application.Contract.StoreRolePermissionAgg;
+using AccountManagement.Domain.StorePermissionAgg;
 using AccountManagement.Domain.StoreRoleAgg;
+using AccountManagement.Domain.StoreUserAgg;
 using Framework.Application;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AccountManagement.Application
@@ -9,11 +12,16 @@ namespace AccountManagement.Application
     public class StoreRoleApplication : IStoreRoleApplication
     {
         private readonly IStoreRoleRepository _storeRoleRepository;
+        private readonly IStoreUserRepository _storeUserRepository;
+        private readonly IStorePermissionRepository _storePermissionRepository;
         private readonly IStoreRolePermissionApplication _storeRolePermissionApplication;
 
-        public StoreRoleApplication(IStoreRoleRepository storeRoleRepository, IStoreRolePermissionApplication storeRolePermissionApplication)
+        public StoreRoleApplication(IStoreRoleRepository storeRoleRepository, IStoreUserRepository storeUserRepository, 
+            IStorePermissionRepository storePermissionRepository, IStoreRolePermissionApplication storeRolePermissionApplication)
         {
             _storeRoleRepository = storeRoleRepository;
+            _storeUserRepository = storeUserRepository;
+            _storePermissionRepository = storePermissionRepository;
             _storeRolePermissionApplication = storeRolePermissionApplication;
         }
 
@@ -21,7 +29,8 @@ namespace AccountManagement.Application
         {
             OperationResult result = new();
 
-            if (_storeRoleRepository.Exists(r => r.Name == command.Name)) return result.Failed(ApplicationMessage.DuplicatedModel);
+            if (_storeRoleRepository.Exists(r => r.Name == command.Name && r.StoreId == command.StoreId))
+                return result.Failed(ApplicationMessage.DuplicatedModel);
 
             var role = new StoreRole(command.StoreId, command.Name, command.Description);
 
@@ -29,6 +38,31 @@ namespace AccountManagement.Application
             await _storeRoleRepository.SaveChangesAsync();
 
             await _storeRolePermissionApplication.AddPermissionsToRole(role.Id, command.PermissionsId);
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> CreateStoreAdminRole(long storeId, long userId)
+        {
+            OperationResult result = new();
+
+            var storePermissions = await _storePermissionRepository.GetAllEntitiesAsync();
+            var storePermissionsId = storePermissions.Select(p => p.Id).ToArray();
+
+            await Create(new CreateStoreRoleVM
+            {
+                StoreId = storeId,
+                Name = "مدیر شرکت",
+                Description = "این نقش متعلق به مدیر شرکت می باشد",
+                PermissionsId = storePermissionsId
+            });
+
+            var storeAdminRole =await _storeRoleRepository.GetAdminStoreRole(storeId);
+
+            var admin = await _storeUserRepository.GetEntityByIdAsync(userId);
+            admin.GiveRole(storeAdminRole.Id);
+
+            await _storeUserRepository.SaveChangesAsync();
 
             return result.Succeeded();
         }
