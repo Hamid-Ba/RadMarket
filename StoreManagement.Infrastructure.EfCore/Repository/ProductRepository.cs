@@ -19,6 +19,8 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public async Task<IEnumerable<ProductVM>> GetAll(SearchStoreVM search)
         {
+            var brands = await _context.Brands.Select(b => new { Id = b.Id, Name = b.Name }).ToListAsync();
+
             var result = _context.Products.Include(s => s.Store).Include(c => c.Category).Select(
                 p => new ProductVM()
                 {
@@ -50,7 +52,10 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
             if (search != null && !string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
 
-            return await result.ToListAsync();
+            var products = await result.ToListAsync();
+            products.ForEach(p => p.BrandName = brands.Find(b => b.Id == p.BrandId)?.Name);
+
+            return products;
         }
 
         public async Task<ProductVM> GetDetailBy(long id) => await _context.Products
@@ -89,6 +94,7 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
             Id = p.Id,
             StoreId = p.StoreId,
             CategoryId = p.CategoryId,
+            BrandId = p.BrandId,
             Code = p.Code,
             Name = p.Name,
             ConsumerPrice = p.ConsumerPrice,
@@ -107,12 +113,15 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public async Task<IEnumerable<ProductVM>> GetAll(long storeId, SearchStoreVM search)
         {
+            var brands = await _context.Brands.Select(b => new { Id = b.Id, Name = b.Name }).ToListAsync();
+
             var result = _context.Products.Where(s => s.StoreId == storeId).Include(s => s.Store)
                 .Include(c => c.Category).Select(
                 p => new ProductVM()
                 {
                     Id = p.Id,
                     StoreId = p.StoreId,
+                    BrandId = p.BrandId,
                     StoreName = p.Store.Name,
                     Name = p.Name,
                     CategoryId = p.CategoryId,
@@ -130,7 +139,10 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
             if (search != null && !string.IsNullOrWhiteSpace(search.Code)) result = result.Where(p => p.Code.Contains(search.Code));
 
-            return await result.ToListAsync();
+            var products = await result.ToListAsync();
+            products.ForEach(p => p.BrandName = brands.Find(b => b.Id == p.BrandId)?.Name);
+
+            return products;
         }
 
         public async Task<string> GetProductSlugBy(long id) => (await _context.Products.FirstOrDefaultAsync(p => p.Id == id)).Slug;

@@ -32,6 +32,7 @@
                     <th scope="col">شماره</th>
                     <th scope="col">نام</th>
                     <th scope="col">کد</th>
+                    <th scope="col">برند</th>
                     <th scope="col">دسته بندی</th>
                     <th scope="col">تعداد در انبار</th>
                     <th scope="col">(تومان)قیمت خریدار</th>
@@ -53,6 +54,7 @@
                         <td scope="row"> @(ViewBag.Rows++)</td>
                         <td>@entity.Name</td>
                         <td>@entity.Code</td>
+                        <td>@entity.BrandName</td>
                         <td>@entity.CategoryName</td>
                         <td>@entity.Stock</td>
                         <td>@entity.PurchasePrice</td>

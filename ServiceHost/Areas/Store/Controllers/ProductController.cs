@@ -8,6 +8,7 @@ using StoreManagement.Application.Contract.CategoryAgg;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using ServiceHost.Tools;
+using StoreManagement.Application.Contract.BrandAgg;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
@@ -15,12 +16,14 @@ namespace ServiceHost.Areas.Store.Controllers
     public class ProductController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;
+        private readonly IBrandApplication _brandApplication;
         private readonly IProductApplication _productApplication;
         private readonly ICategoryApplication _categoryApplication;
 
-        public ProductController(IStoreApplication storeApplication, IProductApplication productApplication, ICategoryApplication categoryApplication)
+        public ProductController(IStoreApplication storeApplication, IBrandApplication brandApplication, IProductApplication productApplication, ICategoryApplication categoryApplication)
         {
             _storeApplication = storeApplication;
+            _brandApplication = brandApplication;
             _productApplication = productApplication;
             _categoryApplication = categoryApplication;
         }
@@ -65,8 +68,8 @@ namespace ServiceHost.Areas.Store.Controllers
                 TempData[WarningMessage] = storeIsAbleToAddProduct.Message;
                 return RedirectToAction("Index", "Dashboard", new { area = "Store" });
             }
-
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
+            ViewBag.Brands = new SelectList(await _brandApplication.GetAll(User.GetStoreId()), "Id", "Name");
             return View();
         }
 
@@ -75,12 +78,13 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> Create(CreateProductVM command)
         {
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
+            ViewBag.Brands = new SelectList(await _brandApplication.GetAll(User.GetStoreId()), "Id", "Name");
             if (ModelState.IsValid)
             {
                 command.StoreId = User.GetStoreId();
                 var result = await _productApplication.Create(command);
 
-                await _storeApplication.ProductCreated(command.StoreId);
+                //await _storeApplication.ProductCreated(command.StoreId);
 
                 if (result.IsSucceeded)
                 {
@@ -108,6 +112,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("NotFound", "Home", new { area = "" });
 
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
+            ViewBag.Brands = new SelectList(await _brandApplication.GetAll(User.GetStoreId()), "Id", "Name");
             return View(await _productApplication.GetDetailForEditBy(id));
         }
 
@@ -119,6 +124,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("NotFound", "Home", new { area = "" });
 
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");
+            ViewBag.Brands = new SelectList(await _brandApplication.GetAll(User.GetStoreId()), "Id", "Name");
             if (ModelState.IsValid)
             {
                 command.StoreId = User.GetStoreId();

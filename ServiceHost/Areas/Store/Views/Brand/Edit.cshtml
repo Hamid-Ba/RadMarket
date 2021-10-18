@@ -1,0 +1,29 @@
+﻿@model StoreManagement.Application.Contract.BrandAgg.EditBrandVM
+@{
+    ViewData["Title"] = "ویرایش برند";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم ویرایش تخفیف</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="Brand" asp-action="Edit" method="post" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="exampleInputPassword1" class="form-label">نام</label>
+                    <input type="" asp-for="Name" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input type="hidden" asp-for="Id"/>
+                <button type="submit" class="btn btn-outline-danger w-50">ویرایش برند</button>
+            </div>
+        </form>
+    </div>
+</div>

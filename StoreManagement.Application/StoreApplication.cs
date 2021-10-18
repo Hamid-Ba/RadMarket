@@ -131,11 +131,6 @@ namespace StoreManagement.Application
 
         public async Task<EditStoreVM> GetDetailForEditBy(long id) => await _storeRepository.GetDetailForEditBy(id);
 
-        public Task<OperationResult> ProductCreated(long id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<OperationResult> IsAbleToAddProduct(long id)
         {
             OperationResult result = new();

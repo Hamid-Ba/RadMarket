@@ -49,7 +49,14 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-12">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">برند</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="BrandId" asp-items="@ViewBag.Brands">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+                <div class="col-6">
                     <label for="exampleInputPassword1" class="form-label">تصویر</label>
                     <input class="form-control" asp-for="Picture" type="file" id="formFile">
                     <span asp-validation-for="Picture" class="text-danger"></span>

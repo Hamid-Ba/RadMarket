@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Framework.Application;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreManagement.Application.Contract.BrandAgg
 {
@@ -15,6 +16,7 @@ namespace StoreManagement.Application.Contract.BrandAgg
         public long StoreId { get; set; }
 
         [Display(Name = "نام")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Name { get; set; }
     }
 

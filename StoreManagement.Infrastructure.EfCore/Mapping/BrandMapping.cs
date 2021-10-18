@@ -10,6 +10,8 @@ namespace StoreManagement.Infrastructure.EfCore.Mapping
         {
             builder.HasKey(k => k.Id);
 
+            builder.Property(p => p.Name).HasMaxLength(125).IsRequired();
+
             builder.HasOne(s => s.Store)
                 .WithMany(b => b.Brands)
                 .HasForeignKey(f => f.StoreId);
