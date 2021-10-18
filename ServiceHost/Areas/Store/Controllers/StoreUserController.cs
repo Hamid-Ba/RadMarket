@@ -1,4 +1,5 @@
-﻿using AccountManagement.Application.Contract.StoreUserAgg;
+﻿using AccountManagement.Application.Contract.StoreRoleAgg;
+using AccountManagement.Application.Contract.StoreUserAgg;
 using Framework.Application.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,12 +14,15 @@ namespace ServiceHost.Areas.Store.Controllers
     {
         private readonly IProvinceQuery _provinceQuery;
         private readonly IStoreApplication _storeApplication;
+        private readonly IStoreRoleApplication _storeRoleApplication;
         private readonly IStoreUserApplication _storeUserApplication;
 
-        public StoreUserController(IProvinceQuery provinceQuery, IStoreApplication storeApplication, IStoreUserApplication storeUserApplication)
+        public StoreUserController(IProvinceQuery provinceQuery, IStoreApplication storeApplication, 
+            IStoreRoleApplication storeRoleApplication, IStoreUserApplication storeUserApplication)
         {
             _provinceQuery = provinceQuery;
             _storeApplication = storeApplication;
+            _storeRoleApplication = storeRoleApplication;
             _storeUserApplication = storeUserApplication;
         }
 
@@ -37,6 +41,7 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult>  Create()
         {
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            ViewBag.Roles = new SelectList(await _storeRoleApplication.GetAll(User.GetStoreId()), "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -44,6 +49,13 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> Create(RegisterStoreUserVM command)
         {
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            ViewBag.Roles = new SelectList(await _storeRoleApplication.GetAll(User.GetStoreId()), "Id", "Name");
+
+            if (command.StoreRoleId <= 0)
+            {
+                TempData[WarningMessage] = "نقش را انتخاب نمایید";
+                return View(command);
+            }
             
             var result = await _storeUserApplication.Register(command);
 
@@ -67,6 +79,7 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> Edit(long id)
         {
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            ViewBag.Roles = new SelectList(await _storeRoleApplication.GetAll(User.GetStoreId()), "Id", "Name");
             return View(await _storeUserApplication.GetDetailForEditBy(id,User.GetStoreId()));
         }
         [HttpPost]
@@ -74,6 +87,13 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> Edit(EditStoreUserVM command)
         {
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
+            ViewBag.Roles = new SelectList(await _storeRoleApplication.GetAll(User.GetStoreId()), "Id", "Name");
+
+            if (command.StoreRoleId <= 0)
+            {
+                TempData[WarningMessage] = "نقش را انتخاب نمایید";
+                return View(command);
+            }
 
             var result = await _storeUserApplication.Edit(command);
 

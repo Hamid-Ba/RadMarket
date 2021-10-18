@@ -63,17 +63,26 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             Province = s.Province
         }).FirstOrDefaultAsync(s => s.Id == id);
 
-        public async Task<IEnumerable<StoreUserVM>> GetAll(long storeId) => await _context.StoreUser.Where(s => s.StoreId == storeId).Select(s => new StoreUserVM
+        public async Task<IEnumerable<StoreUserVM>> GetAll(long storeId)
         {
-            Id = s.Id,
-            StoreId = s.StoreId,
-            StoreRoleId = s.StoreRoleId,
-            FirstName = s.FirstName,
-            LastName = s.LastName,
-            Mobile = s.Mobile,
-            IsActive = s.IsActive,
-            CreationDate = s.CreationDate.ToFarsi()
-        }).AsNoTracking().ToListAsync();
+            var roles = await _context.StoreRole.Select(r => new { Id = r.Id, Name = r.Name }).ToListAsync();
+
+            var result = await _context.StoreUser.Where(s => s.StoreId == storeId).Select(s => new StoreUserVM
+            {
+                Id = s.Id,
+                StoreId = s.StoreId,
+                StoreRoleId = s.StoreRoleId,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Mobile = s.Mobile,
+                IsActive = s.IsActive,
+                CreationDate = s.CreationDate.ToFarsi()
+            }).AsNoTracking().ToListAsync();
+
+            result.ForEach(u => u.StoreRoleName = roles.Find(r => r.Id == u.StoreRoleId)?.Name);
+
+            return result;
+        }
 
         public async Task<long> GetStoreIdBy(long id) => (await _context.StoreUser.FirstOrDefaultAsync(s => s.Id == id)).StoreId;
         

@@ -35,6 +35,16 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">نقش</label>
+                    <select class="form-select" aria-label="Default select example" asp-for="StoreRoleId" asp-items="@ViewBag.Roles">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="StoreRoleId" class="text-danger"></span>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-6">
                     <label for="exampleInputEmail1" class="form-label">استان</label>
