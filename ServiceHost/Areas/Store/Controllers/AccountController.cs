@@ -11,7 +11,10 @@ namespace ServiceHost.Areas.Store.Controllers
 
         public AccountController(IOrderQuery orderQuery) => _orderQuery = orderQuery;
 
-        public async Task<IActionResult> Index() => View(await _orderQuery.GetUnPayedItems(User.GetStoreId()));
-        
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.TotalSiteProfitAmount = await _orderQuery.GetTotalSiteProfit(User.GetStoreId());
+            return View(await _orderQuery.GetUnPayedItems(User.GetStoreId()));
+        }
     }
 }

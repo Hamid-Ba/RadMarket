@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "حساب شما";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    double totalSiteProfit = ViewBag.TotalSiteProfitAmount;
 }
 
 <div class="container p-3 border my-5 admin-panel">
@@ -82,7 +83,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center  border">
             <div class="col rounded p-3">
-                <h4>هزینه قابل پرداخت : <span>35000</span></h4>
+                <h4>هزینه قابل پرداخت : <span>@totalSiteProfit.ToMoney() تومان</span></h4>
             </div>
             <div class="col payment">
                 <a href="" class="btn btn-outline-danger">پرداخت</a>

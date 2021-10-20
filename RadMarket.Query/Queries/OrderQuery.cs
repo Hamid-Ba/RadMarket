@@ -194,5 +194,14 @@ namespace RadMarket.Query.Queries
 
             return result;
         }
+
+        public async Task<double> GetTotalSiteProfit(long storeId)
+        {
+            var result = await _storeContext.OrderItems
+                .Where(o => o.Product.StoreId == storeId)
+                .Where(o => !o.IsPayedWithSite)
+                .Select(i => i.SiteProfitAmount).SumAsync(s => s);
+            return result;
+        }
     }
 }

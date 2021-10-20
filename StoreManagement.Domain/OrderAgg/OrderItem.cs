@@ -14,6 +14,7 @@ namespace StoreManagement.Domain.OrderAgg
         public OrderStatus Status { get; private set; }
         public bool IsPayedWithSite { get; private set; }
         public int SiteProfitPercentage { get; private set; }
+        public double SiteProfitAmount { get; private set; }
         public DateTime DateOfPayedToSite { get; private set; }
 
         public Order Order { get; private set; }
@@ -48,6 +49,8 @@ namespace StoreManagement.Domain.OrderAgg
             if (totalAmount >= SiteProfitPercentages.OneMillion && totalAmount < SiteProfitPercentages.TenMillion) SiteProfitPercentage = 10;
             else if (totalAmount >= SiteProfitPercentages.TenMillion) SiteProfitPercentage = 15;
             else SiteProfitPercentage = 5;
+
+            SiteProfitAmount = totalAmount * SiteProfitPercentage / 100;
         }
 
         public void SetOrderStatus(OrderStatus status)
