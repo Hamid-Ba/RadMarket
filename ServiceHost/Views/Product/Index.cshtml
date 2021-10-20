@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-4 single-card-box">
             <div class="border p-3 text-center">
+                <p class="h6">شرکت پخش : <a asp-area="" asp-controller="Store" asp-action="Index" asp-route-Id="@Model.StoreId" asp-route-Name="@Model.StoreName">@Model.StoreName</a></p>
                 <p class="h6">نام محصول : <span>@Model.Name</span></p>
                 @if (User.Identity.IsAuthenticated)
                 {

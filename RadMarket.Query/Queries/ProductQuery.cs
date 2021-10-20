@@ -24,7 +24,7 @@ namespace RadMarket.Query.Queries
             _discountContext = discountContext;
         }
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAll(string filter,  string searchTitle = "", int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAll(string filter, string searchTitle = "", int take = 0)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
                 Select(d => new
@@ -167,6 +167,45 @@ namespace RadMarket.Query.Queries
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
             return products.Take(3).ToList();
+        }
+
+        public async Task<IEnumerable<ProductQueryVM>> GetAllBy(long storeId, int take = 0)
+        {
+            var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
+           Select(d => new
+           {
+               Id = d.Id,
+               ProductId = d.ProductId,
+               Rate = d.DiscountRate
+           }).ToListAsync();
+
+            var products = await _storeContext.Products
+                .Include(s => s.Store)
+                .Where(s => s.StoreId == storeId)
+                .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
+                .Select(p => new ProductQueryVM()
+                {
+                    Id = p.Id,
+                    StoreId = p.StoreId,
+                    CategoryId = p.CategoryId,
+                    Picture = p.Picture,
+                    PictureAlt = p.PictureAlt,
+                    PictureTitle = p.PictureTitle,
+                    Name = p.Name,
+                    Slug = p.Slug,
+                    Description = p.MetaDescription.Substring(0, 50) + " ...",
+                    ConsumerPrice = p.ConsumerPrice,
+                    PurchasePrice = p.PurchacePrice,
+                    OrderCount = p.OrderCount,
+                    EachBoxCount = p.EachBoxCount,
+                    HasAdtCharge = p.Store.IsAccountStillAdtCharged()
+                }).AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
+
+            products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
+
+            if (take != 0) products = products.Take(take).ToList();
+
+            return products;
         }
     }
 }

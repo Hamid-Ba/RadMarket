@@ -29,9 +29,9 @@ namespace ServiceHost.Controllers
 
         public async Task<IActionResult> Stores(int pageIndex = 1)
         {
-            var articles = await _storeQuery.GetAll();
+            var stores = await _storeQuery.GetAll();
 
-            var model = PagingList.Create(articles, 10, pageIndex);
+            var model = PagingList.Create(stores, 10, pageIndex);
             model.Action = "Stores";
 
             return View(model);
