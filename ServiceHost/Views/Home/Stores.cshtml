@@ -20,7 +20,7 @@
             @foreach (var entity in Model)
             {
                 <div class="col-sm-12 col-md-6 rounded my-3">
-                    <a href="">
+                    <a asp-area="" asp-controller="Store" asp-action="Index" asp-route-id="@entity.Id" asp-route-name="@entity.Name">
                         <div class="admin-panel-box">
                             <h4>@entity.Name</h4>
                         </div>

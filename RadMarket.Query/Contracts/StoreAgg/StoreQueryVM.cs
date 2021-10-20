@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace RadMarket.Query.Contracts.StoreAgg
 {
@@ -27,5 +28,9 @@ namespace RadMarket.Query.Contracts.StoreAgg
         //Adt Package Properties
         public int AdtChargeCount { get;  set; }
         public DateTime AdtChargeExpiredDate { get;  set; }
+        public List<ProductAgg.ProductQueryVM> Products { get; set; }
+        public List<BrandAgg.BrandQueryVM> Brands { get; set; }
     }
+
+    
 }

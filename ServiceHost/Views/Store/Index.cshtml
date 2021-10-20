@@ -1,0 +1,71 @@
+﻿@using System.Security.Claims
+@using Framework.Application
+@model RadMarket.Query.Contracts.StoreAgg.StoreQueryVM
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- title -->
+<div class="container my-5">
+    <div class="title col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>شرکت پخش @ViewData["Title"]</h4>
+    </div>
+</div>
+<!-- title -->
+<!-- factory -->
+<div class="container p-3  my-5 admin-panel">
+    <div class="row">
+        @foreach (var entity in Model.Brands)
+        {
+            <div class="col-sm-12 col-md-6 rounded my-3">
+                <a href="">
+                    <div class="admin-panel-box">
+                        <h4>@entity.Name</h4>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- factory -->
+<!-- every -->
+<div class="container">
+    <div class="every col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>محصولات اخیر</h4>
+        <div class="every-all">
+            <a href="">مشاهده همه </a>
+            <i class="fas fa-arrow-left"></i>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="every-boxes">
+        <div class="row justify-content-around">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-sm-12 col-md-4 every-box">
+                    <div class="card-product text-center">
+                        <img src="~/Pictures/@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle" style="height: 125px;">
+                        <h6 class="card-product-title">@product.Name</h6>
+                        <p class="offer-product-price">تعداد در هر بسته: <span>@product.EachBoxCount</span></p>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
+                            {
+                                <p class="offer-product-price">قیمت مصرف کننده : <span>@product.ConsumerPrice.ToMoney() تومان</span></p>
+                                <p class="offer-product-price">قیمت خرید : <span>@product.PurchasePrice.ToMoney() تومان</span></p>
+                            }
+                        }
+                        <a asp-controller="Product" asp-action="Index" asp-route-storeId="@product.StoreId" asp-route-slug="@product.Slug" class="btn btn-outline-danger">مشاهده</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- every -->

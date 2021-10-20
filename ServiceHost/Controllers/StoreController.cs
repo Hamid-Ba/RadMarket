@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using RadMarket.Query.Contracts.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
     public class StoreController : Controller
     {
-       
-        public IActionResult Index(long id ,string name)
+        private readonly IStoreQuery _storeQuery;
+
+        public StoreController(IStoreQuery storeQuery)
         {
-            return View();
+            _storeQuery = storeQuery;
+        }
+
+        [HttpGet("store{id}/{name}")]
+        public async Task<IActionResult> Index(long id, string name)
+        {
+            return View(await _storeQuery.GetBy(id));
         }
     }
 }
