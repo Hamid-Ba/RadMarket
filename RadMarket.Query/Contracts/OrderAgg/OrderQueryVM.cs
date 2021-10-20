@@ -13,7 +13,7 @@ namespace RadMarket.Query.Contracts.OrderAgg
         public string IssueTracking { get; set; }
         public string PlaceOrderDate { get; set; }
         public DateTime? GeorgianPlaceOrderDate { get; set; }
-        public PaymentMethodType PaymentMethod{ get; set; }
+        public PaymentMethodType PaymentMethod { get; set; }
         public List<ItemQueryVM> Items { get; set; }
     }
 
@@ -33,5 +33,9 @@ namespace RadMarket.Query.Contracts.OrderAgg
         public DateTime? GeorgianPlaceOrderDate { get; set; }
         public OrderStatus Status { get; set; }
         public PaymentMethodType PaymentMethod { get; set; }
+        public bool IsPayedWithSite { get; set; }
+        public int SiteProfitPercentage { get; set; }
+        public double SiteProfitAmount { get; set; }
+        public DateTime DateOfPayedToSite { get; set; }
     }
 }

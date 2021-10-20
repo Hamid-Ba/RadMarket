@@ -157,5 +157,42 @@ namespace RadMarket.Query.Queries
 
             return result;
         }
+
+        public async Task<IEnumerable<StoreOrderQueryVM>> GetUnPayedItems(long storeId)
+        {
+            var users = await _accountContext.User.Select(u => new { Id = u.Id, UserName = $"{u.FirstName} {u.LastName}", Mobile = u.Mobile }).ToListAsync();
+            var items = await _storeContext.OrderItems.Where(o => o.Product.StoreId == storeId && o.Order.IsPayed)
+                .Select(i => new { Id = i.Id, Payamount = i.PayAmount, DiscountPrice = i.DiscountPrice }).ToListAsync();
+
+            var result = await _storeContext.OrderItems
+                .Include(o => o.Order)
+                .Include(p => p.Product)
+                .Where(p => p.Product.StoreId == storeId)
+                .Where(o => o.Order.IsPayed)
+                .Where(o => !o.IsPayedWithSite)
+                .Select(s => new StoreOrderQueryVM
+            {
+                Id = s.Id,
+                OrderId = s.OrderId,
+                UserId = s.Order.UserId,
+                IssueTracking = s.Order.IssueTracking,
+                Count = s.Count,
+                PlaceOrderDate = s.Order.PlaceOrderDate.ToFarsi(),
+                PaymentMethod = s.Order.PaymentMethod,
+                Status = s.Status,
+                GeorgianPlaceOrderDate = s.Order.PlaceOrderDate,
+                SiteProfitPercentage = s.SiteProfitPercentage,
+            }).AsNoTracking().OrderByDescending(o => o.GeorgianPlaceOrderDate).ToListAsync();
+
+            result.ForEach(r => r.PayAmount = items.Where(i => i.Id == r.Id).Sum(p => p.Payamount));
+            result.ForEach(r => r.SiteProfitAmount = (r.PayAmount * r.Count) * r.SiteProfitPercentage / 100);
+            result.ForEach(r => r.DiscountPrice = items.Where(i => i.Id == r.Id).Sum(p => p.DiscountPrice));
+            result.ForEach(r => r.TotalPrice = items.Where(i => i.Id == r.Id).Sum(p => p.Payamount * r.Count));
+
+            result.ForEach(r => r.UserName = users.FirstOrDefault(u => u.Id == r.UserId)?.UserName);
+            result.ForEach(r => r.UserMobile = users.FirstOrDefault(u => u.Id == r.UserId)?.Mobile);
+
+            return result;
+        }
     }
 }
