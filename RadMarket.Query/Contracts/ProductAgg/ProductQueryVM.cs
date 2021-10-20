@@ -6,7 +6,9 @@ namespace RadMarket.Query.Contracts.ProductAgg
     {
         public long Id { get; set; }
         public long StoreId { get;  set; }
+        public long BrandId { get; set; }
         public string StoreName { get;  set; }
+        public string BrandName { get; set; }
         public long CategoryId { get;  set; }
         public string CategoryName { get;  set; }
         public string Code { get;  set; }

@@ -23,13 +23,26 @@ namespace ServiceHost.Controllers
         [HttpGet("store{id}/{name}/products")]
         public async Task<IActionResult> Products(long id,string name,int pageIndex = 1)
         {
-            var products = await _productQuery.GetAllBy(id,6);
+            var products = await _productQuery.GetAllBy(id,0,6);
 
             var model = PagingList.Create(products, 10, pageIndex);
             model.Action = "Products";
 
             ViewBag.StoreName = name;
             return View(model);
+        }
+
+        [HttpGet("store{id}/{name}/{brandId}/{brandName}/products")]
+        public async Task<IActionResult> Brand(long id, string name,long brandId,string brandName, int pageIndex = 1)
+        {
+            var products = await _productQuery.GetAllBy(id,brandId, 6);
+
+            var model = PagingList.Create(products, 10, pageIndex);
+            model.Action = "Brand";
+
+            ViewBag.StoreName = name;
+            ViewBag.BrandName = brandName;
+            return View("Products",model);
         }
     }
 }

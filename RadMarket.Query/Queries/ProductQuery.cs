@@ -169,7 +169,7 @@ namespace RadMarket.Query.Queries
             return products.Take(3).ToList();
         }
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAllBy(long storeId, int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAllBy(long storeId,long brandId, int take = 0)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
            Select(d => new
@@ -182,11 +182,13 @@ namespace RadMarket.Query.Queries
             var products = await _storeContext.Products
                 .Include(s => s.Store)
                 .Where(s => s.StoreId == storeId)
+                .Where(s => brandId > 0 && s.BrandId == brandId)
                 .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
                 .Select(p => new ProductQueryVM()
                 {
                     Id = p.Id,
                     StoreId = p.StoreId,
+                    BrandId = p.BrandId,
                     CategoryId = p.CategoryId,
                     Picture = p.Picture,
                     PictureAlt = p.PictureAlt,

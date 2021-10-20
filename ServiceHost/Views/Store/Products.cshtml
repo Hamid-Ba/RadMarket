@@ -8,7 +8,14 @@
 }
 
 <div class="best-seller-title my-5">
-    <h4>@ViewData["Title"]</h4>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.BrandName))
+    {
+        <h4>@ViewData["Title"] - @ViewBag.BrandName</h4>
+    }
+    else
+    {
+        <h4>@ViewData["Title"]</h4>
+    }
 </div>
 
 
