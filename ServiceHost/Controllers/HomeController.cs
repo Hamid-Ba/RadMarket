@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RadMarket.Query.Contracts.StoreAgg;
 using ServiceHost.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace ServiceHost.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IStoreQuery _storeQuery;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IStoreQuery storeQuery, ILogger<HomeController> logger)
         {
+            _storeQuery = storeQuery;
             _logger = logger;
         }
 
@@ -22,6 +25,8 @@ namespace ServiceHost.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Stores() => View(await _storeQuery.GetAll());
 
         public IActionResult Privacy()
         {

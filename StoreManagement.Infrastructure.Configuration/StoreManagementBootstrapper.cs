@@ -4,6 +4,7 @@ using RadMarket.Query.Contracts.CategoryAgg;
 using RadMarket.Query.Contracts.OrderAgg;
 using RadMarket.Query.Contracts.PackageOrderAgg;
 using RadMarket.Query.Contracts.ProductAgg;
+using RadMarket.Query.Contracts.StoreAgg;
 using RadMarket.Query.Queries;
 using StoreManagement.Application;
 using StoreManagement.Application.Contract.AdtPackageAgg;
@@ -68,6 +69,7 @@ namespace StoreManagement.Infrastructure.Configuration
             service.AddTransient<IBrandApplication, BrandApplication>();
             #region Query
 
+            service.AddTransient<IStoreQuery, StoreQuery>();
             service.AddTransient<IOrderQuery, OrderQuery>();
             service.AddTransient<IProductQuery, ProductQuery>();
             service.AddTransient<ICategoryQuery, CategoryQuery>();

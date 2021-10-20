@@ -1,0 +1,37 @@
+﻿@model IEnumerable<RadMarket.Query.Contracts.StoreAgg.StoreQueryVM>
+@{
+    ViewData["Title"] = "شرکت های پخش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- title -->
+<div class="container my-5">
+    <div class="title col-sm-4 col-md-6 col-lg-8 m-auto">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+</div>
+<!-- title -->
+<!-- factory -->
+<div class="container p-3  my-5 admin-panel">
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach(var entity in Model)
+            {
+                <div class="col-sm-12 col-md-6 rounded my-3">
+                    <a href="">
+                        <div class="admin-panel-box">
+                            <h4>@entity.Name</h4>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="alert alert-warning">هیچ شرکت پخشی وجود ندارد</p>
+        }
+
+    </div>
+</div>
+<!-- factory -->

@@ -7,13 +7,9 @@
 </div>
 <div class="menu-small-icon" id="responsive-menu">
     <ul id="smal-large">
-        <li><a href="">شرکت های پخش</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Stores">شرکت های پخش</a></li>
         <li><a asp-controller="Blogs" asp-action="Index">مقالات</a></li>
         <li><a asp-controller="Categories" asp-action="Index">دسته بندی محصولات</a></li>
-        <li><a href="">گردش حساب</a></li>
-        <li><a href="">سفارشات قبلی</a></li>
-        <li><a href="">پیام ها</a></li>
-        <li><a href="">تماس با ما</a></li>
         @if (User.Identity.IsAuthenticated)
         {
             if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "ClientUser")
