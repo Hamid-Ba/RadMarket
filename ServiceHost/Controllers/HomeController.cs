@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RadMarket.Query.Contracts.StoreAgg;
+using ReflectionIT.Mvc.Paging;
 using ServiceHost.Models;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,15 @@ namespace ServiceHost.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Stores() => View(await _storeQuery.GetAll());
+        public async Task<IActionResult> Stores(int pageIndex = 1)
+        {
+            var articles = await _storeQuery.GetAll();
 
+            var model = PagingList.Create(articles, 10, pageIndex);
+            model.Action = "Stores";
+
+            return View(model);
+        }
         public IActionResult Privacy()
         {
             return View();
