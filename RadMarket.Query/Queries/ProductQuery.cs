@@ -169,7 +169,7 @@ namespace RadMarket.Query.Queries
             return products.Take(3).ToList();
         }
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAllBy(long storeId,long brandId, int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAllBy(long storeId, long brandId, int take = 0)
         {
             var discounts = await _discountContext.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
            Select(d => new
@@ -179,29 +179,55 @@ namespace RadMarket.Query.Queries
                Rate = d.DiscountRate
            }).ToListAsync();
 
-            var products = await _storeContext.Products
-                .Include(s => s.Store)
-                .Where(s => s.StoreId == storeId)
-                .Where(s => brandId > 0 && s.BrandId == brandId)
-                .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
-                .Select(p => new ProductQueryVM()
-                {
-                    Id = p.Id,
-                    StoreId = p.StoreId,
-                    BrandId = p.BrandId,
-                    CategoryId = p.CategoryId,
-                    Picture = p.Picture,
-                    PictureAlt = p.PictureAlt,
-                    PictureTitle = p.PictureTitle,
-                    Name = p.Name,
-                    Slug = p.Slug,
-                    Description = p.MetaDescription.Substring(0, 50) + " ...",
-                    ConsumerPrice = p.ConsumerPrice,
-                    PurchasePrice = p.PurchacePrice,
-                    OrderCount = p.OrderCount,
-                    EachBoxCount = p.EachBoxCount,
-                    HasAdtCharge = p.Store.IsAccountStillAdtCharged()
-                }).AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
+            List<ProductQueryVM> products = new();
+
+            if (brandId > 0)
+                products = await _storeContext.Products
+                    .Include(s => s.Store)
+                    .Where(s => s.StoreId == storeId)
+                    .Where(s => s.BrandId == brandId)
+                    .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
+                    .Select(p => new ProductQueryVM()
+                    {
+                        Id = p.Id,
+                        StoreId = p.StoreId,
+                        BrandId = p.BrandId,
+                        CategoryId = p.CategoryId,
+                        Picture = p.Picture,
+                        PictureAlt = p.PictureAlt,
+                        PictureTitle = p.PictureTitle,
+                        Name = p.Name,
+                        Slug = p.Slug,
+                        Description = p.MetaDescription.Substring(0, 50) + " ...",
+                        ConsumerPrice = p.ConsumerPrice,
+                        PurchasePrice = p.PurchacePrice,
+                        OrderCount = p.OrderCount,
+                        EachBoxCount = p.EachBoxCount,
+                        HasAdtCharge = p.Store.IsAccountStillAdtCharged()
+                    }).AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
+            else
+                products = await _storeContext.Products
+                 .Include(s => s.Store)
+                 .Where(s => s.StoreId == storeId)
+                 .Where(q => q.Store.Status == StoreStatus.Confirmed && q.ProductAcceptanceState == ProductAcceptanceState.Accepted)
+                 .Select(p => new ProductQueryVM()
+                 {
+                     Id = p.Id,
+                     StoreId = p.StoreId,
+                     BrandId = p.BrandId,
+                     CategoryId = p.CategoryId,
+                     Picture = p.Picture,
+                     PictureAlt = p.PictureAlt,
+                     PictureTitle = p.PictureTitle,
+                     Name = p.Name,
+                     Slug = p.Slug,
+                     Description = p.MetaDescription.Substring(0, 50) + " ...",
+                     ConsumerPrice = p.ConsumerPrice,
+                     PurchasePrice = p.PurchacePrice,
+                     OrderCount = p.OrderCount,
+                     EachBoxCount = p.EachBoxCount,
+                     HasAdtCharge = p.Store.IsAccountStillAdtCharged()
+                 }).AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
