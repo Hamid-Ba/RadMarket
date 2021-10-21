@@ -14,6 +14,7 @@ namespace StoreManagement.Application.Contract.OrderAgg
         Task<IEnumerable<OrderItemsVM>> GetItems(long id);
         Task<OperationResult> PlaceItem(PlaceItemVM command);
         Task<OperationResult> PlaceOrder(PlaceOrderVM command);
+        Task<OperationResult> PayedProfitToSite(long[] itemsId);
         Task<OperationResult> DeleteItemBy(long userId,long itemId);
         Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId);
         Task<OperationResult> AddProductToOpenOrder(AddOrderItemsVM command);

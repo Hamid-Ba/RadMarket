@@ -19,13 +19,19 @@
                         <i class="text-white fas fa-shopping-cart"></i>
                     </a>
                 }
+                else
+                {
+                    <a asp-area="" asp-controller="Home">
+                        <i class="text-white fas fa fa-home"></i>
+                    </a>
+                }
             }
-            @*else
+            else
             {
-                <a asp-area="" asp-controller="Account" asp-action="UserLogin">
-                    <i class="text-white fas fa fa-user"></i>
+                <a asp-area="" asp-controller="Home">
+                    <i class="text-white fas fa fa-home"></i>
                 </a>
-            }*@
+            }
         </div>
     </div>
     <div class="menu-large">

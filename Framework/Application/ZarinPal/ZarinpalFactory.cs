@@ -61,5 +61,28 @@ namespace Framework.Application.ZarinPal
             var jsonSerializer = new JsonSerializer();
             return jsonSerializer.Deserialize<VerificationResponse>(response);
         }
+
+        public PaymentResponse CreatePaymentRequest(string amount, string mobile, string description, string returnControllerUrl)
+        {
+            amount = amount.Replace(",", "");
+            var finalAmount = int.Parse(amount);
+            var siteUrl = _configuration.GetSection("payment")["siteUrl"];
+
+            var client = new RestClient($"https://{Prefix}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/json");
+            var body = new PaymentRequest
+            {
+                Mobile = mobile,
+                CallbackURL = $"{siteUrl}/{returnControllerUrl}",
+                Description = description,
+                Amount = finalAmount,
+                MerchantID = MerchantId
+            };
+            request.AddJsonBody(body);
+            var response = client.Execute(request);
+            var jsonSerializer = new JsonSerializer();
+            return jsonSerializer.Deserialize<PaymentResponse>(response);
+        }
     }
 }

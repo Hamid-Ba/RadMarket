@@ -123,6 +123,23 @@ namespace StoreManagement.Application
 
         public async Task<long> GetUserIdBy(long orderId) => await _orderRepository.GetUserIdBy(orderId);
 
+        public async Task<OperationResult> PayedProfitToSite(long[] itemsId)
+        {
+            OperationResult result = new();
+
+            foreach (var id in itemsId)
+            {
+                var item = await _orderItemRepository.GetEntityByIdAsync(id);
+                if (item is null) return result.Failed(ApplicationMessage.NotExist);
+
+                if (!item.IsPayedWithSite)
+                    item.PayToSite();
+            }
+
+            await _orderItemRepository.SaveChangesAsync();
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> PlaceItem(PlaceItemVM command)
         {
             OperationResult result = new();
