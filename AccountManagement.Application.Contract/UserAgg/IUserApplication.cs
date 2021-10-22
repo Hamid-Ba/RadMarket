@@ -15,6 +15,7 @@ namespace AccountManagement.Application.Contract.UserAgg
         Task<OperationResult> Edit(EditUserVM command);
         Task<OperationResult> Login(LoginUserVM command);
         Task<OperationResult> Register(RegisterUserVM command);
+        Task<IEnumerable<UserVM>> GetAllBy(string marketerCode);
         Task<OperationResult> ActiveAccount(ActiveAccountUserVM command);
     }
 }

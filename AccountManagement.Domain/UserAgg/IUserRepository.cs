@@ -11,5 +11,6 @@ namespace AccountManagement.Domain.UserAgg
         Task<User> GetUserBy(string mobile);
         Task<EditUserVM> GetDetailForEditBy(long id);
         Task<AddressUserVM> GetAddressInfoBy(long id);
+        Task<IEnumerable<UserVM>> GetAllBy(string marketerCode);
     }
 }

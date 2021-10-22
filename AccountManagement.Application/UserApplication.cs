@@ -126,5 +126,7 @@ namespace AccountManagement.Application
             return $"{user.FirstName} {user.LastName}";
         }
 
+        public async Task<IEnumerable<UserVM>> GetAllBy(string marketerCode) => await _userRepository.GetAllBy(marketerCode);
+        
     }
 }

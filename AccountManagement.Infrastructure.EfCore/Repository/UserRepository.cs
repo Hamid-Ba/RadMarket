@@ -45,6 +45,17 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             City = u.City,
             Province = u.Province
         }).FirstOrDefaultAsync(u => u.Id == id);
-        
+
+        public async Task<IEnumerable<UserVM>> GetAllBy(string marketerCode) => await _context.User
+            .Where(u => u.MarketerCode == marketerCode)
+            .Select(u => new UserVM
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Mobile = u.Mobile,
+                CreationDate = u.CreationDate.ToFarsi()
+            }).AsNoTracking().ToListAsync();
+
     }
 }

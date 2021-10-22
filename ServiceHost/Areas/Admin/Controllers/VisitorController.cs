@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AccountManagement.Application.Contract.UserAgg;
+using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Contract.VisitorAgg;
 using System.Threading.Tasks;
 
@@ -6,11 +7,18 @@ namespace ServiceHost.Areas.Admin.Controllers
 {
     public class VisitorController : AdminBaseController
     {
+        private readonly IUserApplication _userApplication;
         private readonly IVisitorApplication _visitorApplication;
 
-        public VisitorController(IVisitorApplication visitorApplication) => _visitorApplication = visitorApplication;
+        public VisitorController(IUserApplication userApplication, IVisitorApplication visitorApplication)
+        {
+            _userApplication = userApplication;
+            _visitorApplication = visitorApplication;
+        }
 
         public async Task<IActionResult> Index() => View(await _visitorApplication.GetAll());
+
+        public async Task<IActionResult> InvitedUser(string code) => PartialView(await _userApplication.GetAllBy(code));
 
         [HttpGet]
         public IActionResult Create() => PartialView();
