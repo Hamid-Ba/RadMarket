@@ -14,6 +14,49 @@ namespace StoreManagement.Infrastructure.EfCore.Repository
 
         public OrderItemRepository(StoreContext context) : base(context) => _context = context;
 
+        public async Task<IEnumerable<OrderItemsVM>> GetAllPayedItems() => await _context.OrderItems
+            .Where(i => i.Order.IsPayed)
+            .Where(i => i.IsPayedWithSite)
+            .Include(o => o.Order)
+            .Include(p => p.Product)
+            .ThenInclude(s => s.Store)
+            .Select(i => new OrderItemsVM
+            {
+                Id = i.Id,
+                OrderId = i.OrderId,
+                StoreId = i.Product.StoreId,
+                StoreName = i.Product.Store.Name,
+                PayAmount = i.PayAmount,
+                DiscountPrice = i.DiscountPrice,
+                TotalPayAmount = i.PayAmount * i.Count,
+                Status = i.Status,
+                ProfitPercentage = i.SiteProfitPercentage,
+                ProfitAmount = i.SiteProfitAmount,
+                IssueTrackingCode = i.Order.IssueTracking
+            }).AsNoTracking().ToListAsync();
+
+        public async Task<IEnumerable<OrderItemsVM>> GetAllUnPayedItems() => await _context.OrderItems
+            .Where(i => i.Order.IsPayed)
+            .Where(i => !i.IsPayedWithSite)
+            .Include(o => o.Order)
+            .Include(p => p.Product)
+            .ThenInclude(s => s.Store)
+            .Select(i => new OrderItemsVM
+        {
+            Id = i.Id,
+            OrderId = i.OrderId,
+            StoreId = i.Product.StoreId,
+            StoreName = i.Product.Store.Name,
+            PayAmount = i.PayAmount,
+            DiscountPrice = i.DiscountPrice,
+            TotalPayAmount = i.PayAmount * i.Count,
+            Status = i.Status,
+            ProfitPercentage = i.SiteProfitPercentage,
+            ProfitAmount = i.SiteProfitAmount,
+            IssueTrackingCode = i.Order.IssueTracking
+        }).AsNoTracking().ToListAsync();
+        
+
         public async Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId) => await _context.OrderItems.Include(o => o.Order).Select(o => new ChangeOrderStatusVM
         {
             ItemId = o.Id,

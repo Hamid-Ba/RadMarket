@@ -102,6 +102,10 @@ namespace StoreManagement.Application
 
         public async Task<IEnumerable<OrderVM>> GetAll() =>await _orderRepository.GetAll();
 
+        public async Task<IEnumerable<OrderItemsVM>> GetAllPayedItems() => await _orderItemRepository.GetAllPayedItems();
+        
+        public async Task<IEnumerable<OrderItemsVM>> GetAllUnPayedItems() => await _orderItemRepository.GetAllUnPayedItems();
+
         public async Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId) => await _orderItemRepository.GetDetailForChangeStatus(itemId);
 
         public async Task<string> GetIssueTrackingBy(long id)

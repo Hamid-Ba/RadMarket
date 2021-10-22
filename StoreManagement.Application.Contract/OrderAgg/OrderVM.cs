@@ -55,7 +55,11 @@ namespace StoreManagement.Application.Contract.OrderAgg
         public double DiscountPrice { get; set; }
         public double TotalPayAmount { get; set; }
         public int Count { get; set; }
+        public int ProfitPercentage { get; set; }
+        public double ProfitAmount { get; set; }
+        public string PayedProfitDate { get; set; }
         public OrderStatus Status { get; set; }
+        public string IssueTrackingCode { get; set; }
     }
 
     public class AddOrderItemsVM

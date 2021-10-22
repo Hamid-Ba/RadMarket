@@ -17,6 +17,10 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         public async Task<IActionResult> Index() => View(await _orderApplication.GetAll());
+        
+        public async Task<IActionResult> PayedOrders() => View(await _orderApplication.GetAllPayedItems());
+
+        public async Task<IActionResult> UnPayedOrders() => View(await _orderApplication.GetAllUnPayedItems());
 
         [HttpGet]
         public async Task<IActionResult> AddressInfo(long userId) => PartialView(await _userApplication.GetAddressInfoBy(userId));

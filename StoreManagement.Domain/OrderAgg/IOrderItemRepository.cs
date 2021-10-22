@@ -9,5 +9,7 @@ namespace StoreManagement.Domain.OrderAgg
     {
         Task<ChangeOrderStatusVM> GetDetailForChangeStatus(long itemId);
         Task<IEnumerable<OrderItemsVM>> GetItems(long id);
+        Task<IEnumerable<OrderItemsVM>> GetAllUnPayedItems();
+        Task<IEnumerable<OrderItemsVM>> GetAllPayedItems();
     }
 }

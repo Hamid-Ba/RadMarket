@@ -12,6 +12,8 @@ namespace StoreManagement.Application.Contract.OrderAgg
         Task<string> GetIssueTrackingBy(long id);
         Task<OrderVM> GetLastOpenedOrder(long userId);
         Task<IEnumerable<OrderItemsVM>> GetItems(long id);
+        Task<IEnumerable<OrderItemsVM>> GetAllPayedItems();
+        Task<IEnumerable<OrderItemsVM>> GetAllUnPayedItems();
         Task<OperationResult> PlaceItem(PlaceItemVM command);
         Task<OperationResult> PlaceOrder(PlaceOrderVM command);
         Task<OperationResult> PayedProfitToSite(long[] itemsId);

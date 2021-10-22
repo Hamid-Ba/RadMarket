@@ -1,8 +1,8 @@
 ﻿@using Framework.Application
-@model IEnumerable<StoreManagement.Application.Contract.OrderAgg.OrderVM>
+@model IEnumerable<StoreManagement.Application.Contract.OrderAgg.OrderItemsVM>
 
 @{
-    ViewData["Title"] = "سفارشات";
+    ViewData["Title"] = "سفارشات پرداخت نشده";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -10,9 +10,9 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" asp-action="PayedOrders">سفارشات پرداخت شده</a>
+            <a class="btn btn-primary btn-lg" asp-action="Index">سفارشات</a>
 
-            <a class="btn btn-danger btn-lg" asp-action="UnPayedOrders">سفارشات پرداخت نشده</a>
+            <a class="btn btn-success btn-lg" asp-action="PayedOrders">سفارشات پرداخت شده</a>
         </p>
     </div>
 </div>
@@ -30,15 +30,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>کاربر</th>
+                                    <th>شرکت</th>
                                     <th>کد سفارش</th>
-                                    <th>شماره موبایل</th>
                                     <th>مبلغ کل(تومان)</th>
                                     <th>مبلغ تخفیف(تومان)</th>
                                     <th>مبلغ پرداخت(تومان)</th>
-                                    <th>نوع پرداخت</th>
-                                    <th>تاریخ پردازش</th>
-                                    <th>عملیات</th>
+                                    <th>درصد پرداختی به سایت</th>
+                                    <th>مبلغ پرداخت به سایت(تومان)</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -46,27 +44,13 @@
                                 {
                                     <tr class="text-center">
                                         <td>@entity.Id</td>
-                                        <td>@entity.UserFullName</td>
+                                        <td>@entity.StoreName</td>
                                         <td>@entity.IssueTrackingCode</td>
-                                        <td>@entity.MobileNumber</td>
-                                        <td>@entity.TotalPrice.ToMoney()</td>
+                                        <td>@entity.TotalPayAmount.ToMoney()</td>
                                         <td>@entity.DiscountPrice.ToMoney()</td>
                                         <td>@entity.PayAmount.ToMoney()</td>
-                                        <td>@entity.PaymentMethod.GetEnumName()</td>
-                                        <td>@entity.PalceOrderDate</td>
-                                        <td class="text-center">
-
-                                            <a class="btn btn-dark"
-                                               href="#showmodal=@Url.Action("Items", "Order",new {id = entity.Id , area= "Admin"})">
-                                                <i class="md md-shopping-basket"></i>
-                                            </a>
-
-                                            <a class="btn btn-info"
-                                               href="#showmodal=@Url.Action("AddressInfo", "Order",new {userId = entity.UserId , area= "Admin"})">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                        </td>
+                                        <td>@entity.ProfitPercentage</td>
+                                        <td>@entity.ProfitAmount.ToMoney()</td>
                                     </tr>
                                 }
                             </tbody>
