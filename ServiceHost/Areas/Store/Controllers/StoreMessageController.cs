@@ -1,14 +1,17 @@
 ﻿using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.StoreTicketAgg;
 using ReflectionIT.Mvc.Paging;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 using TicketManagement.Application.Contract.StoreTicketAgg;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.SendMessage)]
     public class StoreMessageController : StoreBaseController
     {
         private readonly IStoreTicketQuery _storeTicketQuery;

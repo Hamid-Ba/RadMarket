@@ -1,12 +1,15 @@
 ﻿using AccountManagement.Application.Contract.StorePermissionAgg;
 using AccountManagement.Application.Contract.StoreRoleAgg;
 using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.Roles)]
     public class StoreRoleController : StoreBaseController
     {
         private readonly IStoreRoleApplication _storeRoleApplication;

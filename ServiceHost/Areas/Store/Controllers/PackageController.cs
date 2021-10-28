@@ -1,11 +1,14 @@
 ﻿using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.PackageAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.Packages)]
     public class PackageController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;

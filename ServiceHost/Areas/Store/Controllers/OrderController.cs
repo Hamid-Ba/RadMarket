@@ -1,14 +1,17 @@
 ﻿using AccountManagement.Application.Contract.UserAgg;
 using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using RadMarket.Query.Contracts.OrderAgg;
 using ReflectionIT.Mvc.Paging;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.OrderAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.Orders)]
     public class OrderController : StoreBaseController
     {
         private readonly IOrderQuery _orderQuery;

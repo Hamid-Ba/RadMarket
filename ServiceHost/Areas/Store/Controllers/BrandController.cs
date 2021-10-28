@@ -1,11 +1,14 @@
 ﻿using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using ReflectionIT.Mvc.Paging;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.BrandAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.Brands)]
     public class BrandController : StoreBaseController
     {
         private readonly IBrandApplication _brandApplication;

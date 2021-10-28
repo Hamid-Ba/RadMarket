@@ -9,10 +9,11 @@ using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using ServiceHost.Tools;
 using StoreManagement.Application.Contract.BrandAgg;
+using Framework.Peresentation;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
-    [StorePermissionChecker(2)]
+    [StorePermissionChecker(SellerPermissionHelper.ProductManagement)]
     public class ProductController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;
@@ -52,7 +53,7 @@ namespace ServiceHost.Areas.Store.Controllers
         }
 
         [HttpGet]
-        [StorePermissionChecker(3)]
+        [StorePermissionChecker(SellerPermissionHelper.CreateProduct)]
         public async Task<IActionResult> Create()
         {
             var storeHasStillCharged = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
@@ -75,6 +76,7 @@ namespace ServiceHost.Areas.Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [StorePermissionChecker(SellerPermissionHelper.CreateProduct)]
         public async Task<IActionResult> Create(CreateProductVM command)
         {
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAll(), "Id", "Name");

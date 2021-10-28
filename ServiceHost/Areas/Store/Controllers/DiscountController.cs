@@ -7,10 +7,11 @@ using ReflectionIT.Mvc.Paging;
 using StoreManagement.Application.Contract.ProductAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using ServiceHost.Tools;
+using Framework.Peresentation;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
-    [StorePermissionChecker(4)]
+    [StorePermissionChecker(SellerPermissionHelper.ProductDiscount)]
     public class DiscountController : StoreBaseController
     {
         private readonly IStoreApplication _storeApplication;

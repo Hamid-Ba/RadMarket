@@ -1,15 +1,18 @@
 ﻿using AccountManagement.Application.Contract.StoreRoleAgg;
 using AccountManagement.Application.Contract.StoreUserAgg;
 using Framework.Application.Authentication;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using ReflectionIT.Mvc.Paging;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.Users)]
     public class StoreUserController : StoreBaseController
     {
         private readonly IProvinceQuery _provinceQuery;

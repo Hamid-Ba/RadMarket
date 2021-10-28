@@ -2,15 +2,18 @@
 using Framework.Application.Authentication;
 using Framework.Application.ZarinPal;
 using Framework.Infrastructure;
+using Framework.Peresentation;
 using Microsoft.AspNetCore.Mvc;
 using RadMarket.Query.Contracts.PackageOrderAgg;
 using ReflectionIT.Mvc.Paging;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.PackageOrderAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Store.Controllers
 {
+    [StorePermissionChecker(SellerPermissionHelper.OrderPackages)]
     public class PackageOrderController : StoreBaseController
     {
         private readonly ICalculatePackageOrderCart _cart;
