@@ -1,14 +1,14 @@
 ﻿using AccountManagement.Application.Contract.AdminRoleAgg;
 using AccountManagement.Application.Contract.AdminUserAgg;
+using AccountManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AccountPermissionHelper.AdminUsers)]
     public class AdminUserController : AdminBaseController
     {
         private readonly IAdminRoleApplication _adminRoleApplication;

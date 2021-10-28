@@ -1,9 +1,12 @@
 ﻿using AccountManagement.Application.Contract.UserAgg;
+using AccountManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AccountPermissionHelper.Users)]
     public class UserController : AdminBaseController
     {
         private readonly IUserApplication _userApplication;

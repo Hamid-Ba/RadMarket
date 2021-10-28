@@ -1,9 +1,12 @@
 ﻿using AccountManagement.Application.Contract.StoreUserAgg;
+using AccountManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AccountPermissionHelper.StoreUsers)]
     public class StoreUserController : AdminBaseController
     {
         private readonly IStoreUserApplication _storeUserApplication;

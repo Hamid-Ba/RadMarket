@@ -3,9 +3,12 @@ using System.Threading.Tasks;
 using BlogManagement.Application.Contract.ArticleAgg;
 using BlogManagement.Application.Contract.ArticleCategoryAgg;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
+using BlogManagement.Infrastructure.Configuration;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(BlogPermissionHelper.BlogingSystem)]
     public class ArticleController : AdminBaseController
     {
         private readonly IArticleApplication _articleApplication;
@@ -20,6 +23,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _articleApplication.GetAll());
 
         [HttpGet]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = new SelectList(await _articleCategoryApplication.GetAll(), "Id", "Name");
@@ -28,6 +32,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public async Task<IActionResult> Create(CreateArticleVM command)
         {
             ViewBag.Categories = new SelectList(await _articleCategoryApplication.GetAll(), "Id", "Name");
@@ -48,6 +53,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public async Task<IActionResult> Edit(long id)
         {
             ViewBag.Categories = new SelectList(await _articleCategoryApplication.GetAll(), "Id", "Name");
@@ -56,6 +62,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public async Task<IActionResult> Edit(EditArticleVM command)
         {
             ViewBag.Categories = new SelectList(await _articleCategoryApplication.GetAll(), "Id", "Name");
@@ -76,11 +83,13 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public IActionResult Delete(long id) => PartialView("Delete",id);
 
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AdminPermissionChecker(BlogPermissionHelper.Blogs)]
         public async Task<IActionResult> PostDelete(long id)
         {
             var result = await _articleApplication.Delete(id);

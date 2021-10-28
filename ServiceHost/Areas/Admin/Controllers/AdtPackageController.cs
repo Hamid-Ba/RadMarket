@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.AdtPackageAgg;
+using StoreManagement.Infrastructure.Configuration;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(StorePermissionHelper.AdtPackages)]
     public class AdtPackageController : AdminBaseController
     {
         private readonly IAdtPackageApplication _adtPackageApplication;

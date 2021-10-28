@@ -1,10 +1,13 @@
 ﻿using AccountManagement.Application.Contract.UserAgg;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.OrderAgg;
+using StoreManagement.Infrastructure.Configuration;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(StorePermissionHelper.ProductsOrder)]
     public class OrderController : AdminBaseController
     {
         private readonly IUserApplication _userApplication;

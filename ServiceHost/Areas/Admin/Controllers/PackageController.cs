@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.PackageAgg;
+using StoreManagement.Infrastructure.Configuration;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(StorePermissionHelper.SellerPackages)]
     public class PackageController : AdminBaseController
     {
         private readonly IPackageApplication _packageApplication;

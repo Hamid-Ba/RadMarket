@@ -1,10 +1,13 @@
 ﻿using AccountManagement.Application.Contract.UserAgg;
+using AccountManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.VisitorAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AccountPermissionHelper.Visitors)]
     public class VisitorController : AdminBaseController
     {
         private readonly IUserApplication _userApplication;

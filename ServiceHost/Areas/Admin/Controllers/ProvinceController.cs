@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AdminManagement.Application.Contract.ProvinceAgg;
+using AdminManagement.Infrastructure.Configuration;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AdminPermissionHelper.Provinces)]
     public class ProvinceController : AdminBaseController
     {
         private readonly IProvinceApplication _provinceApplication;

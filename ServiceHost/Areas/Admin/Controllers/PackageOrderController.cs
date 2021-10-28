@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.PackageOrderAgg;
+using StoreManagement.Infrastructure.Configuration;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(StorePermissionHelper.PackagesOrder)]
     public class PackageOrderController : AdminBaseController
     {
         private readonly IPackageOrderApplication _packageOrderApplication;

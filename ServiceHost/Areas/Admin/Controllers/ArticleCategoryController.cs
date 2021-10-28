@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using BlogManagement.Application.Contract.ArticleCategoryAgg;
+using ServiceHost.Tools;
+using BlogManagement.Infrastructure.Configuration;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(BlogPermissionHelper.BlogCategory)]
     public class ArticleCategoryController : AdminBaseController
     {
         private readonly IArticleCategoryApplication _articleCategoryApplication;

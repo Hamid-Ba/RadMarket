@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using StoreManagement.Application.Contract.CategoryAgg;
+using StoreManagement.Infrastructure.Configuration;
+using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(StorePermissionHelper.Category)]
     public class CategoryController : AdminBaseController
     {
         private readonly ICategoryApplication _categoryApplication;

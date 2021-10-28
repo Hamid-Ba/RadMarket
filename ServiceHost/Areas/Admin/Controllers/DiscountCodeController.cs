@@ -1,9 +1,12 @@
 ﻿using DiscountManagement.Application.Contract.DiscountCodeAgg;
+using DiscountManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(DiscountPermissionHelper.DiscountCode)]
     public class DiscountCodeController : AdminBaseController
     {
         private readonly IDiscountCodeApplication _discountCodeApplication;

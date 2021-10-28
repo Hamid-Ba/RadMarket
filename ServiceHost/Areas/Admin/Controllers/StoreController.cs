@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using Framework.Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using RadMarket.Query.Contracts.ProvinceAgg;
 using StoreManagement.Application.Contract.StoreAgg;
 using ServiceHost.Tools;
+using StoreManagement.Infrastructure.Configuration;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
-    [AdminPermissionChecker(3)]
+    [AdminPermissionChecker(StorePermissionHelper.Stores)]
     public class StoreController : AdminBaseController
     {
         private readonly IProvinceQuery _provinceQuery;
@@ -24,6 +24,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _storeApplication.GetAll());
 
         [HttpGet]
+        [AdminPermissionChecker(StorePermissionHelper.EditStore)]
         public async Task<IActionResult> Edit(long id)
         {
             ViewBag.Provinces = new SelectList(await _provinceQuery.GetAll(), "Name", "Name");
@@ -32,6 +33,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminPermissionChecker(StorePermissionHelper.EditStore)]
         public async Task<IActionResult> Edit(EditStoreVM command)
         {
             var result = await _storeApplication.Edit(command);
@@ -43,10 +45,12 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet("Confirm-Request")]
+        [AdminPermissionChecker(StorePermissionHelper.StoreStatus)]
         public IActionResult Confirm(long id) => PartialView("Confirm", id);
 
         [HttpPost("Confirm-Request"), ValidateAntiForgeryToken]
         [Route("Confirm")]
+        [AdminPermissionChecker(StorePermissionHelper.StoreStatus)]
         public async Task<IActionResult> ConfirmRequest(long id)
         {
             var result = await _storeApplication.ChangeStatus(new SpecifyStatusOfStoreVM()
@@ -62,9 +66,11 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet("DissConfirm-Request")]
+        [AdminPermissionChecker(StorePermissionHelper.StoreStatus)]
         public IActionResult DissConfirm(long id) => PartialView("DissConfirm", new SpecifyStatusOfStoreVM() { Id = id });
 
         [HttpPost("DissConfirm-Request"), ValidateAntiForgeryToken]
+        [AdminPermissionChecker(StorePermissionHelper.StoreStatus)]
         public async Task<IActionResult> DissConfirm(SpecifyStatusOfStoreVM command)
         {
             command.Status = StoreStatus.Rejected;

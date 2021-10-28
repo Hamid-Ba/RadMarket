@@ -1,11 +1,14 @@
 ﻿using AdminManagement.Application.Contract.BannerAgg;
+using AdminManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
 using StoreManagement.Application.Contract.StoreAgg;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [AdminPermissionChecker(AdminPermissionHelper.Banners)]
     public class BannerController : AdminBaseController
     {
         private readonly IStoreApplication _storeApplication;

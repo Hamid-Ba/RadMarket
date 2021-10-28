@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Framework.Application;
 using StoreManagement.Application.Contract.ProductAgg;
 using ServiceHost.Tools;
+using StoreManagement.Infrastructure.Configuration;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
-    [AdminPermissionChecker(4)]
+    [AdminPermissionChecker(StorePermissionHelper.Products)]
     public class ProductController : AdminBaseController
     {
         private readonly IProductApplication _productApplication;
@@ -16,6 +17,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index(SearchStoreVM search) => View(await _productApplication.GetAll(search));
 
         [HttpGet]
+        [AdminPermissionChecker(StorePermissionHelper.ProductStatus)]
         public IActionResult Confirm(long id) => PartialView("Confirm", new ChangeStatusProductVM(){Id = id});
 
         [HttpPost,ValidateAntiForgeryToken]
@@ -29,9 +31,11 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [AdminPermissionChecker(StorePermissionHelper.ProductStatus)]
         public IActionResult DissConfirm(long id) => PartialView("DissConfirm", new ChangeStatusProductVM(){Id = id});
 
         [HttpPost, ValidateAntiForgeryToken]
+        [AdminPermissionChecker(StorePermissionHelper.ProductStatus)]
         public async Task<IActionResult> DissConfirm(ChangeStatusProductVM command)
         {
             command.State = ProductAcceptanceState.Rejected;
