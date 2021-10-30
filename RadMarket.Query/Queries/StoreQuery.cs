@@ -43,18 +43,19 @@ namespace RadMarket.Query.Queries
             Name = b.Name
         }).ToList();
 
-        private static List<ProductQueryVM> MapProducts(List<Product> products) => products.Select(p => new ProductQueryVM
-        {
-            Id = p.Id,
-            StoreId = p.StoreId,
-            Picture = p.Picture,
-            PictureAlt = p.PictureAlt,
-            PictureTitle = p.PictureTitle,
-            Name = p.Name,
-            Slug = p.Slug,
-            ConsumerPrice = p.ConsumerPrice,
-            PurchasePrice = p.PurchacePrice
-        }).OrderByDescending(p => p.Id).Take(3).ToList();
+        private static List<ProductQueryVM> MapProducts(List<Product> products) => products.Where(p => p.ProductAcceptanceState == Framework.Application.ProductAcceptanceState.Accepted)
+            .Select(p => new ProductQueryVM
+            {
+                Id = p.Id,
+                StoreId = p.StoreId,
+                Picture = p.Picture,
+                PictureAlt = p.PictureAlt,
+                PictureTitle = p.PictureTitle,
+                Name = p.Name,
+                Slug = p.Slug,
+                ConsumerPrice = p.ConsumerPrice,
+                PurchasePrice = p.PurchacePrice
+            }).OrderByDescending(p => p.Id).Take(3).ToList();
 
     }
 }
