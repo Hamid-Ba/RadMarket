@@ -30,7 +30,9 @@
                     <label for="exampleInputPassword1" class="form-label">وضعیت</label>
                     <select class="form-control" asp-for="Status">
                         <option value="0">@OrderStatus.OrderCreated.GetEnumName()</option>
-                        <option value="1">@OrderStatus.AgentRecived.GetEnumName()</option>
+                        <option value="1">@OrderStatus.Prepreing.GetEnumName()</option>
+                        <option value="2">@OrderStatus.Delivering.GetEnumName()</option>
+                        <option value="3">@OrderStatus.Deliverd.GetEnumName()</option>
                     </select>
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>

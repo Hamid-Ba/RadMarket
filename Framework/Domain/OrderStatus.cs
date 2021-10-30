@@ -7,7 +7,13 @@ namespace Framework.Domain
         [Display(Name = "سفارش ایجاد گشت")]
         OrderCreated,
 
-        [Display(Name = "تحویل مامور پست داده شد")]
-        AgentRecived,
+        [Display(Name = "در حال آماده سازی سفارش")]
+        Prepreing,
+
+        [Display(Name = "در حال تحویل")]
+        Delivering,
+
+        [Display(Name = "تحویل داده شد")]
+        Deliverd
     }
 }
