@@ -4143,3 +4143,7 @@ th {
 .myOverflow {
     overflow-y: scroll !important;
 }
+
+.makeTableResponsive {
+    overflow-y: scroll !important;
+}
