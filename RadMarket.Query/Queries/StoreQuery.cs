@@ -6,6 +6,7 @@ using StoreManagement.Domain.BrandAgg;
 using StoreManagement.Domain.ProductAgg;
 using StoreManagement.Infrastructure.EfCore;
 using System;
+using Framework.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,14 +19,14 @@ namespace RadMarket.Query.Queries
 
         public StoreQuery(StoreContext storeContext) => _storeContext = storeContext;
 
-        public async Task<IEnumerable<StoreQueryVM>> GetAll() => await _storeContext.Stores.Where(s => s.ChargeExpiredDate >= DateTime.Now)
+        public async Task<IEnumerable<StoreQueryVM>> GetAll() => await _storeContext.Stores.Where(s => s.Status == StoreStatus.Confirmed && s.ChargeExpiredDate >= DateTime.Now)
                .Select(s => new StoreQueryVM
                {
                    Id = s.Id,
                    Name = s.Name,
                }).AsNoTracking().ToListAsync();
 
-        public async Task<StoreQueryVM> GetBy(long id) => await _storeContext.Stores.Where(s => s.ChargeExpiredDate >= DateTime.Now)
+        public async Task<StoreQueryVM> GetBy(long id) => await _storeContext.Stores.Where(s => s.Status == StoreStatus.Confirmed && s.ChargeExpiredDate >= DateTime.Now)
                 .Include(p => p.Products)
                 .Include(b => b.Brands)
                 .Select(s => new StoreQueryVM
