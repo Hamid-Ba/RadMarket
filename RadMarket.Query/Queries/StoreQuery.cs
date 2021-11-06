@@ -54,7 +54,8 @@ namespace RadMarket.Query.Queries
                 Name = p.Name,
                 Slug = p.Slug,
                 ConsumerPrice = p.ConsumerPrice,
-                PurchasePrice = p.PurchacePrice
+                PurchasePrice = p.PurchacePrice,
+                EachBoxCount = p.EachBoxCount
             }).OrderByDescending(p => p.Id).Take(3).ToList();
 
     }
