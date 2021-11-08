@@ -6,12 +6,12 @@
         {
             @foreach (var banner in Model)
             {
-                <a href="@banner.Url">
-                    <div class="box">
+                <div class="box">
+                    <a href="@banner.Url">
                         <img class="img-fluid rounded"
                              src="~/Pictures/@banner.Picture" alt="@banner.PictuerAlt" title="@banner.PictureTitle">
-                    </div>
-                </a>
+                    </a>
+                </div>
             }
         }
         else
