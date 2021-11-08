@@ -1,8 +1,11 @@
 @media screen and (max-width: 851px) {
     nav .menu .menu-box a h3 {
-        font-size: 8px;
+        display: none !important;
     }
-    nav .menu .menu-box{
+    nav .menu .menu-box .icon {
+        display: flex;
+    }
+    nav .menu .menu-box {
         height: 5rem !important;
     }
     nav .menu .menu-box #large-menu {
@@ -11,10 +14,22 @@
     nav .menu-large {
         display: none;
     }
+    input::-webkit-input-placeholder {
+        font-size: 10px;
+    }
+    .offers .offer-title h3 {
+        font-size: 15px !important;
+    }
+    .offers .offer-title h3 a {
+        font-size: 15px !important;
+    }
+    nav .menu .menu-box .search-box {
+        margin-top: 0rem !important;
+    }
 }
 
 @media screen and (max-width: 844px) {
-    .menu-small{
+    .menu-small {
         display: flex;
     }
 }
