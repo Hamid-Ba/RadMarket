@@ -23,8 +23,9 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> Index()
         {
             var hasCharge = await _storeApplication.IsAccountStillCharged(User.GetStoreId());
+            var isAbleToAddProduct = await _storeApplication.IsAbleToAddProduct(User.GetStoreId());
 
-            if (hasCharge.IsSucceeded)
+            if (hasCharge.IsSucceeded && isAbleToAddProduct.IsSucceeded)
             {
                 TempData[WarningMessage] = hasCharge.Message;
                 return RedirectToAction("Index", "Dashboard");
