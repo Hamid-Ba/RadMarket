@@ -13,7 +13,7 @@ namespace StoreManagement.Application.Contract.StoreAgg
         Task<OperationResult> Delete(long id);
         Task<BankStoreVM> GetBankInfoBy(long id);
         Task<EditStoreVM> GetDetailForEditBy(long id);
-        //Task<OperationResult> ProductCreated(long id);
+        Task<OperationResult> ProductCreated(long id);
         Task<AddressStoreVM> GetAddressInfoBy(long id);
         Task<OperationResult> Edit(EditStoreVM command);
         Task<OperationResult> IsAbleToAddProduct(long id);

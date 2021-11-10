@@ -86,7 +86,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 command.StoreId = User.GetStoreId();
                 var result = await _productApplication.Create(command);
 
-                //await _storeApplication.ProductCreated(command.StoreId);
+                await _storeApplication.ProductCreated(command.StoreId);
 
                 if (result.IsSucceeded)
                 {

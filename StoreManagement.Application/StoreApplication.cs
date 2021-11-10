@@ -169,6 +169,17 @@ namespace StoreManagement.Application
 
         public async Task<long> GetStoreAdminId(long id) => await _storeRepository.GetStoreAdminId(id);
 
+        public async Task<OperationResult> ProductCreated(long id)
+        {
+            OperationResult result = new();
 
+            var store = await _storeRepository.GetEntityByIdAsync(id);
+            if (store is null) return result.Failed(ApplicationMessage.NotExist);
+
+            store.ProductCreated();
+            await _storeRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
     }
 }
