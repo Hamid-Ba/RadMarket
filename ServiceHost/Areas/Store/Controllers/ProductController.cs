@@ -86,10 +86,9 @@ namespace ServiceHost.Areas.Store.Controllers
                 command.StoreId = User.GetStoreId();
                 var result = await _productApplication.Create(command);
 
-                await _storeApplication.ProductCreated(command.StoreId);
-
                 if (result.IsSucceeded)
                 {
+                    await _storeApplication.ProductCreated(command.StoreId);
                     TempData[SuccessMessage] = result.Message;
                     return RedirectToAction("Index", "Product");
                 }
