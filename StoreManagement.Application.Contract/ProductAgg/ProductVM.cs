@@ -40,7 +40,7 @@ namespace StoreManagement.Application.Contract.ProductAgg
 
         [Display(Name = "برند")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(0, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public long BrandId { get; set; }
 
         [Display(Name = "دسته بندی")]
