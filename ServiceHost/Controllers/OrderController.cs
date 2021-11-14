@@ -43,7 +43,7 @@ namespace ServiceHost.Controllers
             var basket = await _orderQuery.GetBy(User.GetUserId());
 
             //CheckCount
-            foreach(var item in basket.Items)
+            foreach (var item in basket.Items)
             {
                 var checkCount = await _productApplication.CheckCountOfProduct(item.ProductId, item.Count);
                 if (!checkCount.IsSucceeded)
@@ -111,16 +111,13 @@ namespace ServiceHost.Controllers
 
             var result = await _orderApplication.AddProductToOpenOrder(command);
 
-            if (result.IsSucceeded)
-            {
-                TempData[SuccessMessage] = result.Message;
-                var storeId = await _productApplication.GetProductStoreIdBy(command.ProductId);
-                var slug = await _productApplication.GetProductSlugBy(command.ProductId);
-                return RedirectToAction("Index", "Product", new { storeId = storeId, slug = slug });
-            }
+            var storeId = await _productApplication.GetProductStoreIdBy(command.ProductId);
+            var slug = await _productApplication.GetProductSlugBy(command.ProductId);
 
-            TempData[ErrorMessage] = result.Message;
-            return Redirect("/");
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("Index", "Product", new { storeId = storeId, slug = slug });
         }
 
         public async Task<IActionResult> DeleteItem(long itemId)
