@@ -20,6 +20,7 @@ namespace ServiceHost.Controllers
             var result = await _categoryQuery.GetAllProducts(slug);            
 
             var model = PagingList.Create(result.Products, 6, pageIndex);
+            model.Action = "Category";
 
             ViewBag.Name = result.Name;
             ViewBag.Keyword = result.KeyWords;
