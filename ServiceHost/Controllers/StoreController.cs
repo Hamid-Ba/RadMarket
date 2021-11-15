@@ -23,9 +23,9 @@ namespace ServiceHost.Controllers
         [HttpGet("store{id}/{name}/products")]
         public async Task<IActionResult> Products(long id,string name,int pageIndex = 1)
         {
-            var products = await _productQuery.GetAllBy(id,0,6);
+            var products = await _productQuery.GetAllBy(id,0);
 
-            var model = PagingList.Create(products, 10, pageIndex);
+            var model = PagingList.Create(products, 6, pageIndex);
             model.Action = "Products";
 
             ViewBag.StoreName = name;
@@ -35,9 +35,9 @@ namespace ServiceHost.Controllers
         [HttpGet("store{id}/{name}/{brandId}/{brandName}/products")]
         public async Task<IActionResult> Brand(long id, string name,long brandId,string brandName, int pageIndex = 1)
         {
-            var products = await _productQuery.GetAllBy(id,brandId, 6);
+            var products = await _productQuery.GetAllBy(id,brandId);
 
-            var model = PagingList.Create(products, 10, pageIndex);
+            var model = PagingList.Create(products, 6, pageIndex);
             model.Action = "Brand";
 
             ViewBag.StoreName = name;
