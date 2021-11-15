@@ -26,6 +26,9 @@ namespace StoreManagement.Application
             if (_productRepository.Exists(p => p.Slug == command.Slug && p.StoreId == command.StoreId))
                 return result.Failed(ApplicationMessage.SlugIsExist);
 
+            if (command.CategoryId <= 0) return result.Failed("لطفا دسته محصول را انتخاب کنید !");
+            if (command.BrandId <= 0) return result.Failed("لطفا برند را انتخاب کنید !");
+
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", null!);
 
             var product = new Product(command.StoreId,command.BrandId, command.CategoryId, command.Code, command.Name, picture, command.PictureAlt,
@@ -90,6 +93,9 @@ namespace StoreManagement.Application
 
             if (_productRepository.Exists(p => p.Slug == command.Slug && p.StoreId == command.StoreId && p.Id != command.Id))
                 return result.Failed(ApplicationMessage.SlugIsExist);
+
+            if (command.CategoryId <= 0) return result.Failed("لطفا دسته محصول را انتخاب کنید !");
+            if (command.BrandId <= 0) return result.Failed("لطفا برند را انتخاب کنید !");
 
             var picture = Uploader.ImageUploader(command.Picture, $"{command.StoreId}//{command.Name}", product.Picture);
 
