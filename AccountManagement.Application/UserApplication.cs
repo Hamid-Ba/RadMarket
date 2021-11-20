@@ -91,14 +91,13 @@ namespace AccountManagement.Application
             if (_userRepository.Exists(u => u.Mobile == command.Mobile)) return result.Failed(ApplicationMessage.DuplicatedMobile);
 
             var password = _passwordHasher.Hash(command.Password);
-            var activeCode = Guid.NewGuid().ToString().Substring(0, 7);
 
-            var user = new User(command.FirstName, command.LastName, command.MarketerCode, command.Mobile, password, command.City, command.Province, command.Address,activeCode);
+            var user = new User(command.FirstName, command.LastName, command.MarketerCode, command.Mobile, password, command.City, command.Province, command.Address);
 
             await _userRepository.AddEntityAsync(user);
             await _userRepository.SaveChangesAsync();
 
-            _smsService.SendSms(user.Mobile, $"{user.FirstName} {user.LastName} عزیز ، کد فعال سازی شما : {activeCode}  می باشد");
+            _smsService.SendSms(user.Mobile, $"{user.FirstName} {user.LastName} عزیز ، کد فعال سازی شما : {user.ActivationCode}  می باشد");
 
             return result.Succeeded();
         }
