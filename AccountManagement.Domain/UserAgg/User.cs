@@ -15,7 +15,7 @@ namespace AccountManagement.Domain.UserAgg
         public string ActivationCode { get; private set; }
         public bool IsActive { get; private set; }
 
-        public User(string firstName, string lastName, string marketerCode, string mobile, string password, string city, string province, string address)
+        public User(string firstName, string lastName, string marketerCode, string mobile, string password, string city, string province, string address,string activeCode)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -25,7 +25,7 @@ namespace AccountManagement.Domain.UserAgg
             City = city;
             Province = province;
             Address = address;
-            ActivationCode = Guid.NewGuid().ToString().Substring(0, 7);
+            ActivationCode = activeCode;
         }
 
         public void Edit(string firstName, string lastName, string password, string city, string province, string address)

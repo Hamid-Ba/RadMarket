@@ -38,4 +38,8 @@
     .box img {
         border-radius: 15px !important;
     }
+
+    nav {
+        margin-right: -40px !important;
+    }
 }

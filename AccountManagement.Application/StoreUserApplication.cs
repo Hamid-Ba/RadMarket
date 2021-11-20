@@ -4,6 +4,7 @@ using AccountManagement.Domain.StoreUserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using Framework.Application.SMS;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

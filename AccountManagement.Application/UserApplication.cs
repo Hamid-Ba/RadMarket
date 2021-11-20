@@ -3,6 +3,7 @@ using AccountManagement.Domain.UserAgg;
 using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using Framework.Application.SMS;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,12 +13,14 @@ namespace AccountManagement.Application
     public class UserApplication : IUserApplication
     {
         private readonly IAuthHelper _authHelper;
+        private readonly ISmsService _smsService;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserRepository _userRepository;
 
-        public UserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IUserRepository userRepository)
+        public UserApplication(IAuthHelper authHelper, ISmsService smsService, IPasswordHasher passwordHasher, IUserRepository userRepository)
         {
             _authHelper = authHelper;
+            _smsService = smsService;
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
         }
@@ -88,11 +91,14 @@ namespace AccountManagement.Application
             if (_userRepository.Exists(u => u.Mobile == command.Mobile)) return result.Failed(ApplicationMessage.DuplicatedMobile);
 
             var password = _passwordHasher.Hash(command.Password);
+            var activeCode = Guid.NewGuid().ToString().Substring(0, 7);
 
-            var user = new User(command.FirstName, command.LastName, command.MarketerCode, command.Mobile, password, command.City, command.Province, command.Address);
+            var user = new User(command.FirstName, command.LastName, command.MarketerCode, command.Mobile, password, command.City, command.Province, command.Address,activeCode);
 
             await _userRepository.AddEntityAsync(user);
             await _userRepository.SaveChangesAsync();
+
+            _smsService.SendSms(user.Mobile, $"{user.FirstName} {user.LastName} عزیز ، کد فعال سازی شما : {activeCode}  می باشد");
 
             return result.Succeeded();
         }

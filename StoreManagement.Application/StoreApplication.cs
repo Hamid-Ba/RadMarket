@@ -5,14 +5,20 @@ using System.Threading.Tasks;
 using Framework.Domain;
 using Framework.Application;
 using StoreManagement.Domain.StoreAgg;
+using Framework.Application.SMS;
 
 namespace StoreManagement.Application
 {
     public class StoreApplication : IStoreApplication
     {
+        private readonly ISmsService _smsService;
         private readonly IStoreRepository _storeRepository;
 
-        public StoreApplication(IStoreRepository storeRepository) => _storeRepository = storeRepository;
+        public StoreApplication(ISmsService smsService, IStoreRepository storeRepository)
+        {
+            _smsService = smsService;
+            _storeRepository = storeRepository;
+        }
 
         public async Task<OperationResult> SendMessage(SendMessageStoreVM command)
         {
@@ -24,7 +30,7 @@ namespace StoreManagement.Application
             if (string.IsNullOrWhiteSpace(store.MobileNumber))
                 return result.Failed("شماره موبایلی برای این شرکت تریف نشده است");
 
-            //ToDo Send Message
+            _smsService.SendSms(store.MobileNumber, command.Message);
 
             return result.Succeeded();
         }
@@ -41,6 +47,14 @@ namespace StoreManagement.Application
 
             store.ChangeStatus(command.Status, command.StoreGivenStatusReason);
             await _storeRepository.SaveChangesAsync();
+
+            string message;
+
+            if (command.Status == StoreStatus.Rejected)
+                message = $"مدیر محترم شرکت {store.Name}, شرکت شما به دلیل : {command.StoreGivenStatusReason} ، غیر فعال شده است";
+            else message = $"مدیر محترم شرکت {store.Name} , شرکت شما با موقفیت تایید شد. کد ورود شرکت شما : {store.UniqueCode} می باشد";
+
+            _smsService.SendSms(store.MobileNumber, message);
 
             return result.Succeeded();
         }

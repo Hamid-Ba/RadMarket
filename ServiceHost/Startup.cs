@@ -5,6 +5,7 @@ using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using Framework.Application.Authentication;
 using Framework.Application.Hashing;
+using Framework.Application.SMS;
 using Framework.Application.ZarinPal;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,7 @@ namespace ServiceHost
         {
             services.AddHttpContextAccessor();
             services.AddTransient<IAuthHelper, AuthHelper>();
+            services.AddTransient<ISmsService, SmsService>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 
@@ -46,7 +48,7 @@ namespace ServiceHost
             CommentManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             AccountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
             DiscountManagementBootstrapper.Configuration(services, Configuration.GetConnectionString("RadMarketConnection"));
-            
+
 
             #region Config Authentication
 
