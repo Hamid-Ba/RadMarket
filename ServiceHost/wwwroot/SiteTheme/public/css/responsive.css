@@ -1,3 +1,9 @@
+@media screen and (max-width: 1024px) {
+    .offers .offer-cards .offer-box {
+        width: 19rem !important;
+    }
+}
+
 @media screen and (max-width: 851px) {
     nav .menu .menu-box a h3 {
         display: none !important;
@@ -26,11 +32,15 @@
     nav .menu .menu-box .search-box {
         margin-top: 0rem !important;
     }
+  
 }
 
 @media screen and (max-width: 844px) {
     .menu-small {
         display: flex;
+    }
+    .offers .offer-cards .offer-box {
+        width: 18rem !important;
     }
 }
 

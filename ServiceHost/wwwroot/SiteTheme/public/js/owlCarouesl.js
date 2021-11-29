@@ -4,9 +4,9 @@ $('.owl-carousel').owlCarousel({
     nav: true,
     lazyLoad: true,
     autoplay: true,
-    autoplayTimeout: 2000,
+    autoplayTimeout: 4000,
     loop: true,
-    dots: true,
+    dots: false,
     responsive: {
         0: {
             items: 1
@@ -15,10 +15,10 @@ $('.owl-carousel').owlCarousel({
             items: 2
         },
         1024: {
-            items: 2
+            items: 3
         },
         1025: {
-            items: 3
+            items: 4
         }
     }
 })

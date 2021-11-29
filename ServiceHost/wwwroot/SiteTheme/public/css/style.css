@@ -102,65 +102,24 @@ nav .menu-large ul li a {
 
 /* offers */
 
+.owl-nav {
+    display: none !important;
+}
+
 .all-offers {
     position: relative;
 }
 
-.all-offers .icons {
-    position: absolute;
-    display: flex;
-    left: 20px;
-    top: 20px;
-}
-
-.all-offers .icons .arrow-right, .all-offers .icons .arrow-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #53616250;
-    padding: .5rem;
-    width: 3rem;
-    margin: 0 2px;
-    z-index: 2;
-    cursor: pointer;
-}
-
-.all-offers .icons .arrow-right svg, .all-offers .icons .arrow-left svg {
-    color: var(--white) !important;
-    font-size: 1.5rem;
-}
-
-.offers {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3rem;
-    text-align: center;
-    position: relative;
-}
-
-.offers .offer-title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.offers .offer-title svg {
-    cursor: pointer;
-}
 
 .offers .offer-cards {
     border-radius: 20px !important;
-    padding: 2rem;
+    padding: 1rem !important;
 }
 
 .offers .offer-cards .offer-box {
     background-color: var(--white);
     padding: 1rem;
     border-radius: 15px;
-    margin-right: .5rem;
     width: 22rem;
 }
 
@@ -462,7 +421,7 @@ nav .menu-large ul li a {
 .single-card .single-card-img img {
     max-height: 25rem;
     width: 80%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .single-card .text-card-blog p {

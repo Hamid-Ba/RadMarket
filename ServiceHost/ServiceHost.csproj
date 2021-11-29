@@ -58,6 +58,7 @@
     <None Include="wwwroot\SiteTheme\public\js\bootstrap.bundle.min.js" />
     <None Include="wwwroot\SiteTheme\public\js\bootstrap.min.js" />
     <None Include="wwwroot\SiteTheme\public\js\menu.js" />
+    <None Include="wwwroot\SiteTheme\public\js\owlCarouesl.js" />
     <None Include="wwwroot\SiteTheme\public\pwa\main.js" />
   </ItemGroup>
 
