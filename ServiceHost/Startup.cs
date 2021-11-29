@@ -36,6 +36,7 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+            services.AddProgressiveWebApp();
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
