@@ -26,6 +26,10 @@
                 <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1">
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+
+            <div class="mb-3">
+                <a class="text text-danger" asp-area="" asp-controller="Account" asp-action="StoreChangePassword">فراموشی رمز عبور</a>
+            </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-outline-danger w-50">ورود</button>
             </div>

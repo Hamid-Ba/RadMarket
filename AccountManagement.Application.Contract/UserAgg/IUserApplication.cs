@@ -14,6 +14,7 @@ namespace AccountManagement.Application.Contract.UserAgg
         Task<AddressUserVM> GetAddressInfoBy(long id);
         Task<OperationResult> Edit(EditUserVM command);
         Task<OperationResult> Login(LoginUserVM command);
+        Task<OperationResult> ChangePassword(string mobile);
         Task<OperationResult> Register(RegisterUserVM command);
         Task<IEnumerable<UserVM>> GetAllBy(string marketerCode);
         Task<OperationResult> ActiveAccount(ActiveAccountUserVM command);

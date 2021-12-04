@@ -41,6 +41,8 @@ namespace AccountManagement.Domain.UserAgg
             Address = address;
         }
 
+        public void ChangePassword(string newPassword) => Password = newPassword;
+
         public void ActiveAccount() => IsActive = true;
 
         public void ReActivateCode(string newActivationCode) => ActivationCode = newActivationCode;

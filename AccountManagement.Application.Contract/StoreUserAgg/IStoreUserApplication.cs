@@ -18,6 +18,7 @@ namespace AccountManagement.Application.Contract.StoreUserAgg
         bool IsUserHasPermissions(long permissionId, long userId);
         Task<EditStoreUserVM> GetDetailForEditBy(long id,long storeId);
         Task<(OperationResult,long)> Register(RegisterStoreUserVM command);
+        Task<OperationResult> ChangePassword(string mobile,string storeCode);
         Task<OperationResult> InitialStore(long id, long storeId,string storeCode);
     }
 }

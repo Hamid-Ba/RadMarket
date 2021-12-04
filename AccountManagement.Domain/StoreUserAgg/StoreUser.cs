@@ -66,6 +66,8 @@ namespace AccountManagement.Domain.StoreUserAgg
             LastUpdateDate = DateTime.Now;
         }
 
+        public void ChangePassword(string newPassword) => Password = newPassword;
+
         public void GiveRole(long id) => StoreRoleId = id;
 
     }

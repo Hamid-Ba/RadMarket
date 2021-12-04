@@ -132,6 +132,23 @@ namespace AccountManagement.Application
         }
 
         public async Task<IEnumerable<UserVM>> GetAllBy(string marketerCode) => await _userRepository.GetAllBy(marketerCode);
-        
+
+        public async Task<OperationResult> ChangePassword(string mobile)
+        {
+            OperationResult result = new();
+
+            var user = await _userRepository.GetUserBy(mobile);
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            var newPassword = Guid.NewGuid().ToString().Substring(0, 6);
+            var newHashPassword = _passwordHasher.Hash(newPassword);
+
+            user.ChangePassword(newHashPassword);
+            await _userRepository.SaveChangesAsync();
+
+            _smsService.SendSms(mobile, $"کاربر گرامی رادکالا\nرمز عبور جدید شما : {newPassword} می باشد.");
+
+            return result.Succeeded();
+        }
     }
 }

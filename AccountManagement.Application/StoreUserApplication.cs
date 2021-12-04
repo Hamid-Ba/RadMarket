@@ -13,14 +13,16 @@ namespace AccountManagement.Application
 {
     public class StoreUserApplication : IStoreUserApplication
     {
+        private readonly ISmsService _smsService;
         private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IStoreUserRepository _storeUserRepository;
         private readonly IStoreRoleApplication _storeRoleApplication;
 
-        public StoreUserApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, 
+        public StoreUserApplication(ISmsService smsService,IAuthHelper authHelper, IPasswordHasher passwordHasher, 
             IStoreUserRepository storeUserRepository, IStoreRoleApplication storeRoleApplication)
         {
+            _smsService = smsService; 
             _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _storeUserRepository = storeUserRepository;
@@ -138,6 +140,26 @@ namespace AccountManagement.Application
             if (_storeRoleApplication.IsRoleHasThePermission(user.StoreRoleId, permissionId)) return true;
 
             return false;
+        }
+
+        public async Task<OperationResult> ChangePassword(string mobile, string storeCode)
+        {
+            OperationResult result = new();
+
+            var user = await _storeUserRepository.GetUserBy(mobile);
+            
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+            if (storeCode != user.StoreCode) return result.Failed("کد شرکت وارد شده صحیح نمی باشد.");
+
+            var newPassword = Guid.NewGuid().ToString().Substring(0, 6);
+            var newHashPassword = _passwordHasher.Hash(newPassword);
+          
+            user.ChangePassword(newHashPassword);
+            await _storeUserRepository.SaveChangesAsync();
+
+            _smsService.SendSms(mobile, $"کاربر گرامی رادکالا\nرمز عبور جدید شما : {newPassword} می باشد.");
+
+            return result.Succeeded();
         }
     }
 }

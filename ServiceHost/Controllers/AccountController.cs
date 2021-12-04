@@ -126,6 +126,23 @@ namespace ServiceHost.Controllers
             return View(command);
         }
 
+        [HttpGet]
+        public IActionResult UserChangePassword() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserChangePassword(string mobile)
+        {
+            if (string.IsNullOrWhiteSpace(mobile)) return View(mobile);
+
+            var result = await _userApplication.ChangePassword(mobile);
+
+            if (result.IsSucceeded) TempData[SuccessMessage] = "رمزعبور جدید برای شما ارسال شد";
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("UserLogin");
+        }
+
         #endregion
 
         #region Store User
@@ -214,6 +231,23 @@ namespace ServiceHost.Controllers
             }
 
             return View(command);
+        }
+
+        [HttpGet]
+        public IActionResult StoreChangePassword() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StoreChangePassword(string mobile,string code)
+        {
+            if (string.IsNullOrWhiteSpace(mobile)) return View(mobile);
+
+            var result = await _storeUserApplication.ChangePassword(mobile,code);
+
+            if (result.IsSucceeded) TempData[SuccessMessage] = "رمزعبور جدید برای شما ارسال شد";
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("StoreLogin");
         }
 
         #endregion
