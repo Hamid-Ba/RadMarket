@@ -54,5 +54,12 @@ namespace ServiceHost.Controllers
             TempData[WarningMessage] = "صفحه مورد نظر پیدا نشد!";
             return View();
         }
+
+        [Route("ErrorOccurred")]
+        public IActionResult ErrorOccurred()
+        {
+            TempData[WarningMessage] = "مشکلی رخ داده است!";
+            return View();
+        }
     }
 }

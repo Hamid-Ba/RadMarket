@@ -78,7 +78,8 @@ namespace ServiceHost
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/ErrorOccurred");
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
