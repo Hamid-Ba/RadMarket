@@ -15,13 +15,12 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Detail(long id) => PartialView(await _ticketApplication.GetMessages(id));
-
+        
         [HttpGet]
-        public IActionResult CloseTicket(long id) => PartialView("Confirm", id);
+        public IActionResult Close(long id) => PartialView("Close", id);
 
-        [ActionName("CloseTicket")]
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> CloseTickett(long id)
+        [HttpPost("Close"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> CloseTicket(long id)
         {
             var result = await _ticketApplication.OpenOrClose(id, true);
 

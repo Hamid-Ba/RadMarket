@@ -36,7 +36,7 @@ namespace TicketManagement.Infrastructure.EfCore.Repository
                 IsReadByAdmin = t.IsReadByAdmin,
                 IsReadByOwner = t.IsReadByOwner,
                 CreationDate = t.CreationDate.ToFarsi()
-            }).AsNoTracking().ToListAsync();
+            }).AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
 
             model.ForEach(t => t.StoreName = stores.Find(s => s.Id == t.UserId)?.Title);
 

@@ -1,39 +1,42 @@
 ﻿@model TicketManagement.Application.Contract.TicketAgg.TicketVM
 
-@section Styles
-{
-<link rel="stylesheet" href="~/css/ChatRoom.css" />
+@{
+    ViewData["Title"] = "جزئیات تیکت";
 }
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">جزئیات تیکت</h4>
+    <h4 class="modal-title">@ViewData["Title"]</h4>
 </div>
 
-<div class="modal-body">
-    <div class="auth-user container col-sm-12 col md-8 col-lg-6">
-        <div class="auth">
-            <ul class="messages" id="messages">
-                @if (Model.Messages != null && Model.Messages.Any())
-                {
-                    foreach (var message in Model.Messages)
+<div class="modal-body myOverflow">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>فرستنده</th>
+                <th>پیام</th>
+                <th>تاریخ</th>
+        </thead>
+        <tbody>
+            @foreach (var message in Model.Messages)
+            {
+                <tr class="text-center" style="background-color : @((message.SenderId == 0) ? "red" : "green")">
+                    @if (message.SenderId == 0)
                     {
-                        <li class="message @(message.SenderId != ViewBag.StoreId ? "left" : "right") appeared">
-                            <div class="text_wrapper">
-                                <div class="time">
-                                    @message.CreationDate
-                                </div>
-                                <div class="text" style="font-size: 16px">
-                                    @Html.Raw(message.Text)
-                                </div>
-                            </div>
-                        </li>
+                        <td>پشتیبانی</td>
                     }
-                }
-            </ul>
-        </div>
-    </div>
+                    else
+                    {
+                        <td>شرکت</td>
+                    }
+                    <td>@Html.Raw(message.Text)</td>
+                    <td>@message.CreationDate</td>
+                </tr>
+            }
 
+
+        </tbody>
+    </table>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>

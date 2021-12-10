@@ -50,8 +50,8 @@
                                             @if (entity.Status != Framework.Application.TicketComponents.TicketStatus.Closed)
                                             {
                                                 <a class="btn btn-success"
-                                           href="#showmodal=@Url.Action("CloseTicket", "Ticket",new {id = entity.Id , area= "Admin"})">
-                                                    <i class="md md-check"></i>
+                                           href="#showmodal=@Url.Action("Close", "Ticket",new {id = entity.Id , area= "Admin"})">
+                                                    <i class="fa fa-check"></i>
                                                 </a>
                                             }
 
