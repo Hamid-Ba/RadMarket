@@ -1,6 +1,7 @@
 ﻿using Framework.Application;
 using Framework.Application.Authentication;
 using Framework.Application.TicketComponents;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.Application.Contract.TicketAgg;
 using TicketManagement.Domain.TicketAgg;
@@ -34,7 +35,7 @@ namespace TicketManagement.Application
                 await _ticketRepository.AddEntityAsync(ticket);
                 await _ticketRepository.SaveChangesAsync();
 
-                var message = new TicketMessage(ticket.Id, ticket.UserId, command.Text);
+                var message = new TicketMessage(ticket.Id, ticket.UserId, 0 ,command.Text);
                 ticket.AddMessage(message);
 
                 await _ticketRepository.SaveChangesAsync();
@@ -59,7 +60,7 @@ namespace TicketManagement.Application
 
                 ticket.WhoReadTicket(true, false);
 
-                var message = new TicketMessage(command.TicketId, command.UserId, command.Text);
+                var message = new TicketMessage(command.TicketId, command.UserId,0, command.Text);
                 ticket.AddMessage(message);
 
                 await _ticketRepository.SaveChangesAsync();
@@ -69,5 +70,50 @@ namespace TicketManagement.Application
             catch { return result.Failed(ApplicationMessage.GoesWrong); }
 
         }
+
+        public async Task<IEnumerable<TicketVM>> GetAll() => await _ticketRepository.GetAll();
+
+        public async Task<OperationResult> SendResponse(AddMessageTicketVM command)
+        {
+            OperationResult result = new();
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(command.Text)) return result.Failed("پیام نمی تواند خالی باشد");
+
+                var ticket = await _ticketRepository.GetEntityByIdAsync(command.TicketId);
+                if (ticket is null) return result.Failed("همچین تیکتی وجود ندارد");
+
+                ticket.WhoReadTicket(false, true);
+
+                var message = new TicketMessage(command.TicketId,0, command.UserId, command.Text);
+                ticket.AddMessage(message);
+
+                await _ticketRepository.SaveChangesAsync();
+
+                return result.Succeeded("پیام شما با موفقیت ارسال شد");
+            }
+            catch { return result.Failed(ApplicationMessage.GoesWrong); }
+        }
+
+        public async Task<OperationResult> OpenOrClose(long id,bool close)
+        {
+            OperationResult result = new();
+
+            try
+            {
+                var ticket = await _ticketRepository.GetEntityByIdAsync(id);
+                if (ticket is null) return result.Failed("همچین تیکتی وجود ندارد");
+
+                ticket.OpenOrClose(close);
+                await _ticketRepository.SaveChangesAsync();
+
+                return result.Succeeded();
+            }
+            catch { return result.Failed(ApplicationMessage.GoesWrong); }
+        }
+
+        public async Task<TicketVM> GetMessages(long id) => await _ticketRepository.GetMessages(id);
+
     }
 }

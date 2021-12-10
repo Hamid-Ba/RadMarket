@@ -19,6 +19,8 @@ namespace RadMarket.Query.Contracts.Tickets
     {
         public long TicketId { get; set; }
         public long UserId { get; set; }
+        public long SenderId { get; set; }
+        public long ReciverId { get; set; }
         public string Text { get; set; }
         public string SentDate { get; set; }
     }

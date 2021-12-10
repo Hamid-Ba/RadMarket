@@ -1,0 +1,40 @@
+﻿@model TicketManagement.Application.Contract.TicketAgg.TicketVM
+
+@section Styles
+{
+<link rel="stylesheet" href="~/css/ChatRoom.css" />
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">جزئیات تیکت</h4>
+</div>
+
+<div class="modal-body">
+    <div class="auth-user container col-sm-12 col md-8 col-lg-6">
+        <div class="auth">
+            <ul class="messages" id="messages">
+                @if (Model.Messages != null && Model.Messages.Any())
+                {
+                    foreach (var message in Model.Messages)
+                    {
+                        <li class="message @(message.SenderId != ViewBag.StoreId ? "left" : "right") appeared">
+                            <div class="text_wrapper">
+                                <div class="time">
+                                    @message.CreationDate
+                                </div>
+                                <div class="text" style="font-size: 16px">
+                                    @Html.Raw(message.Text)
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

@@ -44,7 +44,8 @@ namespace RadMarket.Query.Queries
             new MessageQueryVM()
             {
                 TicketId = m.TicketId,
-                UserId = m.UserId,
+                ReciverId = m.ReciverId,
+                SenderId = m.SenderId,
                 SentDate = m.CreationDate.ToFarsi(),
                 Text = m.Text
             }).ToList();

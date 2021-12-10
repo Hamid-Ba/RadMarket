@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\TicketManagement.Application.Contract\TicketManagement.Application.Contract.csproj" />
   </ItemGroup>
 
 </Project>

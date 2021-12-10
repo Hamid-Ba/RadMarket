@@ -33,6 +33,16 @@ namespace TicketManagement.Domain.TicketAgg
         {
             IsReadByAdmin = isItAdmin;
             IsReadByOwner = isItUser;
+
+            if (isItUser) Status = TicketStatus.Received;
+            else if (isItAdmin) Status = TicketStatus.Answered;
+
+            LastUpdateDate = DateTime.Now;
+        }
+
+        public void OpenOrClose(bool close)
+        {
+            Status = close ? TicketStatus.Closed : TicketStatus.Received;
             LastUpdateDate = DateTime.Now;
         }
 

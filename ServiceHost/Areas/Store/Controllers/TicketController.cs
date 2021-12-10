@@ -66,6 +66,7 @@ namespace ServiceHost.Areas.Store.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.StoreId = User.GetStoreId();
             return View(await _ticketQuery.GetTicketDetailBy(id, User.GetStoreId()));
         }
 
@@ -73,6 +74,7 @@ namespace ServiceHost.Areas.Store.Controllers
         public async Task<IActionResult> SendMessage(AddMessageTicketVM command)
         {
             command.UserId = User.GetStoreId();
+            command.SenderId = User.GetStoreId();
 
             if (ModelState.IsValid)
             {
