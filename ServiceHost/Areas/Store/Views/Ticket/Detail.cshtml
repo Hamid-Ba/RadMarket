@@ -1,0 +1,51 @@
+﻿@using TicketManagement.Application.Contract.TicketAgg
+@model RadMarket.Query.Contracts.Tickets.TicketQueryVM
+@{
+    ViewData["Title"] = "جزییات تیکت";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="https://cdn.tiny.cloud/1/bofsilxqs8ay4n0o4a3vj02ny82abzm5uryl93ih0pkmq2tm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#TinyArea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/ChatRoom.css" />
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم @ViewData["Title"]</h4>
+    </div>
+    <div class="auth">
+        <partial name="_AdminTicketPartial" model="@(new AddMessageTicketVM{TicketId = Model.Id})" />
+
+        <hr />
+        <ul class="messages" id="messages">
+            @if (Model.Messages != null && Model.Messages.Any())
+            {
+                foreach (var message in Model.Messages)
+                {
+                    <li class="message @(message.UserId == ViewBag.StoreId ? "left" : "right") appeared">
+                        <div class="text_wrapper">
+                            <div class="time">
+                                @message.SentDate
+                            </div>
+                            <div class="text" style="font-size: 16px">
+                                @Html.Raw(message.Text)
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

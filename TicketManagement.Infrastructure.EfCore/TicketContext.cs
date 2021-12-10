@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using TicketManagement.Domain.StoreTicketAgg;
+using TicketManagement.Domain.TicketAgg;
 using TicketManagement.Infrastructure.EfCore.Mapping;
 
 namespace TicketManagement.Infrastructure.EfCore
@@ -18,6 +19,7 @@ namespace TicketManagement.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         }
 
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<StoreTicket> StoreTickets { get; set; }
 
     }

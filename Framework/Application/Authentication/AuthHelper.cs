@@ -90,5 +90,9 @@ namespace Framework.Application.Authentication
             await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
         }
+
+        public long GetUserId() => _contextAccessor.HttpContext.User.GetUserId();
+
+        public long GetStoreId() => _contextAccessor.HttpContext.User.GetStoreId();
     }
 }

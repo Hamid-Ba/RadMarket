@@ -1,0 +1,68 @@
+﻿@model TicketManagement.Application.Contract.TicketAgg.CreateTicketVM
+@{
+    ViewData["Title"] = "ایجاد تیکت جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+<script src="https://cdn.tiny.cloud/1/bofsilxqs8ay4n0o4a3vj02ny82abzm5uryl93ih0pkmq2tm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#TinyArea',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+    });
+</script>
+}
+
+<div class="auth-user container col-sm-12 col md-8 col-lg-6">
+    <div class="d-flex justify-content-center">
+        <h4>فرم @ViewData["Title"]</h4>
+    </div>
+    <div class="auth">
+        <form asp-controller="Ticket" asp-action="Create" method="post" class="p-3">
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="exampleInputPassword1" class="form-label">موضوع</label>
+                    <input type="" asp-for="Title" class="form-control" id="exampleInputPassword1">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-6">
+                    <label for="exampleInputPassword1" class="form-label">قسمت</label>
+                    <select asp-for="Section" class="form-control">
+                        <option value="0">پشتیبانی</option>
+                        <option value="1">فروش</option>
+                        <option value="2">مدیریت</option>
+                        <option value="3">امنیت</option>
+                    </select>
+                    <span asp-validation-for="Section" class="text-danger"></span>
+                </div>
+
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">اولویت</label>
+                    <select asp-for="Necessary" class="form-control">
+                        <option value="0">کم</option>
+                        <option value="1">متوسط</option>
+                        <option value="2">فوری</option>
+                    </select>
+                    <span asp-validation-for="Necessary" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">شرح</label>
+                <textarea asp-for="Text" id="TinyArea" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-danger w-50">ارسال</button>
+            </div>
+        </form>
+    </div>
+</div>
