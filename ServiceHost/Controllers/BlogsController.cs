@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
-    public class BlogsController : Controller
+    public class BlogsController : BaseController
     {
         private readonly IArticleQuery _articleQuery;
 

@@ -55,7 +55,7 @@ namespace ServiceHost.Areas.Store.Controllers
             return View(command);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("ticket-detail/{id}")]
         public async Task<IActionResult> Detail(long id)
         {
             var ticket = await _ticketQuery.GetTicketDetailBy(id, User.GetStoreId());

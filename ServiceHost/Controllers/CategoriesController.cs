@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private readonly ICategoryQuery _categoryQuery;
 
