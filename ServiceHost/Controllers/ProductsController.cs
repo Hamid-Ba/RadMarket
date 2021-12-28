@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using RadMarket.Query.Contracts.ProductAgg;
 using ReflectionIT.Mvc.Paging;
 using System.Threading.Tasks;
@@ -56,12 +57,17 @@ namespace ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SearchedProducts(string title,int pageIndex = 1)
+        public async Task<IActionResult> SearchedProducts(string title, int pageIndex = 1)
         {
-            var products = await _productQuery.GetAll("",title);
+            var products = await _productQuery.GetAll("", title);
 
             var model = PagingList.Create(products, 6, pageIndex);
             model.Action = "SearchedProducts";
+
+            model.RouteValue = new RouteValueDictionary
+            {
+                { "title", title }
+            };
 
             return View(model);
         }

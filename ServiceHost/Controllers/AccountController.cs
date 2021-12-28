@@ -198,6 +198,8 @@ namespace ServiceHost.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
+                TempData[ErrorMessage] = result.Item1.Message;
             }
 
             return View(command);
